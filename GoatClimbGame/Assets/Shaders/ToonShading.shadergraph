@@ -619,7 +619,6 @@
     "m_OutputNode": {
         "m_Id": ""
     },
-    "m_SubDatas": [],
     "m_ActiveTargets": [
         {
             "m_Id": "5c46a6d2d0774357b3f50ab039a1ee50"
@@ -1164,10 +1163,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -701.0,
-            "y": 90.0,
-            "width": 230.0,
-            "height": 278.0
+            "x": -728.0,
+            "y": 85.5,
+            "width": 312.5,
+            "height": 398.0
         }
     },
     "m_Slots": [
@@ -2153,6 +2152,8 @@
     "m_AlphaClip": false,
     "m_CastShadows": true,
     "m_ReceiveShadows": true,
+    "m_AdditionalMotionVectorMode": 0,
+    "m_AlembicMotionVectors": false,
     "m_SupportsLODCrossFade": false,
     "m_CustomEditorGUI": "",
     "m_SupportVFX": false
