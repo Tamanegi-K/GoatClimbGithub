@@ -73,10 +73,9 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(moveDir.normalized * speedDefault * 10f, ForceMode.Force);
 
         // Rotate model based on movement direction
+        modelRotLerp = Vector3.Lerp(modelRotLerp, moveDir.normalized, Time.deltaTime * 3f);
         if (moveDir != Vector3.zero)
         {
-
-            modelRotLerp = Vector3.Lerp(modelRotLerp, moveDir.normalized, Time.deltaTime * 10f);
             model.transform.forward = modelRotLerp;
         }
     }
