@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 sensitivity = new Vector2(15f, 12f); // x is Left/Right, y is Up/Down. THIS DOES NOT CORRELATE TO CAM ROTATION THOUGH
     public float lookLimitUp = -40f, lookLimitDown = 10f;
     public float rotX, rotY, rotLerpX, rotLerpY;
-    public Vector3 moveDir;
+    public Vector3 moveDir, modelRotLerp;
     private Vector2 kbInputs;
     public float speedDefault = 1f, speedMax = 4f;
 
@@ -75,7 +75,9 @@ public class PlayerController : MonoBehaviour
         // Rotate model based on movement direction
         if (moveDir != Vector3.zero)
         {
-            model.transform.forward = moveDir.normalized;
+
+            modelRotLerp = Vector3.Lerp(modelRotLerp, moveDir.normalized, Time.deltaTime * 10f);
+            model.transform.forward = modelRotLerp;
         }
     }
 
