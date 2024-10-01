@@ -283,7 +283,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 50
   orthographic: 0
@@ -485,19 +485,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b98f331aa71cb47978f97b7ec55e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camPivot: {fileID: 4615140882002826463}
-  orientation: {fileID: 0}
-  model: {fileID: 0}
-  rb: {fileID: 0}
   herbCount: 0
-  sensitivity: {x: 20, y: 15}
-  lookLimitUp: -40
-  lookLimitDown: 10
-  rotX: 0
-  rotY: 0
-  rotLerpX: 0
-  rotLerpY: 0
+  sensitivity: {x: 20, y: 15, z: 8}
+  lookLimit: {x: -40, y: 10}
+  zoomLimit: {x: 0.12, y: 1.5}
+  camYPos: {x: 0.55, y: 4.5}
   moveDir: {x: 0, y: 0, z: 0}
+  modelRotLerp: {x: 0, y: 0, z: 0}
   speedDefault: 5
   speedMax: 4
 --- !u!1 &8780325539837841268
