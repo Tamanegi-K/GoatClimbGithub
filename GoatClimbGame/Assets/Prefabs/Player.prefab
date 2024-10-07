@@ -488,8 +488,8 @@ MonoBehaviour:
   herbCount: 0
   sensitivity: {x: 20, y: 15, z: 8}
   lookLimit: {x: -40, y: 10}
-  zoomLimit: {x: 0.12, y: 1.5}
-  camYPos: {x: 0.55, y: 4.5}
+  zoomLimit: {x: 0.12, y: 0.7}
+  camYPos: {x: 0.55, y: 2}
   moveDir: {x: 0, y: 0, z: 0}
   modelRotLerp: {x: 0, y: 0, z: 0}
   speedDefault: 5

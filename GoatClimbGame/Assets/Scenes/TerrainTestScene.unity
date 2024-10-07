@@ -1294,10 +1294,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2581135011273036851, guid: 1868a1da762c7994e86bc794f329c347,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3070005101755386839, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
+        type: 3}
+      propertyPath: camYPos.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
+        type: 3}
+      propertyPath: zoomLimit.y
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 8275184149516467611, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
