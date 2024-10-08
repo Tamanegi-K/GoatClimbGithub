@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Component Inputs")]
     private GoatControls goatControls;
-    private Transform camPivot, orientation, model;
+    private Transform camPivot, orientation;
+    public Transform model;
     private Rigidbody rb;
 
     [Header("Variables")]
@@ -20,7 +21,14 @@ public class PlayerController : MonoBehaviour
     private float rotX, rotY, rotLerpX, rotLerpY, zoomVal = 0.5f, zoomLerp = 0.5f;
     public Vector3 moveDir, modelRotLerp;
     private Vector2 kbInputs;
-    public float speedDefault = 5f, speedMax = 4f;
+    public float speed = 4f, speedMax = 1f, groundDrag = 2f, airMult = 0.5f;
+
+    [Header("Gravity Response")]
+    public LayerMask layersToCheck;
+    public float sphereCastRadius = 0.2f, maxCastDist = 0.1f;
+    public GameObject currentHitObj;
+    public float currentHitDist;
+    public bool touchingGrass;
 
     void OnEnable()
     {
@@ -43,7 +51,7 @@ public class PlayerController : MonoBehaviour
         rb.freezeRotation = true;
 
         orientation = GameObject.Find("Orientation").transform;
-        model = GameObject.Find("PlayerModel").transform;
+        //model = GameObject.Find("PlayerModel").transform;
 
         camPivot = GameObject.Find("CameraPivot").transform;
     }
@@ -70,7 +78,35 @@ public class PlayerController : MonoBehaviour
 
 	private void FixedUpdate()
     {
+        // Function that moves player via physics (do not put actual inputs here, only processing)
         MovePlayerBasedOnInputs();
+
+        // Gravity related crap
+        RaycastHit rc;
+        if (Physics.SphereCast(model.transform.position, sphereCastRadius, Vector3.down, out rc, currentHitDist, layersToCheck, QueryTriggerInteraction.UseGlobal))
+        { // Player is touching grass
+            currentHitObj = rc.transform.gameObject;
+            currentHitDist = rc.distance;
+
+            rb.drag = groundDrag;
+            touchingGrass = true;
+        }
+        else
+        { // Player is not touching grass
+            currentHitObj = null;
+            currentHitDist = maxCastDist;
+
+            rb.drag = groundDrag * airMult;
+            touchingGrass = false;
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        // Display the explosion radius when selected
+        Gizmos.color = Color.red;
+        Debug.DrawLine(model.transform.position, model.transform.position + Vector3.down * currentHitDist);
+        Gizmos.DrawWireSphere(model.transform.position + Vector3.down * currentHitDist, sphereCastRadius);
     }
 
     void MovePlayerBasedOnInputs()
@@ -78,7 +114,19 @@ public class PlayerController : MonoBehaviour
         // Calculate Movement Direction
         moveDir = (orientation.forward * kbInputs.y) + (orientation.right * kbInputs.x);
         moveDir.y = 0f;
-        rb.AddForce(moveDir.normalized * speedDefault * 10f, ForceMode.Force);
+
+        if (touchingGrass)
+            rb.AddForce(moveDir.normalized * speed * 10f, ForceMode.Force);
+        else
+            rb.AddForce(moveDir.normalized * speed * 10f * airMult, ForceMode.Force);
+
+        // Ensure player doesn't go too fast
+        Vector3 velCurr = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        if (velCurr.magnitude > speedMax && speedMax > 0f)
+		{
+            Vector3 curbedVel = velCurr.normalized * speedMax;
+            rb.velocity = new Vector3(curbedVel.x, rb.velocity.y, curbedVel.z);
+        }
 
         // Rotate model based on movement direction
         modelRotLerp = Vector3.Lerp(modelRotLerp, moveDir.normalized, Time.deltaTime * 2.7f);

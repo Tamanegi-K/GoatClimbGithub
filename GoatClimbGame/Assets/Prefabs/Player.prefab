@@ -485,15 +485,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b98f331aa71cb47978f97b7ec55e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 1122635068306442637}
   herbCount: 0
   sensitivity: {x: 20, y: 15, z: 8}
   lookLimit: {x: -40, y: 10}
-  zoomLimit: {x: 0.12, y: 0.7}
+  zoomLimit: {x: 0.12, y: 0.45}
   camYPos: {x: 0.55, y: 2}
   moveDir: {x: 0, y: 0, z: 0}
   modelRotLerp: {x: 0, y: 0, z: 0}
-  speedDefault: 5
-  speedMax: 4
+  speed: 4
+  speedMax: 5
+  groundDrag: 1
+  airMult: 0.5
+  layersToCheck:
+    serializedVersion: 2
+    m_Bits: 8
+  sphereCastRadius: 0.23
+  maxCastDist: 0.89
+  currentHitObj: {fileID: 0}
+  currentHitDist: 0
+  touchingGrass: 0
 --- !u!1 &8780325539837841268
 GameObject:
   m_ObjectHideFlags: 0
