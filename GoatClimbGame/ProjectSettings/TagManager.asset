@@ -10,10 +10,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Environment
+  - Terrain
   - Water
   - UI
-  - 
+  - Ground
   - 
   - 
   - 

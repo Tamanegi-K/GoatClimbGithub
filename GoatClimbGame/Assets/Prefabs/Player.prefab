@@ -499,7 +499,7 @@ MonoBehaviour:
   airMult: 0.5
   layersToCheck:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 72
   sphereCastRadius: 0.23
   maxCastDist: 0.89
   currentHitObj: {fileID: 0}

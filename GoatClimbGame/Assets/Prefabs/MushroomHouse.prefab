@@ -16,7 +16,7 @@ GameObject:
   m_TagString: EnvironObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!4 &6491963315462424301
 Transform:
@@ -99,7 +99,7 @@ GameObject:
   m_TagString: EnvironObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!4 &5827656315523865050
 Transform:
