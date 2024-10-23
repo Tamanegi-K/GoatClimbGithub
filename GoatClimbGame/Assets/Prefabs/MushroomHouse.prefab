@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6491963315462424301}
   - component: {fileID: 3412930174365040885}
   - component: {fileID: 2598243772829785267}
+  - component: {fileID: 6401466217489055910}
   m_Layer: 3
   m_Name: MushroomHouse_Body
   m_TagString: EnvironObj
@@ -85,6 +86,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6401466217489055910
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179344845456317882}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2024839779893823962, guid: 11cb8c011cf2143d9abd67e9062ea6ba, type: 3}
 --- !u!1 &8615700441378182198
 GameObject:
   m_ObjectHideFlags: 0
