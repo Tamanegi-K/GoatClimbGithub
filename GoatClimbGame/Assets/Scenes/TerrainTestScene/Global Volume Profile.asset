@@ -34,7 +34,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 558a8e2b6826cf840aae193990ba9f2e, type: 3}
   m_Name: ShadowsMidtonesHighlights
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   shadows:
     m_OverrideState: 1
     m_Value: {x: 0.95771974, y: 0.9274571, z: 1, w: 0}
@@ -87,16 +87,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
   m_Name: LiftGammaGain
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   lift:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: {x: 0.9638647, y: 1, z: 0.9277299, w: -0.028933201}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 0.95091814, y: 1, z: 0.9674373, w: 0.10126594}
+    m_Value: {x: 0.95091814, y: 1, z: 0.9674373, w: 0.028933201}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.89803654, z: 0.95529014, w: -7.5314566e-10}
+    m_Value: {x: 0.9638638, y: 0.9277287, z: 1, w: 0.014466328}
 --- !u!114 &2753901004633633210
 MonoBehaviour:
   m_ObjectHideFlags: 3
