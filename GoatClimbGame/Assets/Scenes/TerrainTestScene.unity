@@ -1771,9 +1771,9 @@ GameObject:
   - component: {fileID: 1149185859}
   - component: {fileID: 1149185858}
   - component: {fileID: 1149185857}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MountainPlainTerrain
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2855,11 +2855,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6491963315462424301, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.42
       objectReference: {fileID: 0}
     - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
         type: 3}

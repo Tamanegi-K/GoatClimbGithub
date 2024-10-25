@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3412930174365040885}
   - component: {fileID: 2598243772829785267}
   - component: {fileID: 6401466217489055910}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: MushroomHouse_Body
   m_TagString: EnvironObj
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5827656315523865050}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: MushroomHouse
   m_TagString: EnvironObj
   m_Icon: {fileID: 0}
