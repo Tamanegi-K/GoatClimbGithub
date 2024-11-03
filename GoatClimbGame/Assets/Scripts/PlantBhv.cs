@@ -38,12 +38,15 @@ public class PlantBhv : MonoBehaviour
     {
         StartCoroutine(PickUpAnim());
         GameMainframe.GetInstance().ObjectEnd(name, this.gameObject);
+        GameMainframe.GetInstance().audioMngr.PlaySFX("pickup" + Random.Range(1, 3), transform.position);
         return 1;
 	}
 
     IEnumerator PickUpAnim()
     {
         billboardUI.SetActive(false);
+        GetComponent<SphereCollider>().enabled = false;
+
         float time = 0f, timeEnd = 0.32f;
         
         while (time < timeEnd)

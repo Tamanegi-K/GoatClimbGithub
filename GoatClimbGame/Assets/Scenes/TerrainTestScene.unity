@@ -3811,6 +3811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerContrScrpt: {fileID: 0}
+  audioMngr: {fileID: 0}
 --- !u!114 &2047477055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3868,17 +3869,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517c9f9fd2ea24343afea4c4188dc231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgm: []
-  sfxSounds:
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+  volMaster: 1
+  volBGM: 0.8
+  volSFX: 1
+  volAmb: 0.8
+  bgm:
+  - name: greenery
+    clip: {fileID: 8300000, guid: 262f7713d0ff8de44a11a271c9a689c6, type: 3}
+    volume: 0.5
+    pitch: 1
+    pitchRandoRange: 0
+    spatialBlend: 0
+    minDist: 7
+    maxDist: 20
+    loop: 0
+    source: {fileID: 0}
+  sfx:
+  - name: pickup1
+    clip: {fileID: 8300000, guid: 5b6fa8b42cfed114b8ec14c83a9ef1fe, type: 3}
+    volume: 1
+    pitch: 1
+    pitchRandoRange: 0.1
+    spatialBlend: 0.675
+    minDist: 7
+    maxDist: 20
+    loop: 0
+    source: {fileID: 0}
+  - name: pickup2
+    clip: {fileID: 8300000, guid: 1a45206a9195f0345bc92592a93ede37, type: 3}
+    volume: 1
+    pitch: 1
+    pitchRandoRange: 0.1
+    spatialBlend: 0.675
+    minDist: 7
+    maxDist: 20
     loop: 0
     source: {fileID: 0}
   sfxUI: []
   sfxSteps: []
-  MasterVolume: 1
+  singleSoundwave: {fileID: 4761560562941027439, guid: bd7808267f0728a469d959e357179c0d,
+    type: 3}
+  bgmCD: 0
+  bgmCDmin: 10.5
+  bgmCDmax: 20.2
 --- !u!1 &2055306101
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class GameMainframe : MonoBehaviour
 {
     [Header("Object Idenfitication")]
     public PlayerController playerContrScrpt;
+    public AudioManager audioMngr;
 
     #region OBJECT POOLING
     public static Dictionary<string, List<GameObject>> objectPools = new Dictionary<string, List<GameObject>>();
@@ -24,14 +25,14 @@ public class GameMainframe : MonoBehaviour
     // Object Pooling version of GameObject.Instantiate()
     // To use, do GameMainframe.GetInstance().ObjectUse()
     // Don't forget to use SetActive(true)!!
-    public GameObject ObjectUse(string objName, System.Action<GameObject> objLoaded, GameObject objPrefab)
+    public GameObject ObjectUse(string poolName, System.Action<GameObject> objLoaded, GameObject objPrefab)
     {
         GameObject objChosen;
 
-        if (objectPools.TryGetValue(objName, out List<GameObject> z) && objectPools[objName].Find(obj => obj.name.Contains(objName)))
+        if (objectPools.TryGetValue(poolName, out List<GameObject> z) && objectPools[poolName].Find(obj => obj.name.Contains(poolName)))
         {
-            objChosen = objectPools[objName].Find(obj => obj.name.Contains(objName));
-            objectPools[objName].Remove(objChosen);
+            objChosen = objectPools[poolName].Find(obj => obj.name.Contains(poolName));
+            objectPools[poolName].Remove(objChosen);
             objLoaded?.Invoke(objChosen);
         }
         else
@@ -39,7 +40,7 @@ public class GameMainframe : MonoBehaviour
             objChosen = Instantiate(objPrefab);
             objLoaded?.Invoke(objChosen);
         }
-
+        Debug.Log(z);
         //objChosen.SetActive(true);
         return objChosen;
     }
@@ -47,9 +48,9 @@ public class GameMainframe : MonoBehaviour
     // Object pooling version of GameObject.Destroy()
     // To use, do GameMainframe.GetInstance().ObjectEnd()
     // Don't forget to use SetActive(false)!!
-    public void ObjectEnd(string objName, GameObject obj)
+    public void ObjectEnd(string poolName, GameObject obj)
     {
-        GetPool(objName).Add(obj);
+        GetPool(poolName).Add(obj);
         //obj.SetActive(false);
     }
     #endregion
@@ -80,6 +81,9 @@ public class GameMainframe : MonoBehaviour
     {
         if (GameObject.Find("Player").TryGetComponent(out PlayerController pcs))
             playerContrScrpt = pcs;
+
+        if (TryGetComponent(out AudioManager amg))
+            audioMngr = amg;
     }
 
     // Update is called once per frame

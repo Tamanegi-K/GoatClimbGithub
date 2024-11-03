@@ -2,116 +2,141 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 public class AudioManager : MonoBehaviour
 {
     // Use FindObjectOfType<AudioManager>().Play("Name"); to play a sound
 
-    public SoundFile[] bgm, sfxSounds, sfxUI, sfxSteps;
+    [Header("Volume Control (will become actual UI soon")]
+    [Range(0f, 1f)] public float volMaster = 1f;
+    [Range(0f, 1f)] public float volBGM = 0.8f, volSFX = 1f, volAmb = 0.8f;
 
-    public static AudioManager itsMe;
-    public float MasterVolume = 1;
+    [Header("Insert audio files here ")]
+    [Header("DON'T FORGET THAT PITCH BY DEFAULT IS 1")]
+    public SoundFile[] bgm;
+    public SoundFile[] sfx, sfxUI, sfxSteps;
+
+    [Header("Soundwave prefab goes here")]
+    public GameObject singleSoundwave;
+    private GameObject currentBGMplayer;
+
+    [Header("Time until next bgm plays (in minutes)")]
+    public float bgmCD;
+    public float bgmCDmin = 6.5f, bgmCDmax = 16.2f;
 
     void Awake()
     {
-        if (itsMe == null)
-        {
-            itsMe = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
+        //DontDestroyOnLoad(gameObject);
 
-        // Will stay from scene to scene :D
-        DontDestroyOnLoad(gameObject);
-
-        LoadArray(bgm);
-        LoadArray(sfxSounds);
-        LoadArray(sfxUI);
-        LoadArray(sfxSteps);
+        //LoadArray(bgm);
+        //LoadArray(sfx);
+        //LoadArray(sfxUI);
+        //LoadArray(sfxSteps);
     }
 
     private void Start()
     {
-        //Play("bgmTitle");
+        bgmCD = Random.Range(bgmCDmin * 60f, bgmCDmax * 60f);
     }
 
-    private void FixedUpdate()
+	private void Update()
+	{
+        if (currentBGMplayer == null)
+		{
+            if (bgmCD <= 0f)
+                PlayBGM();
+            else
+                bgmCD -= Time.deltaTime;
+		}
+
+		if (currentBGMplayer != null && currentBGMplayer.GetComponent<AudioSource>().isPlaying)
+		{
+            bgmCD = Random.Range(bgmCDmin * 60f, bgmCDmax * 60f);
+            currentBGMplayer = null;
+		}
+	}
+
+	public void PlayBGM()
     {
+        SoundFile s = bgm[Random.Range(0, bgm.Length)];
+
+        GameMainframe.GetInstance().ObjectUse("iPod", (thisSoundwave) =>
+        {
+            thisSoundwave.SetActive(true);
+            Transform playerCamPivot = GameMainframe.GetInstance().playerContrScrpt.camPivot;
+
+            SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
+            swBhv.SetUpSoundwave(playerCamPivot.position, s.clip, s.volume, s.pitch, s.pitchRandoRange, s.spatialBlend, s.minDist, s.maxDist, false);
+            thisSoundwave.transform.parent = playerCamPivot;
+
+            thisSoundwave.GetComponent<AudioSource>().Play();
+            currentBGMplayer = thisSoundwave;
+        }, singleSoundwave);
     }
 
-    public void PlaySound(string name)
+    public void PlaySFX(string name, Vector3 pos)
     {
-        foreach (SoundFile s in sfxSounds)
+        foreach (SoundFile s in sfx)
         {
             if (s.name == name)
             {
-                s.source.Play();
-                //Debug.LogError("hello???");
+                GameMainframe.GetInstance().ObjectUse("Soundwave", (thisSoundwave) =>
+                {
+                    thisSoundwave.SetActive(true);
+                    thisSoundwave.name = "Soundwave";
+                    SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
+                    swBhv.SetUpSoundwave(pos, s.clip, s.volume, s.pitch, s.pitchRandoRange, s.spatialBlend, s.minDist, s.maxDist, false);
+                    thisSoundwave.transform.parent = this.gameObject.transform;
+
+                    thisSoundwave.GetComponent<AudioSource>().Play();
+                }, singleSoundwave);
                 return;
             }
         }
-        Debug.LogError("Didn't find shit");
+        Debug.LogError("Couldn't find " + name);
     }
 
-    public void PlaySFX(string name)
-    {
-        foreach (SoundFile s in sfxSounds)
-        {
-            if (s.name == name)
-            {
-                s.source.Play();
-                //Debug.LogError("hello???");
-                return;
-            }
-        }
-        Debug.LogError("Didn't find shit");
-    }
-    public void PlayUI(string name)
+    public void PlaySFXUI(string name)
     {
         foreach (SoundFile s in sfxUI)
         {
             if (s.name == name)
             {
-                s.source.Play();
-                //Debug.LogError("hello???");
+                // TO DO: DO LIKE PLAYSFX()
                 return;
             }
         }
         Debug.LogError("Didn't find shit");
     }
 
-    public void PlayStep(string name)
+    public void PlaySFXStep(string name)
     {
         foreach (SoundFile s in sfxSteps)
         {
             if (s.name == name)
             {
-                s.source.Play();
-                //Debug.LogError("hello???");
+                // TO DO: DO LIKE PLAYSFX()
                 return;
             }
         }
         Debug.LogError("Didn't find shit");
     }
 
-    #region UI Sounds
+    /*#region UI Sounds
     public void PlayHoverUI()
     {
-        PlayUI("uiShift" + Random.Range(0, 8));
+        PlaySFXUI("uiShift" + Random.Range(0, 8));
     }
 
     public void PlayClickUI()
     {
-        PlayUI("uiClick" + Random.Range(0, 2));
+        PlaySFXUI("uiClick" + Random.Range(0, 2));
     }
 
-    #endregion
-    public void Stop(string name)
+    #endregion*/
+
+    /*public void Stop(string name)
     {
         foreach (SoundFile s in bgm)
         {
@@ -121,7 +146,7 @@ public class AudioManager : MonoBehaviour
                 return;
             }
         }
-        foreach (SoundFile s in sfxSounds)
+        foreach (SoundFile s in sfx)
         {
             if (s.name == name)
             {
@@ -137,23 +162,31 @@ public class AudioManager : MonoBehaviour
                 return;
             }
         }
+        foreach (SoundFile s in sfxSteps)
+        {
+            if (s.name == name)
+            {
+                s.source.Stop();
+                return;
+            }
+        }
         Debug.LogError("Can't find shit");
-    }
+    }*/
 
     public void StopAll()
     {
-        AudioSource[] allSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        //AudioSource[] allSources = FindObjectsByType(typeof(AudioSource), FindObjectsSortMode.None) as AudioSource[];
 
-        foreach (AudioSource s in allSources)
+        foreach (GameObject go in transform)
         {
-            if (s.isPlaying)
+            if (go.name == "Soundwave")
             {
-                s.Stop();
+                go.GetComponent<AudioSource>().Stop();
             }
         }
     }
 
-    public void LoadArray(SoundFile[] sA)
+    /*public void LoadArray(SoundFile[] sA)
     {
         foreach (SoundFile s in sA)
         {
@@ -164,14 +197,5 @@ public class AudioManager : MonoBehaviour
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
         }
-    }
-
-    public void LoadSingle(SoundFile s)
-    {
-        s.source = gameObject.AddComponent<AudioSource>();
-        s.source.clip = s.clip;
-        s.source.volume = s.volume * MasterVolume;
-        s.source.pitch = s.pitch;
-        s.source.loop = s.loop;
-    }
+    }*/
 }

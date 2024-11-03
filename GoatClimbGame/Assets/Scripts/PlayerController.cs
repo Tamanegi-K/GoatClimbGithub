@@ -194,6 +194,4 @@ public class PlayerController : MonoBehaviour
         float b = camYPos.y - (m * zoomLimit.y);
         camPivot.localPosition = new Vector3(0f, (m * zoomLerp) + b, 0f);
     }
-
-
 }
