@@ -8,12 +8,12 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Component Inputs")]
     private GoatControls goatControls;
-    private Transform camPivot, orientation;
+    public Transform camPivot, orientation;
     public Transform model;
     private Rigidbody rb;
 
     [Header("Variables")]
-    public int herbCount = 0;
+    public int plantCount = 0;
     public Vector3 sensitivity = new Vector3(20f, 15f, 8f); // x is Left/Right, y is Up/Down, z is Scroll wheel THIS DOES NOT CORRELATE TO CAM ROTATION THOUGH
     public Vector2 lookLimit = new Vector2(-40f, 10f); // x = upwards, y = downwards
     public Vector2 zoomLimit = new Vector2(0.12f, 1.5f); // x = lowest, y = highest
@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
     public GameObject currentHitObj;
     public float currentHitDist;
     public bool touchingGrass;
+
+    [Header("Plant Pickup Handling")]
+    public GameObject plantLookAt;
+    public RaycastHit camRC;
 
     void OnEnable()
     {
@@ -67,10 +71,22 @@ public class PlayerController : MonoBehaviour
         rotX -= mouseUD;
         rotX = Mathf.Clamp(rotX, lookLimit.x, lookLimit.y);
 
-        float mouseW = goatControls.Defaults.CamZoomer.ReadValue<float>();
-        zoomVal = Mathf.Clamp(zoomVal + (mouseW * Time.deltaTime * sensitivity.z), zoomLimit.x, zoomLimit.y);
+        float mouseWhl = goatControls.Defaults.CamZoomer.ReadValue<float>();
+        zoomVal = Mathf.Clamp(zoomVal + (mouseWhl * Time.deltaTime * sensitivity.z), zoomLimit.x, zoomLimit.y);
 
         MoveCamBasedOnInputs();
+
+        // Mouse Interactions
+        float mouseLMB = goatControls.Defaults.Interaction.ReadValue<float>();
+        if (mouseLMB >= 0.5f && plantLookAt != null)
+		{
+            // If plant can be picked up, pick it up, otherwise don't do anything
+            if (plantLookAt.TryGetComponent(out PlantBhv pbhv))
+            {
+                plantCount += pbhv.PickMeUp();
+                plantLookAt = null;
+            }
+		}
 
         // Keyboard Inputs to Code
         kbInputs = goatControls.Defaults.Movement.ReadValue<Vector2>();
@@ -99,6 +115,12 @@ public class PlayerController : MonoBehaviour
             rb.drag = groundDrag * airMult;
             touchingGrass = false;
         }
+
+        // Camera related looking at shit
+        //if (Physics.SphereCast(camPivot.transform.position, sphereCastRadius, camPivot.localEulerAngles, out camRC, 100f, LayerMask.GetMask(LayerMask.LayerToName(7)), QueryTriggerInteraction.Collide))
+		//{
+            
+		//}
     }
 
     void OnDrawGizmosSelected()
@@ -107,6 +129,9 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.red;
         Debug.DrawLine(model.transform.position, model.transform.position + Vector3.down * currentHitDist);
         Gizmos.DrawWireSphere(model.transform.position + Vector3.down * currentHitDist, sphereCastRadius);
+
+        //Gizmos.DrawLine(camPivot.transform.position, camPivot.transform.position + (camPivot.transform.forward) * 50f);
+        //Gizmos.DrawWireSphere(camPivot.transform.position, sphereCastRadius);
     }
 
     void MovePlayerBasedOnInputs()
@@ -169,4 +194,6 @@ public class PlayerController : MonoBehaviour
         float b = camYPos.y - (m * zoomLimit.y);
         camPivot.localPosition = new Vector3(0f, (m * zoomLerp) + b, 0f);
     }
+
+
 }

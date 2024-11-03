@@ -25,7 +25,7 @@ public class PlantSpawning : MonoBehaviour
         public float heightOfCheck = 10f, rangeOfCheck = 30f; // height is the highest point where plants can be spawned, raycasted DOWNWARDS to range
         public Vector2 positivePos, negativePos; // Area where plant would be spawned
 
-        [Header("Raycast Variables (Circle)")]
+        [Header("Circle Raycast (only toggle the boolean)")]
         public bool useCircleAreaInstead = false;
         public Vector2 circlePoint;
         public float circleRadius;
@@ -42,19 +42,30 @@ public class PlantSpawning : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        // Draw a semitransparent red cube at the transforms position
-        Gizmos.color = new Color(0, 1, 0, 0.5f);
-
         foreach (OnePlantSpawn thisPlant in plantSpawnDeets)
-        { 
+        {
+            if (thisPlant.positivePos.x > thisPlant.negativePos.x && thisPlant.positivePos.y > thisPlant.negativePos.y)
+                Gizmos.color = new Color(0f, 1f, 0f, 0.5f);
+            else
+                Gizmos.color = new Color(1f, 0.1f, 0.1f, 0.8f);
+
+            // Draw a semitransparent green cylinder at the transforms position
             if (thisPlant.useCircleAreaInstead)
 			{
+                // Auto circle centre finder
                 thisPlant.circlePoint = new Vector2(Mathf.Lerp(thisPlant.positivePos.x, thisPlant.negativePos.x, 0.5f), Mathf.Lerp(thisPlant.positivePos.y, thisPlant.negativePos.y, 0.5f));
                 Vector3 centre = new Vector3(thisPlant.circlePoint.x, thisPlant.heightOfCheck, thisPlant.circlePoint.y);
+
+                // Auto circle radius finder
+                float diffX = Mathf.Abs(thisPlant.positivePos.x - thisPlant.negativePos.x), diffY = Mathf.Abs(thisPlant.positivePos.y - thisPlant.negativePos.y);
+                thisPlant.circleRadius = diffX > diffY ? diffY / 2f : diffX / 2f;
+                
                 DrawCylinder(centre, Quaternion.Euler(90f, 0f, 0f), thisPlant.rangeOfCheck, thisPlant.circleRadius);
             }
-            else
-			{
+            
+            // Draw a semitransparent green cuboid at the transforms position
+            else 
+            {
                 float   length = Mathf.Abs(Mathf.Abs(thisPlant.positivePos.x) - Mathf.Abs(thisPlant.negativePos.x));
                 float  breadth = Mathf.Abs(Mathf.Abs(thisPlant.positivePos.y) - Mathf.Abs(thisPlant.negativePos.y));
                 float   height = Mathf.Abs(thisPlant.rangeOfCheck);
@@ -70,11 +81,12 @@ public class PlantSpawning : MonoBehaviour
 	{
         //Debug.Log("spawning begins now - " + plantSpawnDeets.Length + " plants detected");
 
-        int spawnedCount = 0;
+        int spawnedCount = 0, strikes = 0;
 
         // For loop within for loop
         foreach (OnePlantSpawn thisPlant in plantSpawnDeets)
 		{
+            //Debug.LogError("spawning: " + thisPlant.plantName);
             spawnedCount = 0;
 
             // For loop to spawn plants until minimum number is hit
@@ -90,10 +102,9 @@ public class PlantSpawning : MonoBehaviour
                         RaycastHit hit;
                         if (Physics.Raycast(new Vector3(x, thisPlant.heightOfCheck, z), Vector3.down, out hit, thisPlant.rangeOfCheck, thisPlant.layerToCheck))
                         {
-                            //Debug.LogWarning("raycast'd");
-
                             if (thisPlant.useCircleAreaInstead && (new Vector2(x, z) - thisPlant.circlePoint).magnitude <= thisPlant.circleRadius && thisPlant.spawnChancePercent > Random.Range(0f, 100f))
 							{
+                                // Using object pooling to spawn plants - see GameMainframe for object pooling usage
                                 GameMainframe.GetInstance().ObjectUse(thisPlant.plantName, (singlePlant) =>
                                 {
                                     // Defining this one spawned object's properties
@@ -101,16 +112,15 @@ public class PlantSpawning : MonoBehaviour
                                     singlePlant.transform.position = hit.point + new Vector3 (Random.Range(-3f, 3f), 0f, Random.Range(-3f, 3f));
                                     singlePlant.transform.eulerAngles = new Vector3(0f, Random.Range(-65f, 65f), 0f);
                                     singlePlant.transform.parent = this.gameObject.transform;
-                                    //Debug.LogError("spawn'd");
                                 }, thisPlant.plantPrefab);
 
                                 spawnedCount += 1;
+                                //Debug.LogWarning("spawned, no. " + spawnedCount);
                             }
 
                             // Spawn frequency of plant based on the percent chance defined
                             else if (!thisPlant.useCircleAreaInstead && thisPlant.spawnChancePercent > Random.Range(0f, 100f))
                             {
-                                //Debug.LogWarning("chance success'd");
                                 // Using object pooling to spawn plants - see GameMainframe for object pooling usage
                                 GameMainframe.GetInstance().ObjectUse(thisPlant.plantName, (singlePlant) =>
                                 {
@@ -119,13 +129,24 @@ public class PlantSpawning : MonoBehaviour
                                     singlePlant.transform.position = hit.point + new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-3f, 3f));
                                     singlePlant.transform.eulerAngles = new Vector3(0f, Random.Range(-65f, 65f), 0f);
                                     singlePlant.transform.parent = this.gameObject.transform;
-                                    //Debug.LogError("spawn'd");
                                 }, thisPlant.plantPrefab);
 
                                 spawnedCount += 1;
+                                //Debug.LogWarning("spawned, no. " + spawnedCount);
                             }
                         }
                     }
+                }
+
+                if (spawnedCount == 0)
+                {
+                    if (strikes >= 3)
+					{
+                        Debug.LogError("Loop broken for " + thisPlant.plantName + " spawning - either the spawnChance & minClusterAmt is too small, or the spawn area is unable to find the terrain.");
+                        break;
+					}
+                    else
+                        strikes += 1;
                 }
             }
         }

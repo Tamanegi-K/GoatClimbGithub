@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6918347192688508006}
   m_Layer: 0
   m_Name: PlayerModel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -228,7 +228,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9104971501559511023}
   - component: {fileID: 6101818400584654896}
-  - component: {fileID: 1076105074824520928}
   - component: {fileID: 1260897772304708136}
   m_Layer: 0
   m_Name: Main Camera
@@ -303,14 +302,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1076105074824520928
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3070005101755386839}
-  m_Enabled: 1
 --- !u!114 &1260897772304708136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,7 +391,7 @@ GameObject:
   - component: {fileID: 7906858775401573166}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -485,8 +476,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b98f331aa71cb47978f97b7ec55e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camPivot: {fileID: 0}
+  orientation: {fileID: 0}
   model: {fileID: 1122635068306442637}
-  herbCount: 0
+  plantCount: 0
   sensitivity: {x: 20, y: 15, z: 8}
   lookLimit: {x: -40, y: 10}
   zoomLimit: {x: 0.12, y: 0.45}
@@ -505,6 +498,7 @@ MonoBehaviour:
   currentHitObj: {fileID: 0}
   currentHitDist: 0
   touchingGrass: 0
+  plantLookAt: {fileID: 0}
 --- !u!1 &8780325539837841268
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,6 +508,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4615140882002826463}
+  - component: {fileID: 1754116967060840669}
   m_Layer: 0
   m_Name: CameraPivot
   m_TagString: Untagged
@@ -537,6 +532,14 @@ Transform:
   - {fileID: 9104971501559511023}
   m_Father: {fileID: 9132376450760719232}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &1754116967060840669
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8780325539837841268}
+  m_Enabled: 1
 --- !u!1001 &7178133971137091200
 PrefabInstance:
   m_ObjectHideFlags: 0

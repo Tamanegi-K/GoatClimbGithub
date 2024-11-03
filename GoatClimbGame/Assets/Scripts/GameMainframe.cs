@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameMainframe : MonoBehaviour
 {
+    [Header("Object Idenfitication")]
+    public PlayerController playerContrScrpt;
+
     #region OBJECT POOLING
     public static Dictionary<string, List<GameObject>> objectPools = new Dictionary<string, List<GameObject>>();
 
@@ -20,6 +23,7 @@ public class GameMainframe : MonoBehaviour
 
     // Object Pooling version of GameObject.Instantiate()
     // To use, do GameMainframe.GetInstance().ObjectUse()
+    // Don't forget to use SetActive(true)!!
     public GameObject ObjectUse(string objName, System.Action<GameObject> objLoaded, GameObject objPrefab)
     {
         GameObject objChosen;
@@ -36,14 +40,17 @@ public class GameMainframe : MonoBehaviour
             objLoaded?.Invoke(objChosen);
         }
 
+        //objChosen.SetActive(true);
         return objChosen;
     }
 
     // Object pooling version of GameObject.Destroy()
     // To use, do GameMainframe.GetInstance().ObjectEnd()
+    // Don't forget to use SetActive(false)!!
     public void ObjectEnd(string objName, GameObject obj)
     {
         GetPool(objName).Add(obj);
+        //obj.SetActive(false);
     }
     #endregion
 
@@ -71,7 +78,8 @@ public class GameMainframe : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (GameObject.Find("Player").TryGetComponent(out PlayerController pcs))
+            playerContrScrpt = pcs;
     }
 
     // Update is called once per frame
