@@ -40,7 +40,6 @@ public class GameMainframe : MonoBehaviour
             objChosen = Instantiate(objPrefab);
             objLoaded?.Invoke(objChosen);
         }
-        Debug.Log(z);
         //objChosen.SetActive(true);
         return objChosen;
     }

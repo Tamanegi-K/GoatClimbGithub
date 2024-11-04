@@ -10,10 +10,14 @@ public class SoundwaveBhv : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!audioSus.isPlaying)
+        if (lifetime <= 0 && !audioSus.loop)
 		{
             GameMainframe.GetInstance().ObjectEnd(name, gameObject);
             gameObject.SetActive(false);
+		}
+        else
+		{
+            lifetime -= Time.deltaTime;
 		}
     }
 
@@ -27,5 +31,7 @@ public class SoundwaveBhv : MonoBehaviour
         audioSus.pitch = pitch + Random.Range(Mathf.Abs(pitch * pitchRandoRange) * -1f, Mathf.Abs(pitch * pitchRandoRange)); audioSus.spatialBlend = spBlend;
         audioSus.minDistance = minDist; audioSus.maxDistance = maxDist;
         audioSus.loop = willLoop;
+
+        if (!audioSus.loop) lifetime = audioSus.clip.length;
 	}
 }

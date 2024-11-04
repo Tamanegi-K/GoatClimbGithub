@@ -328,12 +328,12 @@ PrefabInstance:
     - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
       propertyPath: lookLimit.x
-      value: -65
+      value: -62
       objectReference: {fileID: 0}
     - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
       propertyPath: lookLimit.y
-      value: -40
+      value: -36
       objectReference: {fileID: 0}
     - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
@@ -3975,7 +3975,7 @@ MonoBehaviour:
   volMaster: 1
   volBGM: 0.8
   volSFX: 1
-  volAmb: 0.8
+  volAMB: 0.8
   bgm:
   - name: greenery
     clip: {fileID: 8300000, guid: 262f7713d0ff8de44a11a271c9a689c6, type: 3}
@@ -4010,6 +4010,47 @@ MonoBehaviour:
     source: {fileID: 0}
   sfxUI: []
   sfxSteps: []
+  amb:
+  - name: gamestart
+    clip: {fileID: 8300000, guid: 4285a5dcc7833dd45bc3c5ae6c766ab1, type: 3}
+    volume: 1
+    pitch: 1
+    pitchRandoRange: 0
+    spatialBlend: 0
+    minDist: 15
+    maxDist: 80
+    loop: 1
+    source: {fileID: 0}
+  - name: river
+    clip: {fileID: 8300000, guid: 1ce414b7a945ed74fac79fbc1c4e40d7, type: 3}
+    volume: 0.38
+    pitch: 1
+    pitchRandoRange: 0
+    spatialBlend: 1
+    minDist: 200
+    maxDist: 572
+    loop: 1
+    source: {fileID: 0}
+  - name: waterfall
+    clip: {fileID: 8300000, guid: 6ed356a7c473cd946886c0ce32cc2baa, type: 3}
+    volume: 0.46
+    pitch: 1
+    pitchRandoRange: 0
+    spatialBlend: 0.98
+    minDist: 280
+    maxDist: 320
+    loop: 1
+    source: {fileID: 0}
+  - name: nature
+    clip: {fileID: 8300000, guid: e317e4662352d2543b3842cfd28ddcc4, type: 3}
+    volume: 0.5
+    pitch: 1
+    pitchRandoRange: 0
+    spatialBlend: 1
+    minDist: 8
+    maxDist: 8
+    loop: 1
+    source: {fileID: 0}
   singleSoundwave: {fileID: 4761560562941027439, guid: bd7808267f0728a469d959e357179c0d,
     type: 3}
   bgmCD: 0
@@ -4201,6 +4242,113 @@ Terrain:
   m_EnableHeightmapRayTracing: 1
   m_EnableTreesAndDetailsRayTracing: 0
   m_TreeMotionVectorModeOverride: 3
+--- !u!1 &2105431349
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2105431353}
+  - component: {fileID: 2105431352}
+  - component: {fileID: 2105431351}
+  - component: {fileID: 2105431350}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &2105431350
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105431349}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &2105431351
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105431349}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &2105431352
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105431349}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2105431353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105431349}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 508, y: 15, z: 424}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2138736849
 GameObject:
   m_ObjectHideFlags: 0
@@ -4672,3 +4820,4 @@ SceneRoots:
   - {fileID: 796736513}
   - {fileID: 543450652574141442}
   - {fileID: 1901281706}
+  - {fileID: 2105431353}
