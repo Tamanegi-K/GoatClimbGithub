@@ -71,6 +71,15 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Debug"",
+                    ""type"": ""Button"",
+                    ""id"": ""54cd05cc-5b27-4fab-a8ee-975e423b7cf6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -205,6 +214,28 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
                     ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14618fb1-a39a-49a8-bf35-7832927c7db5"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f58eea5-1759-439d-8a14-924f34a56c23"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Debug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -235,6 +266,7 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
         m_Defaults_Interaction = m_Defaults.FindAction("Interaction", throwIfNotFound: true);
         m_Defaults_CamZoomer = m_Defaults.FindAction("CamZoomer", throwIfNotFound: true);
         m_Defaults_Escape = m_Defaults.FindAction("Escape", throwIfNotFound: true);
+        m_Defaults_Debug = m_Defaults.FindAction("Debug", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -301,6 +333,7 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Defaults_Interaction;
     private readonly InputAction m_Defaults_CamZoomer;
     private readonly InputAction m_Defaults_Escape;
+    private readonly InputAction m_Defaults_Debug;
     public struct DefaultsActions
     {
         private @GoatControls m_Wrapper;
@@ -310,6 +343,7 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
         public InputAction @Interaction => m_Wrapper.m_Defaults_Interaction;
         public InputAction @CamZoomer => m_Wrapper.m_Defaults_CamZoomer;
         public InputAction @Escape => m_Wrapper.m_Defaults_Escape;
+        public InputAction @Debug => m_Wrapper.m_Defaults_Debug;
         public InputActionMap Get() { return m_Wrapper.m_Defaults; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -334,6 +368,9 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
             @Escape.started += instance.OnEscape;
             @Escape.performed += instance.OnEscape;
             @Escape.canceled += instance.OnEscape;
+            @Debug.started += instance.OnDebug;
+            @Debug.performed += instance.OnDebug;
+            @Debug.canceled += instance.OnDebug;
         }
 
         private void UnregisterCallbacks(IDefaultsActions instance)
@@ -353,6 +390,9 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
             @Escape.started -= instance.OnEscape;
             @Escape.performed -= instance.OnEscape;
             @Escape.canceled -= instance.OnEscape;
+            @Debug.started -= instance.OnDebug;
+            @Debug.performed -= instance.OnDebug;
+            @Debug.canceled -= instance.OnDebug;
         }
 
         public void RemoveCallbacks(IDefaultsActions instance)
@@ -386,5 +426,6 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
         void OnInteraction(InputAction.CallbackContext context);
         void OnCamZoomer(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
+        void OnDebug(InputAction.CallbackContext context);
     }
 }

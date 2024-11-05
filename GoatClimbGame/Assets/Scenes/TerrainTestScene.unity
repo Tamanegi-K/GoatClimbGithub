@@ -464,12 +464,17 @@ PrefabInstance:
     - target: {fileID: 6265302697141699326, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
       propertyPath: speed
-      value: 10
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
+        type: 3}
+      propertyPath: airMult
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
@@ -483,6 +488,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
+      propertyPath: groundDrag
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
+        type: 3}
       propertyPath: lookLimit.x
       value: -80
       objectReference: {fileID: 0}
@@ -493,9 +503,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
+      propertyPath: maxCastDist
+      value: 1.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
+        type: 3}
       propertyPath: orientation
       value: 
       objectReference: {fileID: 744877340}
+    - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
+        type: 3}
+      propertyPath: controlGiven
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8275184149516467611, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
       propertyPath: m_Name
@@ -5501,6 +5521,8 @@ MonoBehaviour:
   uiGroupWhite: {fileID: 0}
   uiGroupPause: {fileID: 0}
   uiGroupHUD: {fileID: 0}
+  hudPopupPrefab: {fileID: 6719175322924527520, guid: 897988d26d6e47a4eb8b1c64a2acbb65,
+    type: 3}
 --- !u!114 &2047477055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5513,8 +5535,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c317bbcf0293d5489f972a41176d1f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hudPopupPrefab: {fileID: 6719175322924527520, guid: 897988d26d6e47a4eb8b1c64a2acbb65,
-    type: 3}
   plantSpawnDeets:
   - plantPrefab: {fileID: 5761887061491630803, guid: 379ee97455755ad43899865e7b0b44d7,
       type: 3}

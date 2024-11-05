@@ -44,6 +44,7 @@ public class PickupPopupBhv : MonoBehaviour
 
     public void SetPopupText(string input)
 	{
+        tmp.text = "";
         tmp.text = input;
         lifetime = 5f;
 	}

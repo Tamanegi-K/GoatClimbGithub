@@ -12,6 +12,9 @@ public class GameMainframe : MonoBehaviour
     [Header("Variables")]
     private bool titleStarted = false, gameStarted = false, gameSuspended = false;
 
+    [Header("Prefab Housing")]
+    public GameObject hudPopupPrefab;
+
     #region OBJECT POOLING
     public static Dictionary<string, List<GameObject>> objectPools = new Dictionary<string, List<GameObject>>();
 
@@ -34,8 +37,9 @@ public class GameMainframe : MonoBehaviour
         GameObject objChosen;
 
         if (objectPools.TryGetValue(poolName, out List<GameObject> z) && objectPools[poolName].Find(obj => obj.name.Contains(poolName)))
-        {
-            objChosen = objectPools[poolName].Find(obj => obj.name.Contains(poolName));
+        { 
+            // WIP: GETS OBJECT FROM THE "TOP", WHICH MAY CAUSE PROBLEMS (SUCH AS TEXT NOT UPDATING). LOOK INTO IT
+            objChosen = objectPools[poolName][0];
             objectPools[poolName].Remove(objChosen);
             objLoaded?.Invoke(objChosen);
         }

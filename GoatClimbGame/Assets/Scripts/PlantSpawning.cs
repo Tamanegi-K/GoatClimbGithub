@@ -8,9 +8,6 @@ public class PlantSpawning : MonoBehaviour
     // Tutorial here:
     // https://www.youtube.com/watch?v=gfD8S32xzYI
 
-    [Header("HUD Prefab Inputs")]
-    public GameObject hudPopupPrefab;
-
     #region Plant Spawning Details
     // WARNING - IF ANY PARTS OF THE CODE IN THIS REGION HAS BEEN EDITED, THE INFO INPUTTED IN THE INSPECTOR WILL RESET
     [System.Serializable]
@@ -117,7 +114,6 @@ public class PlantSpawning : MonoBehaviour
                                     singlePlant.transform.parent = this.gameObject.transform;
 
                                     singlePlant.SetActive(true);
-                                    singlePlant.GetComponent<PlantBhv>().hudPopup = hudPopupPrefab;
                                 }, thisPlant.plantPrefab);
 
                                 spawnedCount += 1;
@@ -137,7 +133,6 @@ public class PlantSpawning : MonoBehaviour
                                     singlePlant.transform.parent = this.gameObject.transform;
 
                                     singlePlant.SetActive(true);
-                                    singlePlant.GetComponent<PlantBhv>().hudPopup = hudPopupPrefab;
                                 }, thisPlant.plantPrefab);
 
                                 spawnedCount += 1;

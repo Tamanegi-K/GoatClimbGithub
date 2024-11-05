@@ -22,10 +22,11 @@ public class PlayerController : MonoBehaviour
     private float rotX, rotY, rotLerpX, rotLerpY, zoomVal = 0.5f, zoomLerp = 0.5f;
     public Vector3 moveDir, modelRotLerp;
     private Vector2 kbInputsMvmnt;
-    private InputAction kbInputsEsc;
+    private InputAction kbInputsEsc, kbInputsDebug;
     public float speed = 4f, speedMax = 1f, groundDrag = 2f, airMult = 0.5f;
-    public bool controlGiven = false;
-    private float lerpFactor = 0f, lerpFactorhFinal = 6.9f;
+    private float speedInit, speedMaxInit;
+    public bool controlGiven = false, debug = false;
+    private float lerpFactor = 0f, lerpFactorFinal = 6.9f;
 
     [Header("Gravity Response")]
     public LayerMask layersToCheck;
@@ -62,6 +63,11 @@ public class PlayerController : MonoBehaviour
         //model = GameObject.Find("PlayerModel").transform;
 
         camPivot = GameObject.Find("CameraPivot").transform;
+
+        kbInputsEsc = goatControls.Defaults.Escape;
+        kbInputsDebug = goatControls.Defaults.Debug;
+        speedInit = speed;
+        speedMaxInit = speedMax;
     }
 
     // Update is called once per frame
@@ -84,24 +90,11 @@ public class PlayerController : MonoBehaviour
         MoveCamBasedOnInputs();
 
         // Mouse Interactions
-        float mouseLMB = goatControls.Defaults.Interaction.ReadValue<float>();
-        if (mouseLMB >= 0.5f && plantLookAt != null)
-		{
-            // If plant can be picked up, pick it up, otherwise don't do anything
-            if (plantLookAt.TryGetComponent(out PlantBhv pbhv))
-            {
-                plantCount += pbhv.PickMeUp();
-                plantLookAt = null;
-            }
-		}
-        else if (mouseLMB >= 0.5f && !controlGiven && !GameMainframe.GetInstance().GetTitleStartedState())
-		{
-            StartCoroutine(GameMainframe.GetInstance().ToggleTitleFade());
-		}
+        InputAction mouseLMB = goatControls.Defaults.Interaction;
+        mouseLMB.performed += InteractTriggerHandling;
 
         // Keyboard Inputs to Code
         kbInputsMvmnt = goatControls.Defaults.Movement.ReadValue<Vector2>();
-        kbInputsEsc = goatControls.Defaults.Escape;
     }
 
 	private void FixedUpdate()
@@ -109,6 +102,7 @@ public class PlayerController : MonoBehaviour
         // Function that moves player via physics (do not put actual inputs here, only processing)
         MovePlayerBasedOnInputs();
         if (kbInputsEsc != null) kbInputsEsc.performed += TogglePlayerControlKB;
+        if (kbInputsDebug != null) kbInputsDebug.performed += ToggleDebugKB;
 
         // Gravity related crap
         RaycastHit rc;
@@ -184,7 +178,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         if (controlGiven)
-            if (lerpFactor <= lerpFactorhFinal)
+            if (lerpFactor <= lerpFactorFinal)
                 lerpFactor += Time.deltaTime * 2f;
 
         // Lerps for smoother camera movement
@@ -219,15 +213,69 @@ public class PlayerController : MonoBehaviour
         camPivot.localPosition = new Vector3(0f, (m * zoomLerp) + b, 0f);
     }
 
+    void InteractTriggerHandling(InputAction.CallbackContext context)
+    {
+        if (!controlGiven && !GameMainframe.GetInstance().GetTitleStartedState())
+        {
+            StartCoroutine(GameMainframe.GetInstance().ToggleTitleFade());
+        }
+        else if (controlGiven && plantLookAt != null)
+        {
+            // If plant can be picked up, pick it up, otherwise don't do anything
+            if (plantLookAt.TryGetComponent(out PlantBhv pbhv))
+            {
+                plantCount += pbhv.PickMeUp();
+                plantLookAt = null;
+            }
+        }
+    }
+
     public void TogglePlayerControlKB(InputAction.CallbackContext context)
     {
         if (GameMainframe.GetInstance().GetGameStartedState())
         {
-            controlGiven = !controlGiven;
             GameMainframe.GetInstance().ToggleGameSuspendState();
+            controlGiven = !GameMainframe.GetInstance().GetGameSuspendState();
         }
 
         TogglePlayerControl();
+    }
+
+    public void ToggleDebugKB(InputAction.CallbackContext context)
+    {
+        debug = !debug;
+
+        if (debug)
+		{
+            speed *= 2;
+            speedMax *= 2;
+
+            GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
+            {
+                PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
+                hppPPB.SetPopupText("Debug Mode Enabled - GO FAST.");
+                hpp.name = "HUDPopup";
+
+                hpp.transform.SetParent(null);
+                hpp.transform.SetParent(GameMainframe.GetInstance().uiGroupHUD.transform);
+                hpp.SetActive(true);
+            }, GameMainframe.GetInstance().hudPopupPrefab);
+        }
+        else
+		{
+            speed = speedInit;
+            speedMax = speedMaxInit;
+            GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
+            {
+                PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
+                hppPPB.SetPopupText("Debug Mode Disabled");
+                hpp.name = "HUDPopup";
+
+                hpp.transform.SetParent(null);
+                hpp.transform.SetParent(GameMainframe.GetInstance().uiGroupHUD.transform);
+                hpp.SetActive(true);
+            }, GameMainframe.GetInstance().hudPopupPrefab);
+        }
     }
 
     public void TogglePlayerControl()
