@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
@@ -20,8 +21,11 @@ public class PlayerController : MonoBehaviour
     public Vector2 camYPos = new Vector2(0.55f, 4.5f); // x = lowest, y = highest
     private float rotX, rotY, rotLerpX, rotLerpY, zoomVal = 0.5f, zoomLerp = 0.5f;
     public Vector3 moveDir, modelRotLerp;
-    private Vector2 kbInputs;
+    private Vector2 kbInputsMvmnt;
+    private InputAction kbInputsEsc;
     public float speed = 4f, speedMax = 1f, groundDrag = 2f, airMult = 0.5f;
+    public bool controlGiven = false;
+    private float lerpFactor = 0f, lerpFactorhFinal = 6.9f;
 
     [Header("Gravity Response")]
     public LayerMask layersToCheck;
@@ -48,7 +52,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
 
         rb = GetComponent<Rigidbody>();
@@ -64,15 +68,18 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Mouse Inputs to code
-        float mouseLR = goatControls.Defaults.CaMovement.ReadValue<Vector2>().x * Time.deltaTime * sensitivity.x;
-        float mouseUD = goatControls.Defaults.CaMovement.ReadValue<Vector2>().y * Time.deltaTime * sensitivity.y;
+        if (controlGiven)
+        {
+            float mouseLR = goatControls.Defaults.CaMovement.ReadValue<Vector2>().x * Time.deltaTime * sensitivity.x;
+            float mouseUD = goatControls.Defaults.CaMovement.ReadValue<Vector2>().y * Time.deltaTime * sensitivity.y;
 
-        rotY += mouseLR;
-        rotX -= mouseUD;
-        rotX = Mathf.Clamp(rotX, lookLimit.x, lookLimit.y);
+            rotY += mouseLR;
+            rotX -= mouseUD;
+            rotX = Mathf.Clamp(rotX, lookLimit.x, lookLimit.y);
 
-        float mouseWhl = goatControls.Defaults.CamZoomer.ReadValue<float>();
-        zoomVal = Mathf.Clamp(zoomVal + (mouseWhl * Time.deltaTime * sensitivity.z), zoomLimit.x, zoomLimit.y);
+            float mouseWhl = goatControls.Defaults.CamZoomer.ReadValue<float>();
+            zoomVal = Mathf.Clamp(zoomVal + (mouseWhl * Time.deltaTime * sensitivity.z), zoomLimit.x, zoomLimit.y);
+        }
 
         MoveCamBasedOnInputs();
 
@@ -87,15 +94,21 @@ public class PlayerController : MonoBehaviour
                 plantLookAt = null;
             }
 		}
+        else if (mouseLMB >= 0.5f && !controlGiven && !GameMainframe.GetInstance().GetTitleStartedState())
+		{
+            StartCoroutine(GameMainframe.GetInstance().ToggleTitleFade());
+		}
 
         // Keyboard Inputs to Code
-        kbInputs = goatControls.Defaults.Movement.ReadValue<Vector2>();
+        kbInputsMvmnt = goatControls.Defaults.Movement.ReadValue<Vector2>();
+        kbInputsEsc = goatControls.Defaults.Escape;
     }
 
 	private void FixedUpdate()
     {
         // Function that moves player via physics (do not put actual inputs here, only processing)
         MovePlayerBasedOnInputs();
+        if (kbInputsEsc != null) kbInputsEsc.performed += TogglePlayerControlKB;
 
         // Gravity related crap
         RaycastHit rc;
@@ -136,8 +149,11 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayerBasedOnInputs()
     {
+        if (GameMainframe.GetInstance().GetGameSuspendState())
+            return;
+
         // Calculate Movement Direction
-        moveDir = (orientation.forward * kbInputs.y) + (orientation.right * kbInputs.x);
+        moveDir = (orientation.forward * kbInputsMvmnt.y) + (orientation.right * kbInputsMvmnt.x);
         moveDir.y = 0f;
 
         if (touchingGrass)
@@ -161,18 +177,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-	void MoveCamBasedOnInputs()
-	{
+    void MoveCamBasedOnInputs()
+    {
+        // If game is paused or player cannot control game, skip all these
+        if (!GameMainframe.GetInstance().GetGameStartedState())
+            return;
+
+        if (controlGiven)
+            if (lerpFactor <= lerpFactorhFinal)
+                lerpFactor += Time.deltaTime * 2f;
+
         // Lerps for smoother camera movement
         if (Mathf.Abs(rotLerpX - rotX) <= 0.08f)
             rotLerpX = rotX;
         else
-            rotLerpX = Mathf.Lerp(rotLerpX, rotX, Time.deltaTime * 6.9f);
+            rotLerpX = Mathf.Lerp(rotLerpX, rotX, Time.deltaTime * lerpFactor);
 
         if (Mathf.Abs(rotLerpY - rotY) <= 0.08f)
             rotLerpY = rotY;
         else
-            rotLerpY = Mathf.Lerp(rotLerpY, rotY, Time.deltaTime * 6.9f);
+            rotLerpY = Mathf.Lerp(rotLerpY, rotY, Time.deltaTime * lerpFactor);
 
         // The actual camera rotating parts
         camPivot.transform.localRotation = Quaternion.Euler(rotLerpX, rotLerpY, 0f);
@@ -193,5 +217,30 @@ public class PlayerController : MonoBehaviour
         float m = (camYPos.y - camYPos.x) / (zoomLimit.y - zoomLimit.x); // slope
         float b = camYPos.y - (m * zoomLimit.y);
         camPivot.localPosition = new Vector3(0f, (m * zoomLerp) + b, 0f);
+    }
+
+    public void TogglePlayerControlKB(InputAction.CallbackContext context)
+    {
+        if (GameMainframe.GetInstance().GetGameStartedState())
+        {
+            controlGiven = !controlGiven;
+            GameMainframe.GetInstance().ToggleGameSuspendState();
+        }
+
+        TogglePlayerControl();
+    }
+
+    public void TogglePlayerControl()
+    {
+        if (controlGiven == true)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 }

@@ -62,6 +62,15 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""a48d5b9e-c1cc-4694-ba0b-e725cdd23a69"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -174,6 +183,28 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
                     ""action"": ""CamZoomer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d35b5c72-debf-4c61-9220-62497c46ba1b"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee8d77ec-83ee-4fa9-936d-dbdd48e7faf6"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -203,6 +234,7 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
         m_Defaults_CaMovement = m_Defaults.FindAction("CaMovement", throwIfNotFound: true);
         m_Defaults_Interaction = m_Defaults.FindAction("Interaction", throwIfNotFound: true);
         m_Defaults_CamZoomer = m_Defaults.FindAction("CamZoomer", throwIfNotFound: true);
+        m_Defaults_Escape = m_Defaults.FindAction("Escape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -268,6 +300,7 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Defaults_CaMovement;
     private readonly InputAction m_Defaults_Interaction;
     private readonly InputAction m_Defaults_CamZoomer;
+    private readonly InputAction m_Defaults_Escape;
     public struct DefaultsActions
     {
         private @GoatControls m_Wrapper;
@@ -276,6 +309,7 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
         public InputAction @CaMovement => m_Wrapper.m_Defaults_CaMovement;
         public InputAction @Interaction => m_Wrapper.m_Defaults_Interaction;
         public InputAction @CamZoomer => m_Wrapper.m_Defaults_CamZoomer;
+        public InputAction @Escape => m_Wrapper.m_Defaults_Escape;
         public InputActionMap Get() { return m_Wrapper.m_Defaults; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -297,6 +331,9 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
             @CamZoomer.started += instance.OnCamZoomer;
             @CamZoomer.performed += instance.OnCamZoomer;
             @CamZoomer.canceled += instance.OnCamZoomer;
+            @Escape.started += instance.OnEscape;
+            @Escape.performed += instance.OnEscape;
+            @Escape.canceled += instance.OnEscape;
         }
 
         private void UnregisterCallbacks(IDefaultsActions instance)
@@ -313,6 +350,9 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
             @CamZoomer.started -= instance.OnCamZoomer;
             @CamZoomer.performed -= instance.OnCamZoomer;
             @CamZoomer.canceled -= instance.OnCamZoomer;
+            @Escape.started -= instance.OnEscape;
+            @Escape.performed -= instance.OnEscape;
+            @Escape.canceled -= instance.OnEscape;
         }
 
         public void RemoveCallbacks(IDefaultsActions instance)
@@ -345,5 +385,6 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
         void OnCaMovement(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
         void OnCamZoomer(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
 }

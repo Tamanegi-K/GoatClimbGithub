@@ -74,7 +74,7 @@ public class AudioManager : MonoBehaviour
             Transform playerCamPivot = GameMainframe.GetInstance().playerContrScrpt.camPivot;
 
             SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
-            swBhv.SetUpSoundwave(playerCamPivot.position, b.clip, b.volume * volMaster * volBGM, b.pitch, b.pitchRandoRange, b.spatialBlend, b.minDist, b.maxDist, false);
+            swBhv.SetUpSoundwave(playerCamPivot.position, b.clip, b.volume * volMaster * volBGM, b.pitch, b.pitchRandoRange, b.spatialBlend, b.minDist, b.maxDist, b.loop);
             thisSoundwave.transform.parent = playerCamPivot;
 
             thisSoundwave.GetComponent<AudioSource>().Play();
@@ -93,7 +93,7 @@ public class AudioManager : MonoBehaviour
                     thisSoundwave.SetActive(true);
                     thisSoundwave.name = "Soundwave";
                     SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
-                    swBhv.SetUpSoundwave(pos, s.clip, s.volume * volMaster * volSFX, s.pitch, s.pitchRandoRange, s.spatialBlend, s.minDist, s.maxDist, false);
+                    swBhv.SetUpSoundwave(pos, s.clip, s.volume * volMaster * volSFX, s.pitch, s.pitchRandoRange, s.spatialBlend, s.minDist, s.maxDist, s.loop);
                     thisSoundwave.transform.parent = this.gameObject.transform;
 
                     thisSoundwave.GetComponent<AudioSource>().Play();
@@ -143,7 +143,7 @@ public class AudioManager : MonoBehaviour
                     Transform playerCamPivot = GameMainframe.GetInstance().playerContrScrpt.camPivot;
 
                     SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
-                    swBhv.SetUpSoundwave(pos, a.clip, a.volume * volMaster * volBGM, a.pitch, a.pitchRandoRange, a.spatialBlend, a.minDist, a.maxDist, true);
+                    swBhv.SetUpSoundwave(pos, a.clip, a.volume * volMaster * volBGM, a.pitch, a.pitchRandoRange, a.spatialBlend, a.minDist, a.maxDist, a.loop);
 
                     thisSoundwave.GetComponent<AudioSource>().Play();
                 }, singleSoundwave);
@@ -166,7 +166,7 @@ public class AudioManager : MonoBehaviour
                     Transform playerCamPivot = GameMainframe.GetInstance().playerContrScrpt.camPivot;
 
                     SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
-                    swBhv.SetUpSoundwave(playerCamPivot.position, a.clip, a.volume * volMaster * volBGM, a.pitch, a.pitchRandoRange, a.spatialBlend, a.minDist, a.maxDist, true);
+                    swBhv.SetUpSoundwave(playerCamPivot.position, a.clip, a.volume * volMaster * volBGM, a.pitch, a.pitchRandoRange, a.spatialBlend, a.minDist, a.maxDist, a.loop);
                     thisSoundwave.transform.parent = playerCamPivot;
 
                     thisSoundwave.GetComponent<AudioSource>().Play();

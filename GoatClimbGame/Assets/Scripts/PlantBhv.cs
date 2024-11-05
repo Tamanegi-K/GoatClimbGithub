@@ -7,6 +7,7 @@ public class PlantBhv : MonoBehaviour
 {
     [Header("Inputs")]
     public GameObject billboardUI;
+    public GameObject hudPopup;
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +59,17 @@ public class PlantBhv : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
 		}
 
+        GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
+        {
+            hpp.transform.SetParent(null);
+            PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
+            hpp.name = "HUDPopup";
+            hppPPB.SetPopupText(name);
+
+            hpp.transform.SetParent(GameMainframe.GetInstance().uiGroupHUD.transform);
+            hpp.SetActive(true);
+        }, hudPopup);
+        
         gameObject.SetActive(false);
         yield return null;
 	}
