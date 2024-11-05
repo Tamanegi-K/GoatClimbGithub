@@ -5533,6 +5533,40 @@ MonoBehaviour:
     useCircleAreaInstead: 1
     circlePoint: {x: 243.2, y: 637.7}
     circleRadius: 46.299988
+  - plantPrefab: {fileID: 5761887061491630803, guid: 379ee97455755ad43899865e7b0b44d7,
+      type: 3}
+    plantName: Graybox Flower
+    spawnChancePercent: 30
+    minClusterAmt: 50
+    layerToCheck:
+      serializedVersion: 2
+      m_Bits: 8
+    distBtwnPsMin: 3
+    distBtwnPsMax: 18.2
+    heightOfCheck: 39.6
+    rangeOfCheck: 9.36
+    positivePos: {x: 1117, y: 995.9}
+    negativePos: {x: 1006.3, y: 880.7}
+    useCircleAreaInstead: 1
+    circlePoint: {x: 1061.65, y: 938.30005}
+    circleRadius: 55.350006
+  - plantPrefab: {fileID: 5761887061491630803, guid: 379ee97455755ad43899865e7b0b44d7,
+      type: 3}
+    plantName: Graybox Flower
+    spawnChancePercent: 30
+    minClusterAmt: 50
+    layerToCheck:
+      serializedVersion: 2
+      m_Bits: 8
+    distBtwnPsMin: 3
+    distBtwnPsMax: 18.2
+    heightOfCheck: 39.6
+    rangeOfCheck: 9.36
+    positivePos: {x: 776.3, y: 265.3}
+    negativePos: {x: 704.3, y: 167.2}
+    useCircleAreaInstead: 0
+    circlePoint: {x: 1077.65, y: 938.30005}
+    circleRadius: 57.600006
 --- !u!4 &2047477056
 Transform:
   m_ObjectHideFlags: 0
