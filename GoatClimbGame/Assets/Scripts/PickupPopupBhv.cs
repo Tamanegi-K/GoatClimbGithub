@@ -31,7 +31,7 @@ public class PickupPopupBhv : MonoBehaviour
         }
         else
         {
-            if (cvGrp.alpha > 0f)
+            if (cvGrp.alpha > 0.4f)
                 cvGrp.alpha -= Time.deltaTime * 1.6f;
 
             else
@@ -45,7 +45,7 @@ public class PickupPopupBhv : MonoBehaviour
     public void SetPopupText(string input)
 	{
         tmp.text = "";
-        tmp.text = input;
+        tmp.text = $"{input}";
         lifetime = 5f;
 	}
 }
