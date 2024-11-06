@@ -21,7 +21,7 @@ public class PickupPopupBhv : MonoBehaviour
     {
         if (lifetime > 0f)
         {
-            if (GetComponent<RectTransform>().anchoredPosition.y < -300f) //NOTE: This doesn't work for some reason - it's supposed to not let popups outside of the screen decay so that we can see what's going on
+            if (GetComponent<RectTransform>().anchoredPosition.y > -600f) //NOTE: This doesn't work for some reason - it's supposed to not let popups outside of the screen decay so that we can see what's going on
             {
                 lifetime -= Time.deltaTime;
             }
