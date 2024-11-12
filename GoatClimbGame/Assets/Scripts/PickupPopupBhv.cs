@@ -12,8 +12,8 @@ public class PickupPopupBhv : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cvGrp = GetComponent<CanvasGroup>();
-        tmp = GameObject.Find("Text").GetComponent<TextMeshProUGUI>();
+        if (cvGrp == null) cvGrp = transform.GetComponent<CanvasGroup>();
+        if (tmp == null) tmp = transform.Find("PopupBG").Find("PopupTxt").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -45,7 +45,7 @@ public class PickupPopupBhv : MonoBehaviour
     public void SetPopupText(string input)
 	{
         tmp.text = "";
-        tmp.text = $"{input}";
+        tmp.text = input;
         lifetime = 5f;
 	}
 }
