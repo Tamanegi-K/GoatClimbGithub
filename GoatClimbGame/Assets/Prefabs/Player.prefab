@@ -490,6 +490,8 @@ MonoBehaviour:
   speedMax: 5
   groundDrag: 1
   airMult: 0.5
+  controlGiven: 0
+  debug: 0
   layersToCheck:
     serializedVersion: 2
     m_Bits: 72
