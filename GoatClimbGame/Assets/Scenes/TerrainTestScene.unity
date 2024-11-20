@@ -518,6 +518,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
+      propertyPath: stateAnimator
+      value: 
+      objectReference: {fileID: 107383652}
+    - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
+        type: 3}
       propertyPath: sphereCastRadius
       value: 0.11
       objectReference: {fileID: 0}
@@ -608,6 +613,12 @@ Behaviour:
 --- !u!20 &107383651 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 6101818400584654896, guid: 1868a1da762c7994e86bc794f329c347,
+    type: 3}
+  m_PrefabInstance: {fileID: 107383648}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &107383652 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2507508161798590384, guid: 1868a1da762c7994e86bc794f329c347,
     type: 3}
   m_PrefabInstance: {fileID: 107383648}
   m_PrefabAsset: {fileID: 0}

@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public Transform camPivot, orientation;
     public Transform model;
     private Rigidbody rb;
+    public Animator stateAnimator;
 
     [Header("Variables")]
     public int plantCount = 0;
@@ -26,7 +27,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 4f, speedMax = 1f, groundDrag = 2f, airMult = 0.5f;
     private float speedInit, speedMaxInit;
     public bool controlGiven = false, debug = false;
-    private float lerpFactor = 0f, lerpFactorFinal = 6.9f;
+    private float lerpFactorCam = 0f, lerpFactorCamFinal = 6.9f, lerpFactorWalkrun;
 
     [Header("Gravity Response")]
     public LayerMask layersToCheck;
@@ -59,10 +60,12 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
-        orientation = GameObject.Find("Orientation").transform;
+        if (orientation == null) orientation = transform.Find("Orientation").transform;
         //model = GameObject.Find("PlayerModel").transform;
 
-        camPivot = GameObject.Find("CameraPivot").transform;
+        if (camPivot == null) camPivot = transform.Find("CameraPivot").transform;
+
+        if (stateAnimator == null) stateAnimator = transform.Find("Goat_Rigged").GetComponent<Animator>();
 
         kbInputsEsc = goatControls.Defaults.Escape;
         kbInputsDebug = goatControls.Defaults.Debug;
@@ -95,6 +98,15 @@ public class PlayerController : MonoBehaviour
 
         // Keyboard Inputs to Code
         kbInputsMvmnt = goatControls.Defaults.Movement.ReadValue<Vector2>();
+
+        // State Animation Crap
+        stateAnimator.SetFloat("isMoving", kbInputsMvmnt.normalized.magnitude);
+        if (Mathf.Abs(lerpFactorWalkrun - rb.velocity.magnitude) < 0.002f)
+
+            lerpFactorWalkrun = rb.velocity.magnitude;
+        else
+            lerpFactorWalkrun = Mathf.Lerp(lerpFactorWalkrun, rb.velocity.magnitude, Time.deltaTime * 6.9f);
+        stateAnimator.SetFloat("playerSpd", lerpFactorWalkrun);
     }
 
 	private void FixedUpdate()
@@ -178,19 +190,19 @@ public class PlayerController : MonoBehaviour
             return;
 
         if (controlGiven)
-            if (lerpFactor <= lerpFactorFinal)
-                lerpFactor += Time.deltaTime * 2f;
+            if (lerpFactorCam <= lerpFactorCamFinal)
+                lerpFactorCam += Time.deltaTime * 2f;
 
         // Lerps for smoother camera movement
         if (Mathf.Abs(rotLerpX - rotX) <= 0.08f)
             rotLerpX = rotX;
         else
-            rotLerpX = Mathf.Lerp(rotLerpX, rotX, Time.deltaTime * lerpFactor);
+            rotLerpX = Mathf.Lerp(rotLerpX, rotX, Time.deltaTime * lerpFactorCam);
 
         if (Mathf.Abs(rotLerpY - rotY) <= 0.08f)
             rotLerpY = rotY;
         else
-            rotLerpY = Mathf.Lerp(rotLerpY, rotY, Time.deltaTime * lerpFactor);
+            rotLerpY = Mathf.Lerp(rotLerpY, rotY, Time.deltaTime * lerpFactorCam);
 
         // The actual camera rotating parts
         camPivot.transform.localRotation = Quaternion.Euler(rotLerpX, rotLerpY, 0f);
