@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &14407425
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2407,7 +2407,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -3132,22 +3132,22 @@ PrefabInstance:
     - target: {fileID: 8817536062204560247, guid: e243afc796a3ba445a2ac8061081ddfa,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.78858197
+      value: -0.7885835
       objectReference: {fileID: 0}
     - target: {fileID: 8817536062204560247, guid: e243afc796a3ba445a2ac8061081ddfa,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.30688462
+      value: 0.30688056
       objectReference: {fileID: 0}
     - target: {fileID: 8817536062204560247, guid: e243afc796a3ba445a2ac8061081ddfa,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5328308
+      value: 0.53283095
       objectReference: {fileID: 0}
     - target: {fileID: 8817536062204560247, guid: e243afc796a3ba445a2ac8061081ddfa,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0071841534
+      value: -0.007184551
       objectReference: {fileID: 0}
     - target: {fileID: 8817536062204560247, guid: e243afc796a3ba445a2ac8061081ddfa,
         type: 3}
