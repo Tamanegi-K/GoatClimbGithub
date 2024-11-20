@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Goat
+  m_Name: FlowerShop
   m_Shader: {fileID: -6465566751694194690, guid: e79958a9f2933411ba2e99cc703c95fc,
     type: 3}
   m_Parent: {fileID: 0}
@@ -71,7 +71,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: 1c8c0c18803393e42a3211c1b1833815, type: 3}
+        m_Texture: {fileID: 2800000, guid: e8a1d4cdebdd77a4da89792db927209f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metallic:
@@ -83,7 +83,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: cf17f8f9b0dfe824ca8fa955ebe04c3b, type: 3}
+        m_Texture: {fileID: 2800000, guid: ab6b13d9d5ea2af4d9143efbada6698b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -95,7 +95,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Smoothness:
-        m_Texture: {fileID: 2800000, guid: 508e3b2814b68dd439e50c7149fee45a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 54720022a90749046a6caebe73aa5e2c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -140,16 +140,16 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Rim_Light_Brightness: 0.91
-    - _Rim_Power: 0.25
+    - _Rim_Light_Brightness: 1.3
+    - _Rim_Power: -0.15
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _Toon_Ramp_Offset: 0.66
-    - _Toon_Ramp_Smoothness: 0.11
+    - _Toon_Ramp_Offset: 0.28
+    - _Toon_Ramp_Smoothness: 0.62
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
