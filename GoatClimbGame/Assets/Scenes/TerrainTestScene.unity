@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 83786f9bc34ed364b9a01f02f1161e4d, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: fd49f58e569f80d4cb0a6e4aa0800d5c, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -6429,13 +6429,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2144485947}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2889028, y: 0.64539546, z: -0.2889028, w: 0.64539534}
+  m_LocalRotation: {x: 0.28046492, y: 0.6491067, z: -0.28046513, w: 0.6491065}
   m_LocalPosition: {x: -1086.8, y: 397.5, z: 1200}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 48.23, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 133.264, y: 270, z: 180}
 --- !u!114 &2144485950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6472,7 +6472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LensFlareData: {fileID: 11400000, guid: bd7eaf3bd49c39f4cb77bd809459aa72, type: 2}
-  intensity: 1
+  intensity: 1.1
   maxAttenuationDistance: 100
   maxAttenuationScale: 100
   distanceAttenuationCurve:
@@ -6530,8 +6530,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -6539,8 +6539,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -6553,7 +6553,7 @@ MonoBehaviour:
   occlusionRadius: 0.1
   sampleCount: 32
   occlusionOffset: 0.05
-  scale: 1
+  scale: 3
   allowOffScreen: 0
   volumetricCloudOcclusion: 0
   occlusionRemapCurve:
