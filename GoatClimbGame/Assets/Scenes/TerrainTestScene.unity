@@ -363,6 +363,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TallMushroomHouse (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 3565390938480237062, guid: 5eff4f98674e15542989c4d5d0a0ff4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -434,7 +439,7 @@ PrefabInstance:
     - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -504,6 +509,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TallMushroomHouse (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3565390938480237062, guid: 5eff4f98674e15542989c4d5d0a0ff4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -572,6 +582,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MushroomHouse (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -589,6 +604,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_2 (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
@@ -672,6 +692,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -1025,6 +1050,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_2 (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1201,6 +1231,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_1 (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1334,6 +1369,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bridge
       objectReference: {fileID: 0}
+    - target: {fileID: 4952093986938061584, guid: 00f9912e68b8b444095fa2f0cfd902c9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1351,6 +1391,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PineNutHouse (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
@@ -1476,6 +1521,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_2 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1544,6 +1594,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampPost (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1611,6 +1666,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (28)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -1778,6 +1838,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MushroomHouse (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2033,6 +2098,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MushroomHouse (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2050,6 +2120,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -2169,6 +2244,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MushroomHouse (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2186,6 +2266,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -2254,6 +2339,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -2390,6 +2480,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -2547,6 +2642,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -2719,6 +2819,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PineNutHouse (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2787,6 +2892,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampPost (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2854,6 +2964,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (24)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -2976,6 +3091,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TallMushroomHouse (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3565390938480237062, guid: 5eff4f98674e15542989c4d5d0a0ff4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2993,6 +3113,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_2 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
@@ -3406,6 +3531,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TallMushroomHouse (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 3565390938480237062, guid: 5eff4f98674e15542989c4d5d0a0ff4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3423,6 +3553,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_2 (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
@@ -3507,6 +3642,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_2 (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3574,6 +3714,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -3804,6 +3949,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_2 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3940,6 +4090,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_2 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4007,6 +4162,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_2 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
@@ -4081,6 +4241,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_1 (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4148,6 +4313,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -4267,6 +4437,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MushroomHouse (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4367,6 +4542,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampPost (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4435,6 +4615,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampPost (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4502,6 +4687,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -4620,6 +4810,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TallMushroomHouse (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3565390938480237062, guid: 5eff4f98674e15542989c4d5d0a0ff4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4832,6 +5027,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MushroomHouse (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4849,6 +5049,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -4968,6 +5173,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TallMushroomHouse (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 3565390938480237062, guid: 5eff4f98674e15542989c4d5d0a0ff4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4985,6 +5195,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -5059,6 +5274,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -5301,6 +5521,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PineNutHouse (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5419,6 +5644,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MushroomHouse (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5529,6 +5759,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -5706,6 +5941,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampPost (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5773,6 +6013,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_2 (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
@@ -5845,7 +6090,7 @@ PrefabInstance:
     - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
@@ -6101,6 +6346,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_2 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -6188,6 +6438,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -6454,6 +6709,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_2 (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -6536,6 +6796,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -6723,6 +6988,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TallMushroomHouse (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 3565390938480237062, guid: 5eff4f98674e15542989c4d5d0a0ff4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6791,6 +7061,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TallMushroomHouse (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 3565390938480237062, guid: 5eff4f98674e15542989c4d5d0a0ff4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6808,6 +7083,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PineNutHouse (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
@@ -6927,6 +7207,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TallMushroomHouse (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3565390938480237062, guid: 5eff4f98674e15542989c4d5d0a0ff4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6944,6 +7229,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PineNutHouse (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
@@ -7013,6 +7303,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PineNutHouse (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7080,6 +7375,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -7179,6 +7479,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_2 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
@@ -7316,6 +7621,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampPost (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7384,6 +7694,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PineNutHouse (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7451,6 +7766,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -7774,7 +8094,7 @@ PrefabInstance:
     - target: {fileID: 3565390938480237062, guid: 5eff4f98674e15542989c4d5d0a0ff4c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7793,6 +8113,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (27)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -7861,6 +8186,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PineNutHouse (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
@@ -7979,6 +8309,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MushroomHouse (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8345,6 +8680,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_1 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8506,6 +8846,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_1 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8574,6 +8919,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampPost (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8641,6 +8991,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_2 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
@@ -8720,6 +9075,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PineNutHouse (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8787,6 +9147,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -8856,6 +9221,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_2 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8923,6 +9293,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PineNutHouse (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
@@ -8992,6 +9367,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PineNutHouse (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9059,6 +9439,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PineNutHouse
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
@@ -9236,6 +9621,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_1 (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9397,6 +9787,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PineNutHouse (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9465,6 +9860,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PineNutHouse (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9532,6 +9932,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -9651,6 +10056,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TallMushroomHouse (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3565390938480237062, guid: 5eff4f98674e15542989c4d5d0a0ff4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9668,6 +10078,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_2 (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
@@ -9892,6 +10307,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TallMushroomHouse (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 3565390938480237062, guid: 5eff4f98674e15542989c4d5d0a0ff4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9909,6 +10329,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -10071,6 +10496,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampPost (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10138,6 +10568,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PineNutHouse (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
@@ -10300,6 +10735,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampPost (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10367,6 +10807,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -10451,6 +10896,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bush
       objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: f58f7389aa318ef479bd42fb0b061dd1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: f58f7389aa318ef479bd42fb0b061dd1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10518,6 +10968,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -10805,6 +11260,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MushroomHouse (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10822,6 +11282,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -10905,6 +11370,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
@@ -11024,6 +11494,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MushroomHouse (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11041,6 +11516,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -11198,6 +11678,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_2 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 2987908051056136605, guid: 42f0840c7007c1044b0ebefe174825be,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8729235807333864230, guid: 42f0840c7007c1044b0ebefe174825be,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -11336,6 +11821,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MushroomHouse (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11353,6 +11843,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -11422,6 +11917,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampPost (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11489,6 +11989,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -11704,6 +12209,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MushroomHouse (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11721,6 +12231,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PineNutHouse (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
@@ -12157,6 +12672,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MushroomHouse (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12174,6 +12694,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -12386,6 +12911,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TallMushroomHouse (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3565390938480237062, guid: 5eff4f98674e15542989c4d5d0a0ff4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12497,6 +13027,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_1 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12564,6 +13099,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampPost (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
@@ -12633,6 +13173,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_1 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12700,6 +13245,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PineNutHouse (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
@@ -13068,6 +13618,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MushroomHouse (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13085,6 +13640,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -13174,6 +13734,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampPost (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13241,6 +13806,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PineNutHouse (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
@@ -13617,6 +14187,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampPost (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13846,6 +14421,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PineNutHouse (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 3175641146342700929, guid: 01b0d3c000bba24468f1ecb49486a35c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6112436073557036626, guid: 01b0d3c000bba24468f1ecb49486a35c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13913,6 +14493,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tree_1 (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074621423807504528, guid: ec32c86e700f32242984953d1447f944,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436113708727293076, guid: ec32c86e700f32242984953d1447f944,
         type: 3}
@@ -14143,7 +14728,7 @@ PrefabInstance:
     - target: {fileID: 8615700441378182198, guid: dfdc573e6ef7d492bad2ab0c4fd3b87a,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14483,7 +15068,7 @@ PrefabInstance:
     - target: {fileID: 702267160362571640, guid: 3ea3b9e1a0837b847837fed79285aac8,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6665879783844829418, guid: 3ea3b9e1a0837b847837fed79285aac8,
         type: 3}
