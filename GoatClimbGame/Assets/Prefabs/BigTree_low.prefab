@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7169819083976606660}
   - component: {fileID: 8743719587862793227}
   - component: {fileID: 6053957071378068486}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BigTree_Leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,9 +94,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5041651796329148441}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BigTree_low
-  m_TagString: Untagged
+  m_TagString: EnvironObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 2147923357376274694}
   - component: {fileID: 7971889158251820159}
   - component: {fileID: 388322829487882606}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BigTree_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

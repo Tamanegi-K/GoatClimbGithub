@@ -101,7 +101,8 @@ public class PlayerController : MonoBehaviour
 
         // State Animation Crap
         stateAnimator.SetFloat("isMoving", kbInputsMvmnt.normalized.magnitude);
-        if (Mathf.Abs(lerpFactorWalkrun - rb.velocity.magnitude) < 0.002f)
+
+        if (Mathf.Abs(lerpFactorWalkrun - rb.velocity.magnitude) < 0.007f)
 
             lerpFactorWalkrun = rb.velocity.magnitude;
         else

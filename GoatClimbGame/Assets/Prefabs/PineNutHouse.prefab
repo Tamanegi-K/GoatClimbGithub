@@ -9,9 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6112436073557036626}
-  m_Layer: 0
+  - component: {fileID: 3244837519184358457}
+  - component: {fileID: 8187851701286135807}
+  - component: {fileID: -7627943816042391148}
+  m_Layer: 8
   m_Name: PineNutHouse
-  m_TagString: Untagged
+  m_TagString: EnvironObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,14 +28,75 @@ Transform:
   m_GameObject: {fileID: 3175641146342700929}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 819.72186, y: 32.067387, z: 166.1411}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5934672476883706155}
   - {fileID: 7394146919524942841}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3244837519184358457
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3175641146342700929}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5, y: 1, z: 5}
+  m_Center: {x: 0, y: 0.53, z: 0}
+--- !u!54 &8187851701286135807
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3175641146342700929}
+  serializedVersion: 4
+  m_Mass: 400
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 10
+  m_CollisionDetection: 0
+--- !u!114 &-7627943816042391148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3175641146342700929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25f88d8600c365a42a3359e10f9f0bf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBeforeSet: 1
 --- !u!1 &7015236707607729700
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +108,7 @@ GameObject:
   - component: {fileID: 7394146919524942841}
   - component: {fileID: 3725283786767737337}
   - component: {fileID: 5875567936300777131}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PineNuteHouse_Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +194,7 @@ GameObject:
   - component: {fileID: 2660473700101143016}
   - component: {fileID: 3975197480798059387}
   - component: {fileID: 4771174440652065632}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PineNuteHouse_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +285,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30

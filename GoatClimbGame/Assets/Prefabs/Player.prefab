@@ -1713,6 +1713,7 @@ MonoBehaviour:
   camPivot: {fileID: 0}
   orientation: {fileID: 0}
   model: {fileID: 1122635068306442637}
+  stateAnimator: {fileID: 0}
   plantCount: 0
   sensitivity: {x: 20, y: 15, z: 8}
   lookLimit: {x: -40, y: 10}
@@ -1728,7 +1729,7 @@ MonoBehaviour:
   debug: 0
   layersToCheck:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 328
   sphereCastRadius: 0.23
   maxCastDist: 0.89
   currentHitObj: {fileID: 0}

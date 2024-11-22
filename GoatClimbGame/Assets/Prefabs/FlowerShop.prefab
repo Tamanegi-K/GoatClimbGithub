@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7428400186326910791}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlowerShop
-  m_TagString: Untagged
+  m_TagString: EnvironObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 702267160362571640}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.018034905, y: -0.73412585, z: 0.019513663, w: 0.67849344}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 892.4, y: 54.93, z: 221.63}
   m_LocalScale: {x: 1.4455, y: 1.4455, z: 1.4455}
   m_ConstrainProportionsScale: 0
@@ -34,9 +34,8 @@ Transform:
   - {fileID: 788223475876029773}
   - {fileID: 1683528870693890107}
   - {fileID: 9223328832124365563}
-  - {fileID: 7790862509626914477}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0.239, y: -94.504, z: 3.036}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2612462127210347610
 GameObject:
   m_ObjectHideFlags: 0
@@ -48,7 +47,7 @@ GameObject:
   - component: {fileID: 9223328832124365563}
   - component: {fileID: 3558871081381270403}
   - component: {fileID: 5820744761933687198}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlowerShop_Trunk_Leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +132,8 @@ GameObject:
   - component: {fileID: 1326958801886967737}
   - component: {fileID: 2709933696330359779}
   - component: {fileID: 2394356308155960061}
-  m_Layer: 0
+  - component: {fileID: 3358970182644751161}
+  m_Layer: 8
   m_Name: FlowerShop_Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,6 +207,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3358970182644751161
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5251987683951022138}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.6664782, y: 2.662088, z: 0.25919524}
+  m_Center: {x: -1.2445841, y: 0.21418488, z: 0}
 --- !u!1 &5269158185825237563
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +239,7 @@ GameObject:
   - component: {fileID: 788223475876029773}
   - component: {fileID: 8433798141525835017}
   - component: {fileID: 5723489617109998642}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlowerShop_GlassPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +324,7 @@ GameObject:
   - component: {fileID: 1683528870693890107}
   - component: {fileID: 4231162202700401385}
   - component: {fileID: 3539100796851228291}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlowerShop_Lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -377,37 +398,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &7445968060492033047
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7790862509626914477}
-  m_Layer: 0
-  m_Name: FlowerShop
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7790862509626914477
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7445968060492033047}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7428400186326910791}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7952856606682261098
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +409,8 @@ GameObject:
   - component: {fileID: 160317501333627732}
   - component: {fileID: 8849361811735397710}
   - component: {fileID: 8805031278556425881}
-  m_Layer: 0
+  - component: {fileID: 8975020437386503610}
+  m_Layer: 8
   m_Name: FlowerShop_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,3 +484,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8975020437386503610
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7952856606682261098}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2623291603000528898, guid: 67b8b754bb013864ba34e950ca4f0248, type: 3}

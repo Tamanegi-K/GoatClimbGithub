@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8729235807333864230}
   - component: {fileID: 2305212953561317011}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tree_2
-  m_TagString: Untagged
+  m_TagString: EnvironObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,9 +26,9 @@ Transform:
   m_GameObject: {fileID: 2987908051056136605}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 837.6, y: 32.06737, z: 266.9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 484930067198700225}
   - {fileID: 1411046281877493515}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 484930067198700225}
   - component: {fileID: 967449183602761267}
   - component: {fileID: 5621095920234381590}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tree2_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 1411046281877493515}
   - component: {fileID: 5472622293114124949}
   - component: {fileID: 4685242445553257930}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tree2_Leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}

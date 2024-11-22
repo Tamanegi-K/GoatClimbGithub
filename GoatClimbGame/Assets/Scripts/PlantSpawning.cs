@@ -208,6 +208,9 @@ public class PlantSpawning : MonoBehaviour
         Gizmos.DrawLine(pointC, pointC + Vector3.down * height);
         Gizmos.DrawLine(pointD, pointD + Vector3.down * height);
 
+        Gizmos.DrawLine(pointA, pointC);
+        Gizmos.DrawLine(pointB, pointD);
+
         DrawCircle(basePosition, orientation, radius);
         DrawCircle(topPosition, orientation, radius);
     }
