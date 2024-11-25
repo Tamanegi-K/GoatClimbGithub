@@ -42,7 +42,7 @@ public class AudioManager : MonoBehaviour
         // Ambiences
         PlayAMB("waterfall", new Vector3(200f, 15, 228f));
         PlayAMB("river", new Vector3(640f, 15, 501f));
-        PlayAMBPersistent("nature");
+        if (!GameMainframe.GetInstance().inTitle) PlayAMBPersistent("nature"); // NOTE TO TAMS: THIS IS A SHITTY BAND AID METHOD, FIX IT ASAP
     }
 
 	private void Update()
@@ -140,7 +140,6 @@ public class AudioManager : MonoBehaviour
                 {
                     thisSoundwave.SetActive(true);
                     thisSoundwave.name = "Ambience";
-                    Transform playerCamPivot = GameMainframe.GetInstance().playerContrScrpt.camPivot;
 
                     SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
                     swBhv.SetUpSoundwave(pos, a.clip, a.volume * volMaster * volBGM, a.pitch, a.pitchRandoRange, a.spatialBlend, a.minDist, a.maxDist, a.loop);

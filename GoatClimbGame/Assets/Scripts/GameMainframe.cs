@@ -8,9 +8,10 @@ public class GameMainframe : MonoBehaviour
     public PlayerController playerContrScrpt;
     public AudioManager audioMngr;
     public CanvasGroup uiGroupTitle, uiGroupWhite, uiGroupPause, uiGroupHUD;
+    public bool inTitle = false;
 
     [Header("Variables")]
-    private bool titleStarted = false, gameStarted = false, gameSuspended = false;
+    private bool titleAnimStarted = false, gameStarted = false, gameSuspended = false;
 
     [Header("Prefab Housing")]
     public GameObject hudPopupPrefab;
@@ -86,26 +87,7 @@ public class GameMainframe : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (GameObject.Find("Player").TryGetComponent(out PlayerController pcs))
-            playerContrScrpt = pcs;
-
-        if (TryGetComponent(out AudioManager amg))
-            audioMngr = amg;
-
-        if (GameObject.Find("Canvas/TitleUIGroup").TryGetComponent(out CanvasGroup t))
-            uiGroupTitle = t;
-
-        if (GameObject.Find("Canvas/WhiteOut").TryGetComponent(out CanvasGroup wo))
-            uiGroupWhite = wo;
-
-        if (GameObject.Find("Canvas/PauseUIGroup").TryGetComponent(out CanvasGroup p))
-            uiGroupPause = p;
-
-        if (GameObject.Find("Canvas/HUD").TryGetComponent(out CanvasGroup h))
-            uiGroupHUD = h;
-
-        uiGroupWhite.gameObject.SetActive(false);
-        uiGroupPause.gameObject.SetActive(false);
+        SetUpObjs();
     }
 
 	void Update()
@@ -133,7 +115,7 @@ public class GameMainframe : MonoBehaviour
     }
     public bool GetTitleStartedState()
     {
-        return titleStarted;
+        return titleAnimStarted;
     }
 
     public bool GetGameStartedState()
@@ -153,10 +135,10 @@ public class GameMainframe : MonoBehaviour
 
     public IEnumerator ToggleTitleFade()
 	{
-        if (titleStarted)
+        if (titleAnimStarted)
             yield return null;
 
-        titleStarted = true;
+        titleAnimStarted = true;
 
         audioMngr.PlayAMBPersistent("gamestart");
 
@@ -192,4 +174,32 @@ public class GameMainframe : MonoBehaviour
 
         yield return null;
 	}
+
+    void SetUpObjs()
+    {
+        if (TryGetComponent(out AudioManager amg))
+            audioMngr = amg;
+
+        if (GameObject.Find("Canvas/TitleUIGroup").TryGetComponent(out CanvasGroup t))
+            uiGroupTitle = t;
+
+        if (GameObject.Find("Canvas/WhiteOut").TryGetComponent(out CanvasGroup wo))
+            uiGroupWhite = wo;
+
+        if (GameObject.Find("Canvas/PauseUIGroup").TryGetComponent(out CanvasGroup p))
+            uiGroupPause = p;
+
+        if (GameObject.Find("Canvas/HUD").TryGetComponent(out CanvasGroup h))
+            uiGroupHUD = h;
+
+        if (!inTitle)
+        {
+
+            if (GameObject.Find("Player").TryGetComponent(out PlayerController pcs))
+                playerContrScrpt = pcs;
+
+            uiGroupWhite.gameObject.SetActive(false);
+            uiGroupPause.gameObject.SetActive(false);
+        }
+    }
 }
