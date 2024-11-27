@@ -3275,11 +3275,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampPost (24)
       objectReference: {fileID: 0}
-    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3330,10 +3325,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4160291961079213791, guid: 887580064f6d70046a2ed84c26d700ae, type: 3}
-    - {fileID: 617842850102021087, guid: 887580064f6d70046a2ed84c26d700ae, type: 3}
-    - {fileID: -9177021260409994485, guid: 887580064f6d70046a2ed84c26d700ae, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -13029,11 +13021,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampPost (25)
       objectReference: {fileID: 0}
-    - target: {fileID: 1283686155205115463, guid: 887580064f6d70046a2ed84c26d700ae,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13084,10 +13071,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4160291961079213791, guid: 887580064f6d70046a2ed84c26d700ae, type: 3}
-    - {fileID: 617842850102021087, guid: 887580064f6d70046a2ed84c26d700ae, type: 3}
-    - {fileID: -9177021260409994485, guid: 887580064f6d70046a2ed84c26d700ae, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
