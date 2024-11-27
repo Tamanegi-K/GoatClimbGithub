@@ -7,6 +7,7 @@ public class GameMainframe : MonoBehaviour
 {
     [Header("Object Idenfitication")]
     public PlayerController playerContrScrpt;
+    public SkinnedMeshRenderer goteMesh;
     public AudioManager audioMngr;
     public CanvasGroup uiGroupTitle, uiGroupWhite, uiGroupPause, uiGroupHUD;
     public bool inTitle = false;
@@ -154,6 +155,8 @@ public class GameMainframe : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);
 
+        goteMesh.enabled = true;
+
         // Title fading out
         for (float i = 0; i < 1f; i += Time.deltaTime)
         {
@@ -161,6 +164,7 @@ public class GameMainframe : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
         }
         yield return new WaitForSeconds(0.5f);
+
         playerContrScrpt.controlGiven = true;
         playerContrScrpt.TogglePlayerControl();
         gameStarted = true;
@@ -172,6 +176,7 @@ public class GameMainframe : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
         }
         yield return new WaitForSeconds(0.5f);
+
         gameSuspended = false;
 
         yield return null;
@@ -197,7 +202,10 @@ public class GameMainframe : MonoBehaviour
         if (!inTitle)
         {
             if (playerContrScrpt == null && GameObject.Find("Player").TryGetComponent(out PlayerController pcs))
+            {
                 playerContrScrpt = pcs;
+                goteMesh = playerContrScrpt.gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+            }
 
             uiGroupWhite.gameObject.SetActive(false);
             uiGroupPause.gameObject.SetActive(false);

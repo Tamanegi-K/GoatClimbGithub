@@ -923,6 +923,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5571366293626470694, guid: 1868a1da762c7994e86bc794f329c347,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6101818400584654896, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
       propertyPath: field of view
@@ -942,6 +947,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mass
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547321053375497509, guid: 1868a1da762c7994e86bc794f329c347,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
@@ -1027,17 +1037,17 @@ PrefabInstance:
     - target: {fileID: 9132376450760719232, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.8600001
+      value: 0.86
       objectReference: {fileID: 0}
     - target: {fileID: 9132376450760719232, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.8600001
+      value: 0.86
       objectReference: {fileID: 0}
     - target: {fileID: 9132376450760719232, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.8600001
+      value: 0.86
       objectReference: {fileID: 0}
     - target: {fileID: 9132376450760719232, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
@@ -1094,7 +1104,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4927258836623727584, guid: 1868a1da762c7994e86bc794f329c347, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -15072,6 +15083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerContrScrpt: {fileID: 0}
+  goteMesh: {fileID: 0}
   audioMngr: {fileID: 0}
   uiGroupTitle: {fileID: 0}
   uiGroupWhite: {fileID: 0}
