@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     public Animator stateAnimator;
 
     [Header("Variables")]
-    public int plantCount = 0;
     public Vector3 sensitivity = new Vector3(20f, 15f, 8f); // x is Left/Right, y is Up/Down, z is Scroll wheel THIS DOES NOT CORRELATE TO CAM ROTATION THOUGH
     public Vector2 lookLimit = new Vector2(-40f, 10f); // x = upwards, y = downwards
     public Vector2 zoomLimit = new Vector2(0.12f, 1.5f); // x = lowest, y = highest
@@ -43,6 +42,9 @@ public class PlayerController : MonoBehaviour
     public float camPushRadius = 0.5f;
     public LayerMask camLayersToCheck;
     public Vector3 currentCamCastPoint;
+
+    [Header("Inventory Management")]
+    public Dictionary<string, int> collectedPlants = new Dictionary<string, int>();
 
     void OnEnable()
     {
@@ -255,7 +257,7 @@ public class PlayerController : MonoBehaviour
             // If plant can be picked up, pick it up, otherwise don't do anything
             if (plantLookAt.TryGetComponent(out PlantBhv pbhv))
             {
-                plantCount += pbhv.PickMeUp();
+                PlantCollection(pbhv.name, pbhv.PickMeUp());
                 plantLookAt = null;
             }
         }
@@ -330,5 +332,17 @@ public class PlayerController : MonoBehaviour
             currentCamCastPoint = rcCam.point;
         else
             currentCamCastPoint = camFarthestPoint.position;
+    }
+
+    public void PlantCollection(string plantName, int quantity)
+	{
+        if (!collectedPlants.ContainsKey(plantName))
+        {
+            Debug.Log(plantName + " not in dictionary, created new entry");
+            collectedPlants.Add(plantName, 0);
+        }
+
+        collectedPlants[plantName] += quantity;
+        Debug.Log(plantName + " - " + collectedPlants[plantName]);
     }
 }

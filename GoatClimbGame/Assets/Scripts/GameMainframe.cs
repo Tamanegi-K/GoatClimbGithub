@@ -139,6 +139,7 @@ public class GameMainframe : MonoBehaviour
         if (titleAnimStarted)
             yield return null;
 
+        audioMngr.StopBGMCurrent();
         audioMngr.ReflushInitAmbiences();
 
         titleAnimStarted = true;
@@ -167,6 +168,7 @@ public class GameMainframe : MonoBehaviour
 
         playerContrScrpt.controlGiven = true;
         playerContrScrpt.TogglePlayerControl();
+        audioMngr.ForceBGMCD(Random.Range(audioMngr.bgmCDmin * 10f, audioMngr.bgmCDmax * 10f));
         gameStarted = true;
 
         // White fading out

@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("Time until next bgm plays (in minutes)")]
     public float bgmCD;
-    public float bgmCDmin = 6.5f, bgmCDmax = 16.2f;
+    public float bgmCDmin = 6.5f, bgmCDmax = 15.2f;
 
     #region SINGLETON
     // Singleton for AudioManager
@@ -49,10 +49,13 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        bgmCD = Random.Range(bgmCDmin * 10f, bgmCDmax * 20f);
+        bgmCD = 900f;
 
         // Ambiences
         ReflushInitAmbiences();
+
+        if (GameMainframe.GetInstance().inTitle)
+            PlayBGMSpecific("titleroll");
     }
 
 	private void Update()
@@ -60,36 +63,76 @@ public class AudioManager : MonoBehaviour
         if (currentBGMplayer == null)
 		{
             if (bgmCD <= 0f)
-                PlayBGM();
-            else
+                PlayBGMRandom();
+            else if(GameMainframe.GetInstance().GetGameStartedState())
                 bgmCD -= Time.deltaTime;
 		}
 
-		if (currentBGMplayer != null && currentBGMplayer.GetComponent<AudioSource>().isPlaying)
+		if (currentBGMplayer != null)
 		{
-            bgmCD = Random.Range(bgmCDmin * 60f, bgmCDmax * 60f);
-            currentBGMplayer = null;
+            if (!currentBGMplayer.GetComponent<AudioSource>().isPlaying)
+            {
+                bgmCD = Random.Range(bgmCDmin * 60f, bgmCDmax * 60f);
+                currentBGMplayer = null;
+            }
 		}
 
         //UpdateVolumeControl();
 	}
 
-	public void PlayBGM()
-    {
-        SoundFile b = bgm[Random.Range(0, bgm.Length)];
+    public void ForceBGMCD(float cd)
+	{
+        bgmCD = cd;
+	}
 
-        GameMainframe.GetInstance().ObjectUse("iPod", (thisSoundwave) =>
+	public void PlayBGMRandom()
+    {
+        StopBGMCurrent();
+
+        SoundFile b = bgm[Random.Range(1, bgm.Length)];
+
+        GameObject x = GameMainframe.GetInstance().ObjectUse("iPod", (thisSoundwave) =>
         {
+            Transform spawnLocation = FindAnyObjectByType<AudioListener>().transform;
+
             thisSoundwave.SetActive(true);
-            Transform playerCamPivot = GameMainframe.GetInstance().playerContrScrpt.camPivot;
+            thisSoundwave.name = "iPod";
 
             SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
-            swBhv.SetUpSoundwave(playerCamPivot.position, b.clip, b.volume * volMaster * volBGM, b.pitch, b.pitchRandoRange, b.spatialBlend, b.minDist, b.maxDist, b.loop);
-            thisSoundwave.transform.parent = playerCamPivot;
+            swBhv.SetUpSoundwave(Vector3.zero, b.clip, b.volume * volMaster * volBGM, b.pitch, b.pitchRandoRange, b.spatialBlend, b.minDist, b.maxDist, b.loop);
+            thisSoundwave.transform.parent = FindAnyObjectByType<AudioListener>().transform;
 
             thisSoundwave.GetComponent<AudioSource>().Play();
-            currentBGMplayer = thisSoundwave;
         }, singleSoundwave);
+
+        currentBGMplayer = x;
+    }
+
+    public void PlayBGMSpecific(string name)
+    {
+        foreach (SoundFile b in bgm)
+        {
+            if (b.name == name)
+            {
+                StopBGMCurrent();
+
+                currentBGMplayer = GameMainframe.GetInstance().ObjectUse("iPod", (thisSoundwave) =>
+                {
+                    Transform spawnLocation = FindAnyObjectByType<AudioListener>().transform;
+
+                    thisSoundwave.SetActive(true);
+                    thisSoundwave.name = "iPod";
+                    SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
+                    swBhv.SetUpSoundwave(Vector3.zero, b.clip, b.volume * volMaster * volBGM, b.pitch, b.pitchRandoRange, b.spatialBlend, b.minDist, b.maxDist, b.loop);
+                    thisSoundwave.transform.parent = gameObject.transform;
+
+                    thisSoundwave.GetComponent<AudioSource>().Play();
+                }, singleSoundwave);
+
+                return;
+            }
+        }
+        Debug.LogError("Couldn't find " + name);
     }
 
     public void PlaySFX(string name, Vector3 pos)
@@ -175,11 +218,11 @@ public class AudioManager : MonoBehaviour
                 {
                     thisSoundwave.SetActive(true);
                     thisSoundwave.name = "AmbPers";
-                    Transform playerCamPivot = GameMainframe.GetInstance().playerContrScrpt.camPivot;
+                    Transform spawnLocation = FindAnyObjectByType<AudioListener>().transform;
 
                     SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
-                    swBhv.SetUpSoundwave(playerCamPivot.position, a.clip, a.volume * volMaster * volBGM, a.pitch, a.pitchRandoRange, a.spatialBlend, a.minDist, a.maxDist, a.loop);
-                    thisSoundwave.transform.parent = playerCamPivot;
+                    swBhv.SetUpSoundwave(Vector3.zero, a.clip, a.volume * volMaster * volBGM, a.pitch, a.pitchRandoRange, a.spatialBlend, a.minDist, a.maxDist, a.loop);
+                    thisSoundwave.transform.parent = spawnLocation;
 
                     thisSoundwave.GetComponent<AudioSource>().Play();
 
@@ -204,6 +247,14 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+
+    public void StopBGMCurrent()
+    {
+        if (currentBGMplayer != null)
+		{
+            currentBGMplayer.GetComponent<SoundwaveBhv>().ForceStop();
+        }
+	}
 
     public void StopAllAmb()
 	{
