@@ -15934,7 +15934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantSpawnDeets:
-  - plantPrefab: {fileID: 5761887061491630803, guid: 379ee97455755ad43899865e7b0b44d7,
+  - plantPrefab: {fileID: 9115699314517816982, guid: 0d43f146588de6545a24ec107d02ae0f,
       type: 3}
     plantName: Placehoda Bud
     spawnChancePercent: 30
@@ -15951,7 +15951,7 @@ MonoBehaviour:
     useCircleAreaInstead: 1
     circlePoint: {x: 243.2, y: 637.7}
     circleRadius: 46.299988
-  - plantPrefab: {fileID: 5761887061491630803, guid: 379ee97455755ad43899865e7b0b44d7,
+  - plantPrefab: {fileID: 9115699314517816982, guid: 0d43f146588de6545a24ec107d02ae0f,
       type: 3}
     plantName: Placehoda Bud
     spawnChancePercent: 30
@@ -15968,7 +15968,7 @@ MonoBehaviour:
     useCircleAreaInstead: 1
     circlePoint: {x: 1061.65, y: 938.30005}
     circleRadius: 55.350006
-  - plantPrefab: {fileID: 5761887061491630803, guid: 379ee97455755ad43899865e7b0b44d7,
+  - plantPrefab: {fileID: 9115699314517816982, guid: 0d43f146588de6545a24ec107d02ae0f,
       type: 3}
     plantName: Placehoda Bud
     spawnChancePercent: 30
