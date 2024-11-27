@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMainframe : MonoBehaviour
 {
@@ -39,7 +40,6 @@ public class GameMainframe : MonoBehaviour
 
         if (objectPools.TryGetValue(poolName, out List<GameObject> z) && objectPools[poolName].Find(obj => obj.name.Contains(poolName)))
         { 
-            // WIP: GETS OBJECT FROM THE "TOP", WHICH MAY CAUSE PROBLEMS (SUCH AS TEXT NOT UPDATING). LOOK INTO IT
             objChosen = objectPools[poolName][0];
             objectPools[poolName].Remove(objChosen);
             objLoaded?.Invoke(objChosen);
@@ -138,6 +138,8 @@ public class GameMainframe : MonoBehaviour
         if (titleAnimStarted)
             yield return null;
 
+        audioMngr.ReflushInitAmbiences();
+
         titleAnimStarted = true;
 
         audioMngr.PlayAMBPersistent("gamestart");
@@ -175,27 +177,26 @@ public class GameMainframe : MonoBehaviour
         yield return null;
 	}
 
-    void SetUpObjs()
+    public void SetUpObjs()
     {
-        if (TryGetComponent(out AudioManager amg))
+        if (audioMngr == null && GameObject.Find("AudioManager").TryGetComponent(out AudioManager amg))
             audioMngr = amg;
 
-        if (GameObject.Find("Canvas/TitleUIGroup").TryGetComponent(out CanvasGroup t))
+        if (uiGroupTitle == null && GameObject.Find("Canvas/TitleUIGroup").TryGetComponent(out CanvasGroup t))
             uiGroupTitle = t;
 
-        if (GameObject.Find("Canvas/WhiteOut").TryGetComponent(out CanvasGroup wo))
+        if (uiGroupWhite == null && GameObject.Find("Canvas/WhiteOut").TryGetComponent(out CanvasGroup wo))
             uiGroupWhite = wo;
 
-        if (GameObject.Find("Canvas/PauseUIGroup").TryGetComponent(out CanvasGroup p))
+        if (uiGroupPause == null && GameObject.Find("Canvas/PauseUIGroup").TryGetComponent(out CanvasGroup p))
             uiGroupPause = p;
 
-        if (GameObject.Find("Canvas/HUD").TryGetComponent(out CanvasGroup h))
+        if (uiGroupHUD == null && GameObject.Find("Canvas/HUD").TryGetComponent(out CanvasGroup h))
             uiGroupHUD = h;
 
         if (!inTitle)
         {
-
-            if (GameObject.Find("Player").TryGetComponent(out PlayerController pcs))
+            if (playerContrScrpt == null && GameObject.Find("Player").TryGetComponent(out PlayerController pcs))
                 playerContrScrpt = pcs;
 
             uiGroupWhite.gameObject.SetActive(false);

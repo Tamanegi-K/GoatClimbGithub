@@ -8,6 +8,8 @@ public class AudioManager : MonoBehaviour
 {
     // Use FindObjectOfType<AudioManager>().Play("Name"); to play a sound
 
+    private List<GameObject> ambObjs = new List<GameObject>(), ambObjsPers = new List<GameObject>();
+
     [Header("Volume Control (will become actual UI soon")]
     [Range(0f, 1f)] public float volMaster = 1f;
     [Range(0f, 1f)] public float volBGM = 0.8f, volSFX = 1f, volAMB = 0.8f;
@@ -25,24 +27,32 @@ public class AudioManager : MonoBehaviour
     public float bgmCD;
     public float bgmCDmin = 6.5f, bgmCDmax = 16.2f;
 
-    void Awake()
-    {
-        //DontDestroyOnLoad(gameObject);
+    #region SINGLETON
+    // Singleton for AudioManager
+    private static AudioManager itsMe;
+    public static AudioManager GetInstance() => itsMe;
 
-        //LoadArray(bgm);
-        //LoadArray(sfx);
-        //LoadArray(sfxUI);
-        //LoadArray(sfxSteps);
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+
+        if (itsMe != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            itsMe = this;
+        }
     }
+    #endregion
 
     private void Start()
     {
         bgmCD = Random.Range(bgmCDmin * 10f, bgmCDmax * 20f);
 
         // Ambiences
-        PlayAMB("waterfall", new Vector3(200f, 15, 228f));
-        PlayAMB("river", new Vector3(640f, 15, 501f));
-        if (!GameMainframe.GetInstance().inTitle) PlayAMBPersistent("nature"); // NOTE TO TAMS: THIS IS A SHITTY BAND AID METHOD, FIX IT ASAP
+        ReflushInitAmbiences();
     }
 
 	private void Update()
@@ -143,8 +153,11 @@ public class AudioManager : MonoBehaviour
 
                     SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
                     swBhv.SetUpSoundwave(pos, a.clip, a.volume * volMaster * volBGM, a.pitch, a.pitchRandoRange, a.spatialBlend, a.minDist, a.maxDist, a.loop);
+                    thisSoundwave.transform.parent = gameObject.transform;
 
                     thisSoundwave.GetComponent<AudioSource>().Play();
+
+                    ambObjs.Add(thisSoundwave);
                 }, singleSoundwave);
                 return;
             }
@@ -152,7 +165,7 @@ public class AudioManager : MonoBehaviour
         Debug.LogError("Couldn't find " + name);
     }
 
-    public void PlayAMBPersistent(string name)
+    public void PlayAMBPersistent(string name) // NOTEl AMBPersistent only works in game, NOT on the title screen
     {
         foreach (SoundFile a in amb)
         {
@@ -169,6 +182,8 @@ public class AudioManager : MonoBehaviour
                     thisSoundwave.transform.parent = playerCamPivot;
 
                     thisSoundwave.GetComponent<AudioSource>().Play();
+
+                    ambObjsPers.Add(thisSoundwave);
                 }, singleSoundwave);
                 return;
             }
@@ -185,9 +200,46 @@ public class AudioManager : MonoBehaviour
         {
             if (go.name == "Soundwave")
             {
-                go.GetComponent<AudioSource>().Stop();
+                go.GetComponent<SoundwaveBhv>().ForceStop();
             }
         }
+    }
+
+    public void StopAllAmb()
+	{
+        foreach (GameObject a in ambObjs)
+        {
+            a.GetComponent<SoundwaveBhv>().ForceStop();
+        }
+
+        foreach (GameObject ap in ambObjsPers)
+        {
+            ap.GetComponent<SoundwaveBhv>().ForceStop();
+        }
+    }
+
+    public void ReflushInitAmbiences()
+    {
+        int prevCountAmb = ambObjs.Count, prevCountAmbPers = ambObjsPers.Count;
+
+        PlayAMB("waterfall", new Vector3(200f, 15f, 228f));
+        PlayAMB("river", new Vector3(1000f, 15f, 350f));
+        if (!GameMainframe.GetInstance().inTitle) PlayAMBPersistent("nature");
+
+        while (prevCountAmb > 0)
+        {
+            ambObjs[0].GetComponent<SoundwaveBhv>().ForceStop();
+            ambObjs.RemoveAt(0);
+            prevCountAmb -= 1;
+        }
+        
+        while (prevCountAmbPers > 0)
+        {
+            ambObjsPers[0].GetComponent<SoundwaveBhv>().ForceStop();
+            ambObjsPers.RemoveAt(0);
+            prevCountAmbPers -= 1;
+        }
+
     }
     
     // WIP REAL TIME VOLUME CONTROL FOR MUSIC AND AMBIENCE

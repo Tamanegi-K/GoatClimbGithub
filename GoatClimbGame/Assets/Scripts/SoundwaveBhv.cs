@@ -34,4 +34,10 @@ public class SoundwaveBhv : MonoBehaviour
 
         if (!audioSus.loop) lifetime = audioSus.clip.length;
 	}
+
+    public void ForceStop()
+	{
+        lifetime = 0;
+        audioSus.loop = false;
+	}
 }
