@@ -321,10 +321,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22b98f331aa71cb47978f97b7ec55e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camPivot: {fileID: 0}
-  orientation: {fileID: 0}
+  camPivot: {fileID: 4615140882002826463}
+  orientation: {fileID: 5340299070233766659}
+  camFarthestPoint: {fileID: 3966692199815455331}
   model: {fileID: 1122635068306442637}
-  stateAnimator: {fileID: 0}
+  camActual: {fileID: 6101818400584654896}
+  stateAnimator: {fileID: 2507508161798590384}
   plantCount: 0
   sensitivity: {x: 20, y: 15, z: 8}
   lookLimit: {x: -40, y: 10}
@@ -347,6 +349,11 @@ MonoBehaviour:
   currentHitDist: 0
   touchingGrass: 0
   plantLookAt: {fileID: 0}
+  camPushRadius: 0.5
+  camLayersToCheck:
+    serializedVersion: 2
+    m_Bits: 328
+  currentCamCastPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &8780325539837841268
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +469,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69cc4a802ee8fec4fa0a27e9d554bf23, type: 3}
+--- !u!95 &2507508161798590384 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3767418832424289594, guid: 69cc4a802ee8fec4fa0a27e9d554bf23,
+    type: 3}
+  m_PrefabInstance: {fileID: 1622696733553298058}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7156987149491478376 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8491048846847645154, guid: 69cc4a802ee8fec4fa0a27e9d554bf23,

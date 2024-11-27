@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7428400186326910791}
   m_Layer: 8
   m_Name: FlowerShop
-  m_TagString: EnvironObj
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 3358970182644751161}
   m_Layer: 8
   m_Name: FlowerShop_Door
-  m_TagString: Untagged
+  m_TagString: EnvironObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 5723489617109998642}
   m_Layer: 8
   m_Name: FlowerShop_GlassPanel
-  m_TagString: Untagged
+  m_TagString: EnvironObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 8975020437386503610}
   m_Layer: 8
   m_Name: FlowerShop_Body
-  m_TagString: Untagged
+  m_TagString: EnvironObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

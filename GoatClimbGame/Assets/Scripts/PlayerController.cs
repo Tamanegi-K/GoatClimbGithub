@@ -9,9 +9,10 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Component Inputs")]
     private GoatControls goatControls;
-    public Transform camPivot, orientation;
+    public Transform camPivot, orientation, camFarthestPoint;
     public Transform model;
     private Rigidbody rb;
+    public Camera camActual;
     public Animator stateAnimator;
 
     [Header("Variables")]
@@ -36,9 +37,12 @@ public class PlayerController : MonoBehaviour
     public float currentHitDist;
     public bool touchingGrass;
 
-    [Header("Plant Pickup Handling")]
+    [Header("Camera Handling")]
     public GameObject plantLookAt;
-    public RaycastHit camRC;
+    public RaycastHit camRC; // WIP: Activates when player physically LOOKS at the plant
+    public float camPushRadius = 0.5f;
+    public LayerMask camLayersToCheck;
+    public Vector3 currentCamCastPoint;
 
     void OnEnable()
     {
@@ -71,6 +75,9 @@ public class PlayerController : MonoBehaviour
         kbInputsDebug = goatControls.Defaults.Debug;
         speedInit = speed;
         speedMaxInit = speedMax;
+
+        camActual = camPivot.GetComponentInChildren<Camera>();
+        camFarthestPoint = camPivot.Find("FarthestPoint").transform;
     }
 
     // Update is called once per frame
@@ -90,7 +97,7 @@ public class PlayerController : MonoBehaviour
             zoomVal = Mathf.Clamp(zoomVal + (mouseWhl * Time.deltaTime * sensitivity.z), zoomLimit.x, zoomLimit.y);
         }
 
-        MoveCamBasedOnInputs();
+        MoveCamBasedOnInputs(); CameraPushHandling();
 
         // Mouse Interactions
         InputAction mouseLMB = goatControls.Defaults.Interaction;
@@ -145,10 +152,15 @@ public class PlayerController : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        // Display the explosion radius when selected
+        // Displays the spherecast for gravity detection
         Gizmos.color = Color.red;
         Debug.DrawLine(model.transform.position, model.transform.position + Vector3.down * currentHitDist);
         Gizmos.DrawWireSphere(model.transform.position + Vector3.down * currentHitDist, sphereCastRadius);
+
+        // Displays the spherecast for camera pushforward
+        Gizmos.color = Color.cyan;
+        Debug.DrawLine(camPivot.position, camFarthestPoint.position);
+        Gizmos.DrawWireSphere(currentCamCastPoint, camPushRadius);
 
         //Gizmos.DrawLine(camPivot.transform.position, camPivot.transform.position + (camPivot.transform.forward) * 50f);
         //Gizmos.DrawWireSphere(camPivot.transform.position, sphereCastRadius);
@@ -203,7 +215,7 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(rotLerpY - rotY) <= 0.08f)
             rotLerpY = rotY;
         else
-            rotLerpY = Mathf.Lerp(rotLerpY, rotY, Time.deltaTime * lerpFactorCam);
+            rotLerpY = Mathf.Lerp(rotLerpY, rotY, Time.deltaTime * lerpFactorCam); 
 
         // The actual camera rotating parts
         camPivot.transform.localRotation = Quaternion.Euler(rotLerpX, rotLerpY, 0f);
@@ -219,11 +231,17 @@ public class PlayerController : MonoBehaviour
 
         camPivot.localScale = new Vector3(zoomLerp, zoomLerp, zoomLerp);
 
-        // Camera position based on zoom
+        // Camera pivot position based on zoom
         // y = mx + b, x is zoomLimit, y is camYPos
         float m = (camYPos.y - camYPos.x) / (zoomLimit.y - zoomLimit.x); // slope
         float b = camYPos.y - (m * zoomLimit.y);
-        camPivot.localPosition = new Vector3(0f, (m * zoomLerp) + b, 0f);
+        camPivot.localPosition = new Vector3(0f, (m * zoomLerp) + b, 0f); // This is moving the PIVOT up/down based on zoom, it's still mostly centred on the player
+
+        // Actual camera's location
+        if (Mathf.Abs((camActual.transform.position - currentCamCastPoint).magnitude) <= 0.008f)
+            camActual.transform.position = currentCamCastPoint;
+        else
+            camActual.transform.position = Vector3.Lerp(camActual.transform.position, currentCamCastPoint, Time.deltaTime * lerpFactorCam);
     }
 
     void InteractTriggerHandling(InputAction.CallbackContext context)
@@ -303,5 +321,14 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+    }
+
+    public void CameraPushHandling()
+    {
+        RaycastHit rcCam;
+        if (Physics.Linecast(camPivot.position, camFarthestPoint.position, out rcCam, camLayersToCheck, QueryTriggerInteraction.UseGlobal))
+            currentCamCastPoint = rcCam.point;
+        else
+            currentCamCastPoint = camFarthestPoint.position;
     }
 }

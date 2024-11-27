@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 5041651796329148441}
   m_Layer: 8
   m_Name: BigTree_low
-  m_TagString: EnvironObj
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 388322829487882606}
   m_Layer: 8
   m_Name: BigTree_Body
-  m_TagString: Untagged
+  m_TagString: EnvironObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

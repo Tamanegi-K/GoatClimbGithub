@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -9177021260409994485}
   m_Layer: 8
   m_Name: LampPost
-  m_TagString: EnvironObj
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 2179791097468062365}
   - component: {fileID: 3995000694784480604}
   - component: {fileID: 5051481733341212756}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: LampPost_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

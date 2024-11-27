@@ -965,11 +965,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
-      propertyPath: camPivot
-      value: 
-      objectReference: {fileID: 296613106}
-    - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
-        type: 3}
       propertyPath: speedMax
       value: 10
       objectReference: {fileID: 0}
@@ -1000,19 +995,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
-      propertyPath: orientation
-      value: 
-      objectReference: {fileID: 744877340}
-    - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
-        type: 3}
       propertyPath: controlGiven
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
-        type: 3}
-      propertyPath: stateAnimator
-      value: 
-      objectReference: {fileID: 107383652}
     - target: {fileID: 7906858775401573166, guid: 1868a1da762c7994e86bc794f329c347,
         type: 3}
       propertyPath: sphereCastRadius
@@ -1131,12 +1116,6 @@ Behaviour:
 --- !u!20 &107383651 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 6101818400584654896, guid: 1868a1da762c7994e86bc794f329c347,
-    type: 3}
-  m_PrefabInstance: {fileID: 107383648}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &107383652 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2507508161798590384, guid: 1868a1da762c7994e86bc794f329c347,
     type: 3}
   m_PrefabInstance: {fileID: 107383648}
   m_PrefabAsset: {fileID: 0}
@@ -2910,12 +2889,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2436113708727293076, guid: f58f7389aa318ef479bd42fb0b061dd1,
     type: 3}
   m_PrefabInstance: {fileID: 294758591}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &296613106 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4615140882002826463, guid: 1868a1da762c7994e86bc794f329c347,
-    type: 3}
-  m_PrefabInstance: {fileID: 107383648}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &297143229
 PrefabInstance:
@@ -5715,12 +5688,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5148694648265511391, guid: 887580064f6d70046a2ed84c26d700ae,
     type: 3}
   m_PrefabInstance: {fileID: 730558459}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &744877340 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5340299070233766659, guid: 1868a1da762c7994e86bc794f329c347,
-    type: 3}
-  m_PrefabInstance: {fileID: 107383648}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &756389203
 PrefabInstance:
