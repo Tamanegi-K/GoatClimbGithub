@@ -176,7 +176,18 @@ public class AudioManager : MonoBehaviour
         {
             if (s.name == name)
             {
-                // TO DO: DO LIKE PLAYSFX()
+                GameMainframe.GetInstance().ObjectUse("Step", (thisSoundwave) =>
+                {
+                    Transform feetPoint = GameMainframe.GetInstance().playerContrScrpt.model;
+
+                    thisSoundwave.SetActive(true);
+                    thisSoundwave.name = "Step";
+                    SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
+                    swBhv.SetUpSoundwave(feetPoint.position, s.clip, s.volume * volMaster * volSFX, s.pitch, s.pitchRandoRange, s.spatialBlend, s.minDist, s.maxDist, s.loop);
+                    thisSoundwave.transform.parent = this.gameObject.transform;
+
+                    thisSoundwave.GetComponent<AudioSource>().Play();
+                }, singleSoundwave);
                 return;
             }
         }

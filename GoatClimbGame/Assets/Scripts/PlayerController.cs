@@ -313,6 +313,7 @@ public class PlayerController : MonoBehaviour
 
     public void TogglePlayerControl()
     {
+        GameMainframe.GetInstance().UpdateInventoryDisplay();
         if (controlGiven == true)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -338,11 +339,11 @@ public class PlayerController : MonoBehaviour
 	{
         if (!collectedPlants.ContainsKey(plantName))
         {
-            Debug.Log(plantName + " not in dictionary, created new entry");
+            //Debug.Log(plantName + " not in dictionary, created new entry");
             collectedPlants.Add(plantName, 0);
         }
 
         collectedPlants[plantName] += quantity;
-        Debug.Log(plantName + " - " + collectedPlants[plantName]);
+        //Debug.Log(plantName + " - " + collectedPlants[plantName]);
     }
 }

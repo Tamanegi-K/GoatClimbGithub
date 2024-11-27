@@ -10,13 +10,16 @@ public class GameMainframe : MonoBehaviour
     public SkinnedMeshRenderer goteMesh;
     public AudioManager audioMngr;
     public CanvasGroup uiGroupTitle, uiGroupWhite, uiGroupPause, uiGroupHUD;
+    public GameObject inventoryHUD;
     public bool inTitle = false;
 
     [Header("Variables")]
     private bool titleAnimStarted = false, gameStarted = false, gameSuspended = false;
+    private List<GameObject> invHudObjs = new List<GameObject>();
 
     [Header("Prefab Housing")]
     public GameObject hudPopupPrefab;
+    public GameObject hudInventoryPrefab;
 
     #region OBJECT POOLING
     public static Dictionary<string, List<GameObject>> objectPools = new Dictionary<string, List<GameObject>>();
@@ -108,7 +111,7 @@ public class GameMainframe : MonoBehaviour
             if (Mathf.Abs(uiGroupPause.alpha - 0f) <= 0.05f)
             {
                 uiGroupPause.alpha = 0f;
-                uiGroupPause.gameObject.SetActive(false);
+                //uiGroupPause.gameObject.SetActive(false);
             }
             else
                 uiGroupPause.alpha = Mathf.Lerp(uiGroupPause.alpha, 0f, Time.deltaTime * 6.9f);
@@ -170,6 +173,7 @@ public class GameMainframe : MonoBehaviour
         playerContrScrpt.TogglePlayerControl();
         audioMngr.ForceBGMCD(Random.Range(audioMngr.bgmCDmin * 10f, audioMngr.bgmCDmax * 10f));
         gameStarted = true;
+        gameSuspended = false;
 
         // White fading out
         for (float i = 0; i < 1f; i += Time.deltaTime)
@@ -179,7 +183,6 @@ public class GameMainframe : MonoBehaviour
         }
         yield return new WaitForSeconds(0.5f);
 
-        gameSuspended = false;
 
         yield return null;
 	}
@@ -196,7 +199,10 @@ public class GameMainframe : MonoBehaviour
             uiGroupWhite = wo;
 
         if (uiGroupPause == null && GameObject.Find("Canvas/PauseUIGroup").TryGetComponent(out CanvasGroup p))
+		{
             uiGroupPause = p;
+            inventoryHUD = p.transform.Find("InventoryBG/InventoryDisplay").gameObject;
+		}
 
         if (uiGroupHUD == null && GameObject.Find("Canvas/HUD").TryGetComponent(out CanvasGroup h))
             uiGroupHUD = h;
@@ -209,8 +215,41 @@ public class GameMainframe : MonoBehaviour
                 goteMesh = playerContrScrpt.gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
             }
 
-            uiGroupWhite.gameObject.SetActive(false);
-            uiGroupPause.gameObject.SetActive(false);
+            uiGroupWhite.gameObject.SetActive(true); uiGroupWhite.alpha = 0f;
+            uiGroupPause.gameObject.SetActive(true); uiGroupPause.alpha = 0f;
+        }
+    }
+
+    public void UpdateInventoryDisplay()
+	{
+        //InventoryItemBhv[] children = inventoryHUD.GetComponentsInChildren<InventoryItemBhv>(true);
+        // Flush
+        foreach (GameObject i in invHudObjs)
+        {
+            ObjectEnd("InvItem", i);
+            i.SetActive(false);
+        }
+
+        invHudObjs.Clear();
+
+        // Recreate
+        if (playerContrScrpt.collectedPlants.Count > 0)
+        {
+            foreach (KeyValuePair<string, int> thing in playerContrScrpt.collectedPlants)
+            {
+                ObjectUse("InvItem", (ii) =>
+                {
+                    InventoryItemBhv iiIib = ii.GetComponent<InventoryItemBhv>();
+                    ii.name = "InvItem";
+
+                    iiIib.SetInvText(thing.Key, thing.Value);
+
+                    ii.transform.SetParent(inventoryHUD.transform);
+                    ii.SetActive(true);
+
+                    invHudObjs.Add(ii);
+                }, hudInventoryPrefab);
+            }
         }
     }
 }

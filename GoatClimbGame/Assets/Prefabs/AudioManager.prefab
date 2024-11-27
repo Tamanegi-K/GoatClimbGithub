@@ -91,7 +91,47 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   sfxUI: []
-  sfxSteps: []
+  sfxSteps:
+  - name: grass1
+    clip: {fileID: 8300000, guid: 444c67ae2c794b142bbb2065548c7912, type: 3}
+    volume: 0.35
+    pitch: 1
+    pitchRandoRange: 0.1
+    spatialBlend: 0.675
+    minDist: 7
+    maxDist: 20
+    loop: 0
+    source: {fileID: 0}
+  - name: grass2
+    clip: {fileID: 8300000, guid: 798b846fca5fd5f468515f1e66730bd8, type: 3}
+    volume: 0.35
+    pitch: 1
+    pitchRandoRange: 0.1
+    spatialBlend: 0.675
+    minDist: 7
+    maxDist: 20
+    loop: 0
+    source: {fileID: 0}
+  - name: grass3
+    clip: {fileID: 8300000, guid: 882c1095d9474d34995020ce6a375bd4, type: 3}
+    volume: 0.35
+    pitch: 1
+    pitchRandoRange: 0.1
+    spatialBlend: 0.675
+    minDist: 7
+    maxDist: 20
+    loop: 0
+    source: {fileID: 0}
+  - name: grass4
+    clip: {fileID: 8300000, guid: bb25faf142bb8cb49833d1631cfa8b14, type: 3}
+    volume: 0.35
+    pitch: 1
+    pitchRandoRange: 0.1
+    spatialBlend: 0.675
+    minDist: 7
+    maxDist: 20
+    loop: 0
+    source: {fileID: 0}
   amb:
   - name: gamestart
     clip: {fileID: 8300000, guid: 4285a5dcc7833dd45bc3c5ae6c766ab1, type: 3}
