@@ -10,7 +10,8 @@ public class GameMainframe : MonoBehaviour
     public SkinnedMeshRenderer goteMesh;
     public AudioManager audioMngr;
     public CanvasGroup uiGroupTitle, uiGroupWhite, uiGroupPause, uiGroupHUD;
-    public GameObject inventoryHUD;
+    private RectTransform pauseUp, pauseLeft, pauseRight;
+    public GameObject inventoryDisplay;
     public bool inTitle = false;
 
     [Header("Variables")]
@@ -92,6 +93,11 @@ public class GameMainframe : MonoBehaviour
     void Start()
     {
         SetUpObjs();
+
+        // Pause Menu stuff
+        pauseUp = uiGroupPause.transform.Find("PauseTitle").GetComponent<RectTransform>();
+        pauseLeft = uiGroupPause.transform.Find("InventoryBG").GetComponent<RectTransform>();
+        pauseRight = uiGroupPause.transform.Find("InvDescGroup").GetComponent<RectTransform>();
     }
 
 	void Update()
@@ -102,9 +108,21 @@ public class GameMainframe : MonoBehaviour
             uiGroupPause.gameObject.SetActive(true);
 
             if (Mathf.Abs(uiGroupPause.alpha - 1f) <= 0.05f)
+			{
                 uiGroupPause.alpha = 1f;
+
+                pauseUp.anchoredPosition = Vector3.zero;
+                pauseLeft.anchoredPosition = new Vector3(0f, -64f, 0f);
+                pauseRight.anchoredPosition = Vector3.zero;
+            }
             else
+			{
                 uiGroupPause.alpha = Mathf.Lerp(uiGroupPause.alpha, 1f, Time.deltaTime * 6.9f);
+
+                pauseUp.anchoredPosition = Vector3.Lerp(pauseUp.anchoredPosition, Vector3.zero, Time.deltaTime * 14f);
+                pauseLeft.anchoredPosition = Vector3.Lerp(pauseLeft.anchoredPosition, new Vector3(0f, -64f, 0f), Time.deltaTime * 14f);
+                pauseRight.anchoredPosition = Vector3.Lerp(pauseRight.anchoredPosition, Vector3.zero, Time.deltaTime * 14f);
+            }
         }
         else
         {
@@ -112,9 +130,19 @@ public class GameMainframe : MonoBehaviour
             {
                 uiGroupPause.alpha = 0f;
                 //uiGroupPause.gameObject.SetActive(false);
+
+                pauseUp.anchoredPosition = new Vector3(0f, 192f, 0f);
+                pauseLeft.anchoredPosition = new Vector3(-1024f, -64f, 0f);
+                pauseRight.anchoredPosition = new Vector3(1024f, 0f, 0f);
             }
             else
+			{
                 uiGroupPause.alpha = Mathf.Lerp(uiGroupPause.alpha, 0f, Time.deltaTime * 6.9f);
+
+                pauseUp.anchoredPosition = Vector3.Lerp(pauseUp.anchoredPosition, new Vector3(0f, 192f, 0f), Time.deltaTime * 8f);
+                pauseLeft.anchoredPosition = Vector3.Lerp(pauseLeft.anchoredPosition, new Vector3(-1024f, -64f, 0f), Time.deltaTime * 8f);
+                pauseRight.anchoredPosition = Vector3.Lerp(pauseRight.anchoredPosition, new Vector3(1024f, -0, 0f), Time.deltaTime * 8f);
+            }
         }
     }
     public bool GetTitleStartedState()
@@ -167,6 +195,7 @@ public class GameMainframe : MonoBehaviour
             uiGroupTitle.alpha -= Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
+        uiGroupTitle.alpha = 0f;
         yield return new WaitForSeconds(0.5f);
 
         playerContrScrpt.controlGiven = true;
@@ -201,7 +230,7 @@ public class GameMainframe : MonoBehaviour
         if (uiGroupPause == null && GameObject.Find("Canvas/PauseUIGroup").TryGetComponent(out CanvasGroup p))
 		{
             uiGroupPause = p;
-            inventoryHUD = p.transform.Find("InventoryBG/InventoryDisplay").gameObject;
+            inventoryDisplay = p.transform.Find("InventoryBG/InventoryScrollBounds/InventoryDisplay").gameObject;
 		}
 
         if (uiGroupHUD == null && GameObject.Find("Canvas/HUD").TryGetComponent(out CanvasGroup h))
@@ -222,7 +251,7 @@ public class GameMainframe : MonoBehaviour
 
     public void UpdateInventoryDisplay()
 	{
-        //InventoryItemBhv[] children = inventoryHUD.GetComponentsInChildren<InventoryItemBhv>(true);
+        //InventoryItemBhv[] children = inventoryDisplay.GetComponentsInChildren<InventoryItemBhv>(true);
         // Flush
         foreach (GameObject i in invHudObjs)
         {
@@ -242,9 +271,20 @@ public class GameMainframe : MonoBehaviour
                     InventoryItemBhv iiIib = ii.GetComponent<InventoryItemBhv>();
                     ii.name = "InvItem";
 
-                    iiIib.SetInvText(thing.Key, thing.Value);
+                    // Find the display object's prefab (A LITTLE BACK ASSWARDS BUT FUCK IT
+                    GameObject foundDispObj = null;
+                    foreach (PlantSpawning.OnePlantInfo pi in GetComponent<PlantSpawning>().plantMasterlist)
+					{
+                        if (pi.plantName == thing.Key)
+						{
+                            if (pi.plantPickedup != null) foundDispObj = pi.plantPickedup;
+                            else foundDispObj = pi.plantOnfield;
+                            break;
+                        }
+                    }
+                    iiIib.SetupInvDisplay(thing.Key, thing.Value, foundDispObj);
 
-                    ii.transform.SetParent(inventoryHUD.transform);
+                    ii.transform.SetParent(inventoryDisplay.transform);
                     ii.SetActive(true);
 
                     invHudObjs.Add(ii);

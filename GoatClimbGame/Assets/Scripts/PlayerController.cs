@@ -246,12 +246,14 @@ public class PlayerController : MonoBehaviour
             camActual.transform.position = Vector3.Lerp(camActual.transform.position, currentCamCastPoint, Time.deltaTime * lerpFactorCam);
     }
 
-    void InteractTriggerHandling(InputAction.CallbackContext context)
+    void InteractTriggerHandling(InputAction.CallbackContext context) // actions when LMB is clicked
     {
+        // For starting the game
         if (!controlGiven && !GameMainframe.GetInstance().GetTitleStartedState())
         {
             StartCoroutine(GameMainframe.GetInstance().ToggleTitleFade());
         }
+        // For picking up a flower
         else if (controlGiven && plantLookAt != null)
         {
             // If plant can be picked up, pick it up, otherwise don't do anything
@@ -286,7 +288,7 @@ public class PlayerController : MonoBehaviour
             GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
             {
                 PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
-                hppPPB.SetPopupText("Debug Mode Enabled - GO FAST.");
+                hppPPB.SetupDisplay("Debug Mode Enabled - GO FAST.", null);
                 hpp.name = "HUDPopup";
 
                 hpp.transform.SetParent(null);
@@ -301,7 +303,7 @@ public class PlayerController : MonoBehaviour
             GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
             {
                 PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
-                hppPPB.SetPopupText("Debug Mode Disabled");
+                hppPPB.SetupDisplay("Debug Mode Disabled", null);
                 hpp.name = "HUDPopup";
 
                 hpp.transform.SetParent(null);

@@ -8,14 +8,34 @@ public class PlantSpawning : MonoBehaviour
     // Tutorial here:
     // https://www.youtube.com/watch?v=gfD8S32xzYI
 
+    public enum PlantColour {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE, WHITE};
+    public enum PlantSpecials { NONE, GLOWING, RARE, NIGHTBLOOM }
+
+    #region Plant Masterlist
+    [System.Serializable]
+    public class OnePlantInfo
+    {
+        public GameObject plantOnfield, plantPickedup;
+        public string plantName;
+        public PlantColour plantCol;
+        public PlantSpecials plantTag;
+        public string plantDesc;
+    }
+
+    [SerializeField]
+    public OnePlantInfo[] plantMasterlist;
+    #endregion
+
     #region Plant Spawning Details
     // WARNING - IF ANY PARTS OF THE CODE IN THIS REGION HAS BEEN EDITED, THE INFO INPUTTED IN THE INSPECTOR WILL RESET
     [System.Serializable]
     public class OnePlantSpawn
 	{
         [Header("Spawning Settings")]
-        public GameObject plantPrefab;
-        public string plantName;
+        //public GameObject plantPrefab;
+        //public string plantName;
+        [Tooltip("Based off the Element Num written Plant Masterlist")] public int indexOfPlant;
+        [Tooltip("Amount received when picked")] public int amtWhenPicked;
         public float spawnChancePercent;
         public int minClusterAmt;
 
@@ -102,38 +122,47 @@ public class PlantSpawning : MonoBehaviour
                         RaycastHit hit;
                         if (Physics.Raycast(new Vector3(x, thisPlant.heightOfCheck, z), Vector3.down, out hit, thisPlant.rangeOfCheck, thisPlant.layerToCheck))
                         {
+                            // Spawn frequency of plant based on the percent chance defined - for circular area
                             if (thisPlant.useCircleAreaInstead && (new Vector2(x, z) - thisPlant.circlePoint).magnitude <= thisPlant.circleRadius && thisPlant.spawnChancePercent > Random.Range(0f, 100f))
 							{
                                 // Using object pooling to spawn plants - see GameMainframe for object pooling usage
-                                GameMainframe.GetInstance().ObjectUse(thisPlant.plantName, (singlePlant) =>
+                                GameMainframe.GetInstance().ObjectUse(plantMasterlist[thisPlant.indexOfPlant].plantName /*thisPlant.plantName*/, (singlePlant) =>
                                 {
                                     // Defining this one spawned object's properties
-                                    singlePlant.name = thisPlant.plantName;
+                                    singlePlant.name = plantMasterlist[thisPlant.indexOfPlant].plantName /*thisPlant.plantName*/;
                                     singlePlant.transform.position = hit.point + new Vector3 (Random.Range(-3f, 3f), 0f, Random.Range(-3f, 3f));
                                     singlePlant.transform.eulerAngles = new Vector3(0f, Random.Range(-65f, 65f), 0f);
                                     singlePlant.transform.parent = this.gameObject.transform;
 
+                                    PlantBhv singlePlantPBHV = singlePlant.GetComponent<PlantBhv>();
+                                    singlePlantPBHV.SetPickupQty(thisPlant.amtWhenPicked); // setting amount to give when picked up
+                                    singlePlantPBHV.SetPickedPrefab(plantMasterlist[thisPlant.indexOfPlant].plantPickedup); // setting object displays
+
                                     singlePlant.SetActive(true);
-                                }, thisPlant.plantPrefab);
+                                }, plantMasterlist[thisPlant.indexOfPlant].plantOnfield /*thisPlant.plantPrefab*/);
 
                                 spawnedCount += 1;
                                 //Debug.LogWarning("spawned, no. " + spawnedCount);
                             }
 
-                            // Spawn frequency of plant based on the percent chance defined
+                            // same thing as above but for non circular areas
                             else if (!thisPlant.useCircleAreaInstead && thisPlant.spawnChancePercent > Random.Range(0f, 100f))
                             {
                                 // Using object pooling to spawn plants - see GameMainframe for object pooling usage
-                                GameMainframe.GetInstance().ObjectUse(thisPlant.plantName, (singlePlant) =>
+                                GameMainframe.GetInstance().ObjectUse(plantMasterlist[thisPlant.indexOfPlant].plantName /*thisPlant.plantName*/, (singlePlant) =>
                                 {
                                     // Defining this one spawned object's properties
-                                    singlePlant.name = thisPlant.plantName;
+                                    singlePlant.name = plantMasterlist[thisPlant.indexOfPlant].plantName /*thisPlant.plantName*/;
                                     singlePlant.transform.position = hit.point + new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-3f, 3f));
                                     singlePlant.transform.eulerAngles = new Vector3(0f, Random.Range(-65f, 65f), 0f);
                                     singlePlant.transform.parent = this.gameObject.transform;
 
+                                    PlantBhv singlePlantPBHVscr = singlePlant.GetComponent<PlantBhv>(); // code shortening
+                                    singlePlantPBHVscr.SetPickupQty(thisPlant.amtWhenPicked); // setting amount to give when picked up
+                                    singlePlantPBHVscr.SetPickedPrefab(plantMasterlist[thisPlant.indexOfPlant].plantPickedup); // setting object displays
+
                                     singlePlant.SetActive(true);
-                                }, thisPlant.plantPrefab);
+                                }, plantMasterlist[thisPlant.indexOfPlant].plantOnfield /*thisPlant.plantPrefab*/);
 
                                 spawnedCount += 1;
                                 //Debug.LogWarning("spawned, no. " + spawnedCount);
@@ -146,7 +175,7 @@ public class PlantSpawning : MonoBehaviour
                 {
                     if (strikes >= 3)
 					{
-                        Debug.LogError("Loop broken for " + thisPlant.plantName + " spawning - either the spawnChance & minClusterAmt is too small, or the spawn area is unable to find the terrain.");
+                        Debug.LogError("Loop broken for " + plantMasterlist[thisPlant.indexOfPlant].plantName + " spawning - either the spawnChance & minClusterAmt is too small, or the spawn area is unable to find the terrain.");
                         break;
 					}
                     else

@@ -7,6 +7,8 @@ public class PlantBhv : MonoBehaviour
 {
     [Header("Inputs")]
     public GameObject billboardUI;
+    public GameObject pickedPrefab;
+    private int amtWhenPicked;
 
     // Start is called before the first frame update
     void Start()
@@ -34,12 +36,33 @@ public class PlantBhv : MonoBehaviour
         }
     }
 
+    public void SetPickupQty(int x)
+	{
+        // if pickup qty is less than 1, it'll be at least 1 (for me, who'll definitely forget)
+        if (x < 1) x = 1;
+
+        amtWhenPicked = x;
+	}
+
+    public void SetPickedPrefab(GameObject go)
+	{
+        if (go != null)
+            pickedPrefab = go;
+        else
+            pickedPrefab = this.gameObject;
+	}
+
+    public GameObject GetPickedPrefab()
+	{
+        return pickedPrefab;
+	}
+
     public int PickMeUp()
     {
         StartCoroutine(PickUpAnim());
         GameMainframe.GetInstance().ObjectEnd(name, this.gameObject);
         GameMainframe.GetInstance().audioMngr.PlaySFX("pickup" + Random.Range(1, 3), transform.position);
-        return 1;
+        return amtWhenPicked;
 	}
 
     IEnumerator PickUpAnim()
@@ -61,11 +84,12 @@ public class PlantBhv : MonoBehaviour
         GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
         {
             PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
-            hppPPB.SetPopupText(gameObject.name);
+            hppPPB.SetupDisplay(gameObject.name, pickedPrefab);
             hpp.name = "HUDPopup";
 
             hpp.transform.SetParent(null);
             hpp.transform.SetParent(GameMainframe.GetInstance().uiGroupHUD.transform);
+            hpp.GetComponent<RectTransform>().localScale = new Vector3(1f, 1f, 1f);
             hpp.SetActive(true);
         }, GameMainframe.GetInstance().hudPopupPrefab);
         

@@ -8,12 +8,14 @@ public class PickupPopupBhv : MonoBehaviour
     public float lifetime;
     public CanvasGroup cvGrp;
     public TextMeshProUGUI tmp;
+    public GameObject objHolder;
 
     // Start is called before the first frame update
     void Start()
     {
         if (cvGrp == null) cvGrp = transform.GetComponent<CanvasGroup>();
         if (tmp == null) tmp = transform.Find("PopupBG").Find("PopupTxt").GetComponent<TextMeshProUGUI>();
+        if (objHolder == null) objHolder = transform.Find("PopupBG L/ObjHolder").gameObject;
     }
 
     // Update is called once per frame
@@ -21,7 +23,7 @@ public class PickupPopupBhv : MonoBehaviour
     {
         if (lifetime > 0f)
         {
-            if (GetComponent<RectTransform>().anchoredPosition.y > -600f) //NOTE: This doesn't work for some reason - it's supposed to not let popups outside of the screen decay so that we can see what's going on
+            if (GetComponent<RectTransform>().anchoredPosition.y > -600f)
             {
                 lifetime -= Time.deltaTime;
             }
@@ -42,10 +44,31 @@ public class PickupPopupBhv : MonoBehaviour
         }
     }
 
-    public void SetPopupText(string input)
+    public void SetupDisplay(string input, GameObject go)
 	{
         tmp.text = "";
         tmp.text = input;
         lifetime = 5f;
-	}
+
+        // Erasing the display object
+        foreach (Transform c in objHolder.transform)
+		{
+            GameMainframe.GetInstance().ObjectEnd(input + "Picked", c.gameObject);
+		}
+
+        if (go == null) return; // if there's no object to display, skip the next bit
+
+        // Reinserting the display object
+        GameMainframe.GetInstance().ObjectUse(input + "Picked", (pickedDisplay) =>
+        {
+            pickedDisplay.name = input + "Picked";
+            pickedDisplay.transform.SetParent(null);
+            pickedDisplay.transform.SetParent(objHolder.transform);
+
+            pickedDisplay.transform.localPosition = Vector3.zero;
+            pickedDisplay.transform.localEulerAngles = Vector3.zero;
+            pickedDisplay.transform.localScale = Vector3.one;
+        }, go);
+
+    }
 }
