@@ -42,21 +42,23 @@ public class InventoryItemBhv : MonoBehaviour
         // Erasing the display object
         foreach (Transform c in objHolder.transform)
         {
-            GameMainframe.GetInstance().ObjectEnd(input + "Picked", c.gameObject);
+            c.transform.SetParent(null);
+            GameMainframe.GetInstance().ObjectEnd(c.name, c.gameObject);
+            c.gameObject.SetActive(false);
         }
 
         if (go == null) return; // if there's no object to display, skip the next bit
 
         // Reinserting the display object
-        GameMainframe.GetInstance().ObjectUse(input + "Picked", (pickedDisplay) =>
+        GameMainframe.GetInstance().ObjectUse(input + "Inv", (pickedDisplay) =>
         {
-            pickedDisplay.name = input + "Picked";
-            pickedDisplay.transform.SetParent(null);
+            pickedDisplay.name = pickedDisplay.name.Contains("Inv") ? pickedDisplay.name : input + "Inv";
             pickedDisplay.transform.SetParent(objHolder.transform);
 
             pickedDisplay.transform.localPosition = Vector3.zero;
             pickedDisplay.transform.localEulerAngles = Vector3.zero;
             pickedDisplay.transform.localScale = Vector3.one;
+            pickedDisplay.gameObject.SetActive(true);
         }, go);
     }
 }

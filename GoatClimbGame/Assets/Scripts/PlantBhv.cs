@@ -84,7 +84,7 @@ public class PlantBhv : MonoBehaviour
         GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
         {
             PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
-            hppPPB.SetupDisplay(gameObject.name, pickedPrefab);
+            hppPPB.SetupDisplay(gameObject.name, pickedPrefab, amtWhenPicked);
             hpp.name = "HUDPopup";
 
             hpp.transform.SetParent(null);

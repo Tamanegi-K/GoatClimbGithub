@@ -129,14 +129,15 @@ public class PlantSpawning : MonoBehaviour
                                 GameMainframe.GetInstance().ObjectUse(plantMasterlist[thisPlant.indexOfPlant].plantName /*thisPlant.plantName*/, (singlePlant) =>
                                 {
                                     // Defining this one spawned object's properties
-                                    singlePlant.name = plantMasterlist[thisPlant.indexOfPlant].plantName /*thisPlant.plantName*/;
                                     singlePlant.transform.position = hit.point + new Vector3 (Random.Range(-3f, 3f), 0f, Random.Range(-3f, 3f));
                                     singlePlant.transform.eulerAngles = new Vector3(0f, Random.Range(-65f, 65f), 0f);
                                     singlePlant.transform.parent = this.gameObject.transform;
 
-                                    PlantBhv singlePlantPBHV = singlePlant.GetComponent<PlantBhv>();
+                                    PlantBhv singlePlantPBHV = singlePlant.GetComponentInChildren<PlantBhv>(); // code shortening
                                     singlePlantPBHV.SetPickupQty(thisPlant.amtWhenPicked); // setting amount to give when picked up
                                     singlePlantPBHV.SetPickedPrefab(plantMasterlist[thisPlant.indexOfPlant].plantPickedup); // setting object displays
+
+                                    singlePlantPBHV.gameObject.name = plantMasterlist[thisPlant.indexOfPlant].plantName /*thisPlant.plantName*/; // set up plant name (only applies to object that's affected by animation)
 
                                     singlePlant.SetActive(true);
                                 }, plantMasterlist[thisPlant.indexOfPlant].plantOnfield /*thisPlant.plantPrefab*/);
@@ -152,14 +153,15 @@ public class PlantSpawning : MonoBehaviour
                                 GameMainframe.GetInstance().ObjectUse(plantMasterlist[thisPlant.indexOfPlant].plantName /*thisPlant.plantName*/, (singlePlant) =>
                                 {
                                     // Defining this one spawned object's properties
-                                    singlePlant.name = plantMasterlist[thisPlant.indexOfPlant].plantName /*thisPlant.plantName*/;
                                     singlePlant.transform.position = hit.point + new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-3f, 3f));
                                     singlePlant.transform.eulerAngles = new Vector3(0f, Random.Range(-65f, 65f), 0f);
                                     singlePlant.transform.parent = this.gameObject.transform;
 
-                                    PlantBhv singlePlantPBHVscr = singlePlant.GetComponent<PlantBhv>(); // code shortening
-                                    singlePlantPBHVscr.SetPickupQty(thisPlant.amtWhenPicked); // setting amount to give when picked up
-                                    singlePlantPBHVscr.SetPickedPrefab(plantMasterlist[thisPlant.indexOfPlant].plantPickedup); // setting object displays
+                                    PlantBhv singlePlantPBHV = singlePlant.GetComponentInChildren<PlantBhv>(); // code shortening
+                                    singlePlantPBHV.SetPickupQty(thisPlant.amtWhenPicked); // setting amount to give when picked up
+                                    singlePlantPBHV.SetPickedPrefab(plantMasterlist[thisPlant.indexOfPlant].plantPickedup); // setting object displays
+
+                                    singlePlantPBHV.gameObject.name = plantMasterlist[thisPlant.indexOfPlant].plantName /*thisPlant.plantName*/; // set up plant name (only applies to object that's affected by animation
 
                                     singlePlant.SetActive(true);
                                 }, plantMasterlist[thisPlant.indexOfPlant].plantOnfield /*thisPlant.plantPrefab*/);

@@ -7777,7 +7777,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 917543491}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 1
@@ -8167,70 +8167,80 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 25947480}
     m_Modifications:
-    - target: {fileID: 1454297930860510686, guid: 0d43f146588de6545a24ec107d02ae0f,
+    - target: {fileID: 451565063866945698, guid: 1272550f7815adb4ab12efe9f3a8bbce,
+        type: 3}
+      propertyPath: m_Name
+      value: FlowerGoldenbells
+      objectReference: {fileID: 0}
+    - target: {fileID: 451565063866945698, guid: 1272550f7815adb4ab12efe9f3a8bbce,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1994557497449429757, guid: 1272550f7815adb4ab12efe9f3a8bbce,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1454297930860510686, guid: 0d43f146588de6545a24ec107d02ae0f,
+    - target: {fileID: 1994557497449429757, guid: 1272550f7815adb4ab12efe9f3a8bbce,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1454297930860510686, guid: 0d43f146588de6545a24ec107d02ae0f,
+    - target: {fileID: 1994557497449429757, guid: 1272550f7815adb4ab12efe9f3a8bbce,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1454297930860510686, guid: 0d43f146588de6545a24ec107d02ae0f,
+    - target: {fileID: 1994557497449429757, guid: 1272550f7815adb4ab12efe9f3a8bbce,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1454297930860510686, guid: 0d43f146588de6545a24ec107d02ae0f,
+    - target: {fileID: 1994557497449429757, guid: 1272550f7815adb4ab12efe9f3a8bbce,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1454297930860510686, guid: 0d43f146588de6545a24ec107d02ae0f,
+    - target: {fileID: 1994557497449429757, guid: 1272550f7815adb4ab12efe9f3a8bbce,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1454297930860510686, guid: 0d43f146588de6545a24ec107d02ae0f,
+    - target: {fileID: 1994557497449429757, guid: 1272550f7815adb4ab12efe9f3a8bbce,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1454297930860510686, guid: 0d43f146588de6545a24ec107d02ae0f,
+    - target: {fileID: 1994557497449429757, guid: 1272550f7815adb4ab12efe9f3a8bbce,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1454297930860510686, guid: 0d43f146588de6545a24ec107d02ae0f,
+    - target: {fileID: 1994557497449429757, guid: 1272550f7815adb4ab12efe9f3a8bbce,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1454297930860510686, guid: 0d43f146588de6545a24ec107d02ae0f,
+    - target: {fileID: 1994557497449429757, guid: 1272550f7815adb4ab12efe9f3a8bbce,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9115699314517816982, guid: 0d43f146588de6545a24ec107d02ae0f,
+    - target: {fileID: 7934792076208407933, guid: 1272550f7815adb4ab12efe9f3a8bbce,
         type: 3}
-      propertyPath: m_Name
-      value: FlowerType1
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3993203527140296477, guid: 0d43f146588de6545a24ec107d02ae0f,
+    - targetCorrespondingSourceObject: {fileID: 3015923254535904612, guid: 1272550f7815adb4ab12efe9f3a8bbce,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-  m_SourcePrefab: {fileID: 100100000, guid: 0d43f146588de6545a24ec107d02ae0f, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 1272550f7815adb4ab12efe9f3a8bbce, type: 3}
 --- !u!1001 &957308793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9201,7 +9211,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1076395696 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 1454297930860510686, guid: 0d43f146588de6545a24ec107d02ae0f,
+  m_CorrespondingSourceObject: {fileID: 1994557497449429757, guid: 1272550f7815adb4ab12efe9f3a8bbce,
     type: 3}
   m_PrefabInstance: {fileID: 934201748}
   m_PrefabAsset: {fileID: 0}
@@ -17073,7 +17083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantMasterlist:
-  - plantOnfield: {fileID: 9115699314517816982, guid: 0d43f146588de6545a24ec107d02ae0f,
+  - plantOnfield: {fileID: 451565063866945698, guid: 1272550f7815adb4ab12efe9f3a8bbce,
       type: 3}
     plantPickedup: {fileID: 0}
     plantName: Goldenbells
@@ -17081,6 +17091,44 @@ MonoBehaviour:
     plantTag: 0
     plantDesc: An array of flowers resembling little hand bells. Rumours say that
       when pollinated, they make a gentle jingling sound.
+  - plantOnfield: {fileID: 8582112572557416182, guid: 698b6ae87fdef9e43a6ce219fa90de80,
+      type: 3}
+    plantPickedup: {fileID: 9165188540876562663, guid: 777ebe202c14aa84bb45cc42dd5ec2bf,
+      type: 3}
+    plantName: Hyacinth
+    plantCol: 5
+    plantTag: 0
+    plantDesc: A fragrant flowering plant that thrives on one stem. It is said that
+      the flowers were grown from the blood of a god that embraced love.
+  - plantOnfield: {fileID: 3040383729424543426, guid: a74a62b18d20755428cab01af400bafd,
+      type: 3}
+    plantPickedup: {fileID: 8981978352180708568, guid: 1bd5f6297a083c242b0805904c175af7,
+      type: 3}
+    plantName: Hydrangea
+    plantCol: 4
+    plantTag: 0
+    plantDesc: A genus of flower with over seventy different species. The colour
+      of the flowers is sometimes determined by the acidity of the soil it grows
+      on.
+  - plantOnfield: {fileID: 2737080249410112875, guid: 6252ffa5affd5be41bdd3f2c91e29f3b,
+      type: 3}
+    plantPickedup: {fileID: 5424592168151799516, guid: cdd7aec18a5607547b01e8799a49601a,
+      type: 3}
+    plantName: Snowprisms
+    plantCol: 5
+    plantTag: 3
+    plantDesc: A beautiful, iridescent variant of primrose that that gleams in the
+      night sky like a gem. The cold climate it grows in help to create its crystal-like
+      appearance.
+  - plantOnfield: {fileID: 3653157995796256392, guid: 66aec35981c2cdd489013801f7307cc7,
+      type: 3}
+    plantPickedup: {fileID: 1346865914412531148, guid: 5bda73395cb3deb489e9253e8ff12459,
+      type: 3}
+    plantName: Queen of the Night
+    plantCol: 5
+    plantTag: 2
+    plantDesc: A nocturnal flower that blooms only at night and wilts by dawn. Not
+      only is it beautiful, it is also used in traditional medicines.
   plantSpawnDeets:
   - indexOfPlant: 0
     amtWhenPicked: 0
@@ -17114,14 +17162,14 @@ MonoBehaviour:
     useCircleAreaInstead: 1
     circlePoint: {x: 1061.65, y: 938.30005}
     circleRadius: 55.350006
-  - indexOfPlant: 0
-    amtWhenPicked: 0
+  - indexOfPlant: 2
+    amtWhenPicked: 1
     spawnChancePercent: 30
     minClusterAmt: 20
     layerToCheck:
       serializedVersion: 2
       m_Bits: 8
-    distBtwnPsMin: 3
+    distBtwnPsMin: 2
     distBtwnPsMax: 18.2
     heightOfCheck: 46.1
     rangeOfCheck: 8.6
@@ -17130,6 +17178,38 @@ MonoBehaviour:
     useCircleAreaInstead: 1
     circlePoint: {x: 696.19995, y: 318.7}
     circleRadius: 53.399994
+  - indexOfPlant: 1
+    amtWhenPicked: 1
+    spawnChancePercent: 20
+    minClusterAmt: 20
+    layerToCheck:
+      serializedVersion: 2
+      m_Bits: 8
+    distBtwnPsMin: 2
+    distBtwnPsMax: 18.2
+    heightOfCheck: 43
+    rangeOfCheck: 6.51
+    positivePos: {x: 749.6, y: 374.8}
+    negativePos: {x: 642.8, y: 262.6}
+    useCircleAreaInstead: 1
+    circlePoint: {x: 696.19995, y: 318.7}
+    circleRadius: 53.399994
+  - indexOfPlant: 4
+    amtWhenPicked: 5
+    spawnChancePercent: 4
+    minClusterAmt: 4
+    layerToCheck:
+      serializedVersion: 2
+      m_Bits: 8
+    distBtwnPsMin: 2
+    distBtwnPsMax: 3.7
+    heightOfCheck: 32.6
+    rangeOfCheck: 3.36
+    positivePos: {x: 600.9, y: 192.4}
+    negativePos: {x: 572.7, y: 153.4}
+    useCircleAreaInstead: 1
+    circlePoint: {x: 586.80005, y: 172.9}
+    circleRadius: 14.100006
 --- !u!4 &2047477056
 Transform:
   m_ObjectHideFlags: 0
@@ -17563,6 +17643,113 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2099334750}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2119600551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2119600555}
+  - component: {fileID: 2119600554}
+  - component: {fileID: 2119600553}
+  - component: {fileID: 2119600552}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &2119600552
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119600551}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &2119600553
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119600551}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &2119600554
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119600551}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2119600555
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119600551}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 582.9, y: 35.9, z: 132.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2120318405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18558,3 +18745,4 @@ SceneRoots:
   - {fileID: 796736513}
   - {fileID: 766302987}
   - {fileID: 1046064835}
+  - {fileID: 2119600555}

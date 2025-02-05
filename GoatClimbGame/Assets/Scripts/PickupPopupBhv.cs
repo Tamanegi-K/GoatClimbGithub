@@ -7,7 +7,7 @@ public class PickupPopupBhv : MonoBehaviour
 {
     public float lifetime;
     public CanvasGroup cvGrp;
-    public TextMeshProUGUI tmp;
+    public TextMeshProUGUI tmp, tmpQ;
     public GameObject objHolder;
 
     // Start is called before the first frame update
@@ -15,7 +15,8 @@ public class PickupPopupBhv : MonoBehaviour
     {
         if (cvGrp == null) cvGrp = transform.GetComponent<CanvasGroup>();
         if (tmp == null) tmp = transform.Find("PopupBG").Find("PopupTxt").GetComponent<TextMeshProUGUI>();
-        if (objHolder == null) objHolder = transform.Find("PopupBG L/ObjHolder").gameObject;
+        if (tmp == null) tmp = transform.Find("PopupQBG").Find("PopupQTxt").GetComponent<TextMeshProUGUI>();
+        if (objHolder == null) objHolder = transform.Find("PopupDvd L/ObjHolder").gameObject;
     }
 
     // Update is called once per frame
@@ -44,16 +45,22 @@ public class PickupPopupBhv : MonoBehaviour
         }
     }
 
-    public void SetupDisplay(string input, GameObject go)
+    public void SetupDisplay(string input, GameObject go, int qty = 1)
 	{
         tmp.text = "";
         tmp.text = input;
+
+        tmpQ.text = "";
+        tmpQ.text = qty > 1 ? "×" + qty.ToString() : "";
+
         lifetime = 5f;
 
         // Erasing the display object
         foreach (Transform c in objHolder.transform)
 		{
-            GameMainframe.GetInstance().ObjectEnd(input + "Picked", c.gameObject);
+            c.transform.SetParent(null);
+            GameMainframe.GetInstance().ObjectEnd(c.name, c.gameObject);
+            c.gameObject.SetActive(false);
 		}
 
         if (go == null) return; // if there's no object to display, skip the next bit
@@ -61,13 +68,13 @@ public class PickupPopupBhv : MonoBehaviour
         // Reinserting the display object
         GameMainframe.GetInstance().ObjectUse(input + "Picked", (pickedDisplay) =>
         {
-            pickedDisplay.name = input + "Picked";
-            pickedDisplay.transform.SetParent(null);
+            pickedDisplay.name = pickedDisplay.name.Contains("Picked") ? pickedDisplay.name : input + "Picked";
             pickedDisplay.transform.SetParent(objHolder.transform);
 
             pickedDisplay.transform.localPosition = Vector3.zero;
             pickedDisplay.transform.localEulerAngles = Vector3.zero;
             pickedDisplay.transform.localScale = Vector3.one;
+            pickedDisplay.gameObject.SetActive(true);
         }, go);
 
     }
