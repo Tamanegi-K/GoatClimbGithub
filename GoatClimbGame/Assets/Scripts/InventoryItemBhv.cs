@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 // Shoutouts
@@ -10,6 +11,7 @@ public class InventoryItemBhv : MonoBehaviour
 {
     public TextMeshProUGUI tmpNum;
     public GameObject objHolder;
+    private string invName;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +19,8 @@ public class InventoryItemBhv : MonoBehaviour
         //if (tmpTxt == null) tmpTxt = transform.Find("NameBG").GetComponent<TextMeshProUGUI>();
         if (tmpNum == null) tmpNum = transform.Find("NumBG").GetComponent<TextMeshProUGUI>();
         if (objHolder == null) objHolder = transform.Find("IconArea/ObjHolder").gameObject;
+
+        GetComponent<Toggle>().group = GameMainframe.GetInstance().inventoryDisplay.GetComponent<ToggleGroup>();
     }
 
     // Update is called once per frame
@@ -36,7 +40,7 @@ public class InventoryItemBhv : MonoBehaviour
 
     public void SetupInvDisplay(string input, int num, GameObject go)
 	{
-        //tmpTxt.text = input;
+        invName = input;
         tmpNum.text = num.ToString();
 
         // Erasing the display object
@@ -61,4 +65,14 @@ public class InventoryItemBhv : MonoBehaviour
             pickedDisplay.gameObject.SetActive(true);
         }, go);
     }
+
+    public string GetInvName()
+	{
+        return invName;
+	}
+
+    public void InvItemClick()
+	{
+        GameMainframe.GetInstance().InvOnSelect(invName);
+	}
 }

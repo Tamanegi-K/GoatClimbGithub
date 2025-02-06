@@ -22,8 +22,11 @@ public class PlayerController : MonoBehaviour
     public Vector2 camYPos = new Vector2(0.55f, 4.5f); // x = lowest, y = highest
     private float rotX, rotY, rotLerpX, rotLerpY, zoomVal = 0.5f, zoomLerp = 0.5f;
     public Vector3 moveDir, modelRotLerp;
+
     private Vector2 kbInputsMvmnt;
     private InputAction kbInputsEsc, kbInputsDebug;
+    private InputAction uiInputsCursor, uiInputsKBNavig, uiInputsPauseTabs;
+
     public float speed = 4f, speedMax = 1f, groundDrag = 2f, airMult = 0.5f;
     private float speedInit, speedMaxInit;
     public bool controlGiven = false, debug = false;
@@ -75,6 +78,7 @@ public class PlayerController : MonoBehaviour
 
         kbInputsEsc = goatControls.Defaults.Escape;
         kbInputsDebug = goatControls.Defaults.Debug;
+        uiInputsPauseTabs = goatControls.UI.PauseTabs;
         speedInit = speed;
         speedMaxInit = speedMax;
 
@@ -106,7 +110,7 @@ public class PlayerController : MonoBehaviour
         mouseLMB.performed += InteractTriggerHandling;
 
         // Keyboard Inputs to Code
-        kbInputsMvmnt = goatControls.Defaults.Movement.ReadValue<Vector2>();
+        kbInputsMvmnt = goatControls.Defaults.Movement.ReadValue<Vector2>(); // Movement
 
         // State Animation Crap
         stateAnimator.SetFloat("isMoving", kbInputsMvmnt.normalized.magnitude);
@@ -125,6 +129,7 @@ public class PlayerController : MonoBehaviour
         MovePlayerBasedOnInputs();
         if (kbInputsEsc != null) kbInputsEsc.performed += TogglePlayerControlKB;
         if (kbInputsDebug != null) kbInputsDebug.performed += ToggleDebugKB;
+        if (uiInputsPauseTabs != null) uiInputsPauseTabs.performed += PauseTabSwitching;
 
         // Gravity related crap
         RaycastHit rc;
@@ -168,8 +173,9 @@ public class PlayerController : MonoBehaviour
         //Gizmos.DrawWireSphere(camPivot.transform.position, sphereCastRadius);
     }
 
-    void MovePlayerBasedOnInputs()
+    void MovePlayerBasedOnInputs() // Modifying player movement inputs based on KB inputs
     {
+        // If game is paused, skip all these
         if (GameMainframe.GetInstance().GetGameSuspendState())
             return;
 
@@ -198,7 +204,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void MoveCamBasedOnInputs()
+    void MoveCamBasedOnInputs() // Modifying player camera values based on mouse inputs
     {
         // If game is paused or player cannot control game, skip all these
         if (!GameMainframe.GetInstance().GetGameStartedState())
@@ -313,9 +319,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void PauseTabSwitching(InputAction.CallbackContext context) // Selection of pause tabs values based on keyboard inputs ONLY when game is paused
+    {
+        // If game is NOT paused or player cannot control game, skip all these
+        if (!GameMainframe.GetInstance().GetGameSuspendState())
+            return;
+
+        GameMainframe.GetInstance().UpdateInventoryTabSelect(uiInputsPauseTabs.ReadValue<float>());
+    }
+
     public void TogglePlayerControl()
     {
-        GameMainframe.GetInstance().UpdateInventoryDisplay();
+        GameMainframe.GetInstance().UpdateInventoryQuantities();
         if (controlGiven == true)
         {
             Cursor.lockState = CursorLockMode.Locked;
