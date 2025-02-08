@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Flower_Snowprisms
+  m_Name: Flower_Hydrageons_Red
   m_Shader: {fileID: -6465566751694194690, guid: e79958a9f2933411ba2e99cc703c95fc,
     type: 3}
   m_Parent: {fileID: 0}
@@ -71,11 +71,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Main_Texture:
-        m_Texture: {fileID: 2800000, guid: dd7797ef96de59348b31697291857537, type: 3}
+        m_Texture: {fileID: 2800000, guid: c7b3473a76ed79f40ab26670eb83d745, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metallic:
-        m_Texture: {fileID: 2800000, guid: 487e0dd535ba888459c4304aa345e213, type: 3}
+        m_Texture: {fileID: 2800000, guid: cd60cf01e50e9154081d65f4928ce717, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -83,7 +83,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: 636ca5ec66e4d8348826ff68966072df, type: 3}
+        m_Texture: {fileID: 2800000, guid: dc8afb5907218f24fbb73c8893ccdc91, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -95,7 +95,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Smoothness:
-        m_Texture: {fileID: 2800000, guid: 3ed77647d04ec1a4f980405f18a746ab, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5b4ba0e91c29e3845b8a840fbc8cc3b4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -140,16 +140,16 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Rim_Light_Brightness: -0.62
-    - _Rim_Power: -0.4
+    - _Rim_Light_Brightness: 1
+    - _Rim_Power: 0.51
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _Toon_Ramp_Offset: 0.4
-    - _Toon_Ramp_Smoothness: 0.02
+    - _Toon_Ramp_Offset: 0.28
+    - _Toon_Ramp_Smoothness: 0.08
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
@@ -157,6 +157,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Toon_Ramp_Tinting: {r: 0.95880955, g: 0.7075472, b: 1, a: 0}
+    - _Toon_Ramp_Tinting: {r: 1, g: 0.87598485, b: 0.8509433, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
