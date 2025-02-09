@@ -326,7 +326,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -429,7 +429,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -1032,13 +1032,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9170481539756250721}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.08715578, y: -0.9961947, z: 0, w: 0}
-  m_LocalPosition: {x: -0.6, y: -40, z: -30}
+  m_LocalRotation: {x: 0.011376109, y: 0.13002947, z: 0.08641016, w: 0.98767215}
+  m_LocalPosition: {x: -0.6, y: -15, z: -30}
   m_LocalScale: {x: 25, y: 25, z: 25}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5306881685473990868}
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: -10}
+  m_LocalEulerAnglesHint: {x: 0, y: 15, z: 10}
 --- !u!23 &209403372761312417
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1096,7 +1096,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

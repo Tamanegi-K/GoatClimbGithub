@@ -20,6 +20,12 @@ public class GameMainframe : MonoBehaviour
     private bool titleAnimStarted = false, gameStarted = false;
     private List<GameObject> invHudObjs = new List<GameObject>();
     private bool setupComplete = false, firstPickToggled = false;
+    private Vector3   pauseCoordsUpOpened = Vector3.zero, // Opened meaning game is suspended
+                    pauseCoordsLeftOpened = new Vector3(0f, -64f, 0f),
+                   pauseCoordsRightOpened = Vector3.zero,
+                      pauseCoordsUpClosed = new Vector3(0f, 192f, 0f), // Closed meaning game is NOT suspended
+                    pauseCoordsLeftClosed = new Vector3(-1024f, -64f, 0f),
+                   pauseCoordsRightClosed = new Vector3(1024f, 0f, 0f);
 
     [Header("Prefab Housing")]
     public GameObject hudPopupPrefab;
@@ -33,7 +39,7 @@ public class GameMainframe : MonoBehaviour
     private RectTransform pauseUp, pauseLeft, pauseRightSack, pauseRightAss, pauseRightSttngs;
     private ToggleGroup pauseUpTG;
     private GameObject pauseTabSack, pauseTabAss, pauseTabSttngs;
-    private Transform sackObjHolder;
+    private Transform sackObjHolder, assGridList;
 
     #region OBJECT POOLING
     public static Dictionary<string, List<GameObject>> objectPools = new Dictionary<string, List<GameObject>>();
@@ -111,52 +117,12 @@ public class GameMainframe : MonoBehaviour
     void Update()
     {
         if (!setupComplete)
+		{
+            SetUpObjs();
             return;
-
-        // Pause menu opened
-        if (gameSuspended)
-        {
-            uiGroupPause.gameObject.SetActive(true);
-
-            if (Mathf.Abs(uiGroupPause.alpha - 1f) <= 0.05f)
-            {
-                uiGroupPause.alpha = 1f;
-
-                pauseUp.anchoredPosition = Vector3.zero;
-                pauseLeft.anchoredPosition = new Vector3(0f, -64f, 0f);
-                // TO DO: Each pauseRight grp to move out based on what tab is toggled
-                pauseRightSack.anchoredPosition = Vector3.zero;
-            }
-            else
-            {
-                uiGroupPause.alpha = Mathf.Lerp(uiGroupPause.alpha, 1f, Time.deltaTime * 6.9f);
-
-                pauseUp.anchoredPosition = Vector3.Lerp(pauseUp.anchoredPosition, Vector3.zero, Time.deltaTime * 14f);
-                pauseLeft.anchoredPosition = Vector3.Lerp(pauseLeft.anchoredPosition, new Vector3(0f, -64f, 0f), Time.deltaTime * 14f);
-                pauseRightSack.anchoredPosition = Vector3.Lerp(pauseRightSack.anchoredPosition, Vector3.zero, Time.deltaTime * 14f);
-            }
         }
-        // Pause menu closed
-        else
-        {
-            if (Mathf.Abs(uiGroupPause.alpha - 0f) <= 0.05f)
-            {
-                uiGroupPause.alpha = 0f;
-                //uiGroupPause.gameObject.SetActive(false);
-
-                pauseUp.anchoredPosition = new Vector3(0f, 192f, 0f);
-                pauseLeft.anchoredPosition = new Vector3(-1024f, -64f, 0f);
-                pauseRightSack.anchoredPosition = new Vector3(1024f, 0f, 0f);
-            }
-            else
-            {
-                uiGroupPause.alpha = Mathf.Lerp(uiGroupPause.alpha, 0f, Time.deltaTime * 6.9f);
-
-                pauseUp.anchoredPosition = Vector3.Lerp(pauseUp.anchoredPosition, new Vector3(0f, 192f, 0f), Time.deltaTime * 8f);
-                pauseLeft.anchoredPosition = Vector3.Lerp(pauseLeft.anchoredPosition, new Vector3(-1024f, -64f, 0f), Time.deltaTime * 8f);
-                pauseRightSack.anchoredPosition = Vector3.Lerp(pauseRightSack.anchoredPosition, new Vector3(1024f, -0, 0f), Time.deltaTime * 8f);
-            }
-        }
+        
+        PauseMenuUIAppearance(gameSuspended);
     }
 
     void FixedUpdate()
@@ -197,6 +163,11 @@ public class GameMainframe : MonoBehaviour
     {
         if (titleAnimStarted)
             yield return null;
+
+        if (audioMngr == null)
+		{
+            SetUpObjs();
+		}
 
         audioMngr.StopBGMCurrent();
         audioMngr.ReflushInitAmbiences();
@@ -260,18 +231,28 @@ public class GameMainframe : MonoBehaviour
             uiGroupPause = p;
             inventoryDisplay = p.transform.Find("InventoryQtyGroup/InventoryScrollBounds/InventoryDisplay").gameObject;
 
-            // Other Pause Menu stuff
+            // --- OTHER PAUSE MENU STUFF ---
+
+            // Up - Tabs
             pauseUp = uiGroupPause.transform.Find("PauseTitleGroup").GetComponent<RectTransform>();
-            pauseLeft = uiGroupPause.transform.Find("InventoryQtyGroup").GetComponent<RectTransform>();
-            pauseRightSack = uiGroupPause.transform.Find("InvDescGroup").GetComponent<RectTransform>();
-
             pauseUpTG = pauseUp.GetComponent<ToggleGroup>();
-
             pauseTabSack = pauseUp.transform.Find("PauseBtnKnapsack").gameObject;
-            sackObjHolder = pauseRightSack.Find("ObjHolder").transform;
-
             pauseTabAss = pauseUp.transform.Find("PauseBtnAssembly").gameObject;
             pauseTabSttngs = pauseUp.transform.Find("PauseBtnSettings").gameObject;
+
+            // Left - Inventory Grid
+            pauseLeft = uiGroupPause.transform.Find("InventoryQtyGroup").GetComponent<RectTransform>();
+
+            // Right 1 - Knapsack
+            pauseRightSack = uiGroupPause.transform.Find("InvDescGroup").GetComponent<RectTransform>();
+            sackObjHolder = pauseRightSack.Find("ObjHolder").transform;
+
+            // Right 2 - Assembly
+            pauseRightAss = uiGroupPause.transform.Find("InvAssGroup").GetComponent<RectTransform>();
+            assGridList = pauseRightAss.transform.Find("AssGridList").transform;
+
+            // Right 3 - Settings
+            // pauseRightSttngs = uiGroupPause.transform.Find("InvSettingsGroup").GetComponent<RectTransform>();
         }
 
         if (uiGroupHUD == null && GameObject.Find("Canvas/HUD").TryGetComponent(out CanvasGroup h))
@@ -290,6 +271,83 @@ public class GameMainframe : MonoBehaviour
         }
 
         setupComplete = true;
+    }
+
+    public void PauseMenuUIAppearance(bool isSuspended)
+	{
+        if (!setupComplete)
+            return;
+
+        bool leCheckOpened = Mathf.Abs(uiGroupPause.alpha - 1f) <= 0.05f;
+        bool leCheckClosed = Mathf.Abs(uiGroupPause.alpha - 0f) <= 0.05f;
+
+        // Pause menu opened
+        if (isSuspended)
+        {
+            // Left and ups
+            if (leCheckOpened)
+            {
+                uiGroupPause.alpha = 1f;
+
+                pauseUp.anchoredPosition = pauseCoordsUpOpened;
+                pauseLeft.anchoredPosition = pauseCoordsLeftOpened;
+            }
+            else
+            {
+                uiGroupPause.alpha = Mathf.Lerp(uiGroupPause.alpha, 1f, Time.deltaTime * 6.9f);
+
+                pauseUp.anchoredPosition = Vector3.Lerp(pauseUp.anchoredPosition, pauseCoordsUpOpened, Time.deltaTime * 14f);
+                pauseLeft.anchoredPosition = Vector3.Lerp(pauseLeft.anchoredPosition, pauseCoordsLeftOpened, Time.deltaTime * 14f);
+            }
+
+            // Rights (only one should be onscreen)
+            switch (currentTab)
+			{
+                case PauseTabs.KNAPSACK:
+                    pauseRightSack.anchoredPosition = Vector3.Lerp(pauseRightSack.anchoredPosition, pauseCoordsRightOpened, Time.deltaTime * 14f);
+                    pauseRightAss.anchoredPosition = Vector3.Lerp(pauseRightAss.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
+                    //pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
+                    break;
+                case PauseTabs.ASSEMBLY:
+                    pauseRightSack.anchoredPosition = Vector3.Lerp(pauseRightSack.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
+                    pauseRightAss.anchoredPosition = Vector3.Lerp(pauseRightAss.anchoredPosition, pauseCoordsRightOpened, Time.deltaTime * 14f);
+                    //pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
+                    break;
+                case PauseTabs.SETTINGS:
+                    pauseRightSack.anchoredPosition = Vector3.Lerp(pauseRightSack.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
+                    pauseRightAss.anchoredPosition = Vector3.Lerp(pauseRightAss.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
+                    //pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightOpened, Time.deltaTime * 14f);
+                    break;
+
+            }
+        }
+
+        // Pause menu closed
+        else
+        {
+            if (leCheckClosed)
+            {
+                uiGroupPause.alpha = 0f;
+
+                pauseUp.anchoredPosition = pauseCoordsUpClosed;
+                pauseLeft.anchoredPosition = pauseCoordsLeftClosed;
+
+                pauseRightSack.anchoredPosition = pauseCoordsRightClosed;
+                pauseRightAss.anchoredPosition = pauseCoordsRightClosed;
+                //pauseRightSttngs.anchoredPosition = pauseCoordsRightClosed;
+            }
+            else
+            {
+                uiGroupPause.alpha = Mathf.Lerp(uiGroupPause.alpha, 0f, Time.deltaTime * 6.9f);
+
+                pauseUp.anchoredPosition = Vector3.Lerp(pauseUp.anchoredPosition, pauseCoordsUpClosed, Time.deltaTime * 8f);
+                pauseLeft.anchoredPosition = Vector3.Lerp(pauseLeft.anchoredPosition, pauseCoordsLeftClosed, Time.deltaTime * 8f);
+                
+                pauseRightSack.anchoredPosition = Vector3.Lerp(pauseRightSack.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 8f);
+                pauseRightAss.anchoredPosition = Vector3.Lerp(pauseRightAss.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 8f);
+                //pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 8f);
+            }
+        }
     }
 
     public void PauseTabKS()
@@ -397,6 +455,7 @@ public class GameMainframe : MonoBehaviour
     public void InvOnSelect(string input) // Does various things based on what tab is currently selected when clicking on an inventory item
 	{
         // TO DO : FOR OTHER RIGHT SIDE INVENTORY SHITS
+        // (check InvItemClick() in InventoryItemBhv.cs)
 
         // Description appearance
         if (pauseUpTG.GetFirstActiveToggle() == pauseTabSack.GetComponent<Toggle>())
@@ -407,6 +466,15 @@ public class GameMainframe : MonoBehaviour
                 // Search the plantMasterlist and grab its display obj and desc
                 if (pi.plantName == input)
                 {
+                    pauseRightSack.Find("InvDescTops").GetComponent<CanvasGroup>().alpha = 1f;
+   
+                    // --- NAME DISPLAYING ---
+                    pauseRightSack.Find("InvDescTops/InvNameBG").GetComponentInChildren<TextMeshProUGUI>().text = pi.plantName;
+
+                    // --- TAGS AND COLOURS DISPLAYING ---
+                    pauseRightSack.Find("InvDescTops/InvColBG").GetComponentInChildren<TextMeshProUGUI>().text = PascalCaseString(System.Enum.GetName(typeof(PlantSpawning.PlantColour), pi.plantCol));
+                    pauseRightSack.Find("InvDescTops/InvTagBG").GetComponentInChildren<TextMeshProUGUI>().text = PascalCaseString(System.Enum.GetName(typeof(PlantSpawning.PlantSpecials), pi.plantTag));
+
                     // --- DESCRIPTION DISPLAYING ---
                     pauseRightSack.Find("InvDescBG").GetComponentInChildren<TextMeshProUGUI>().text = pi.plantDesc;
 
@@ -438,4 +506,15 @@ public class GameMainframe : MonoBehaviour
             }
         }
     }
+
+    public string PascalCaseString(string input)
+	{
+        return char.ToUpper(input[0]) + input.Substring(1).ToLower();
+	}
+
+    public void ResetSetup(bool b) => setupComplete = b;
+    public Toggle GetPauseTabSack() => pauseTabSack.GetComponent<Toggle>();
+    public ToggleGroup GetPauseTabToggleGrp() => pauseUpTG.GetComponent<ToggleGroup>();
+    public Toggle GetPauseTabAss() => pauseTabAss.GetComponent<Toggle>();
+    public BouquetAssemblyBhv GetAssRight() => pauseRightAss.GetComponent<BouquetAssemblyBhv>();
 }

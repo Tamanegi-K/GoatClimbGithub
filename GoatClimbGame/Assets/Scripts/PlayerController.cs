@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 moveDir, modelRotLerp;
 
     private Vector2 kbInputsMvmnt;
-    private InputAction kbInputsEsc, kbInputsDebug;
+    private InputAction kbInputsEsc, kbInputsDebugH, kbInputsDebugJ;
     private InputAction uiInputsCursor, uiInputsKBNavig, uiInputsPauseTabs;
 
     public float speed = 4f, speedMax = 1f, groundDrag = 2f, airMult = 0.5f;
@@ -77,7 +77,8 @@ public class PlayerController : MonoBehaviour
         if (stateAnimator == null) stateAnimator = transform.Find("Goat_Rigged").GetComponent<Animator>();
 
         kbInputsEsc = goatControls.Defaults.Escape;
-        kbInputsDebug = goatControls.Defaults.Debug;
+        kbInputsDebugH = goatControls.Defaults.DebugH;
+        kbInputsDebugJ = goatControls.Defaults.DebugJ;
         uiInputsPauseTabs = goatControls.UI.PauseTabs;
         speedInit = speed;
         speedMaxInit = speedMax;
@@ -128,7 +129,8 @@ public class PlayerController : MonoBehaviour
         // Function that moves player via physics (do not put actual inputs here, only processing)
         MovePlayerBasedOnInputs();
         if (kbInputsEsc != null) kbInputsEsc.performed += TogglePlayerControlKB;
-        if (kbInputsDebug != null) kbInputsDebug.performed += ToggleDebugKB;
+        if (kbInputsDebugH != null) kbInputsDebugH.performed += ToggleDebugRun;
+        if (kbInputsDebugJ != null) kbInputsDebugJ.performed += ToggleDebugPlant;
         if (uiInputsPauseTabs != null) uiInputsPauseTabs.performed += PauseTabSwitching;
 
         // Gravity related crap
@@ -176,7 +178,7 @@ public class PlayerController : MonoBehaviour
     void MovePlayerBasedOnInputs() // Modifying player movement inputs based on KB inputs
     {
         // If game is paused, skip all these
-        if (GameMainframe.GetInstance().GetGameSuspendState())
+        if (!GameMainframe.GetInstance().GetGameStartedState() || GameMainframe.GetInstance().GetGameSuspendState())
             return;
 
         // Calculate Movement Direction
@@ -282,8 +284,11 @@ public class PlayerController : MonoBehaviour
         TogglePlayerControl();
     }
 
-    public void ToggleDebugKB(InputAction.CallbackContext context)
+    public void ToggleDebugRun(InputAction.CallbackContext context)
     {
+        if (GameMainframe.GetInstance().GetGameSuspendState())
+            return;
+
         debug = !debug;
 
         if (debug)
@@ -294,7 +299,7 @@ public class PlayerController : MonoBehaviour
             GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
             {
                 PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
-                hppPPB.SetupDisplay("Debug Mode Enabled - GO FAST.", null);
+                hppPPB.SetupDisplay("DEBUG: Fast Walk ON", null);
                 hpp.name = "HUDPopup";
 
                 hpp.transform.SetParent(null);
@@ -309,7 +314,7 @@ public class PlayerController : MonoBehaviour
             GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
             {
                 PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
-                hppPPB.SetupDisplay("Debug Mode Disabled", null);
+                hppPPB.SetupDisplay("DEBUG: Fast Walk OFF", null);
                 hpp.name = "HUDPopup";
 
                 hpp.transform.SetParent(null);
@@ -317,6 +322,31 @@ public class PlayerController : MonoBehaviour
                 hpp.SetActive(true);
             }, GameMainframe.GetInstance().hudPopupPrefab);
         }
+    }
+    public void ToggleDebugPlant(InputAction.CallbackContext context)
+    {
+        if (GameMainframe.GetInstance().GetGameSuspendState())
+            return;
+
+        GameMainframe.GetInstance().audioMngr.PlaySFX("pickup" + Random.Range(1, 3), transform.position);
+        
+        foreach (PlantSpawning.OnePlantInfo pi in GameMainframe.GetInstance().GetComponent<PlantSpawning>().plantMasterlist)
+        {
+            PlantCollection(pi.plantName, 5);
+        }
+
+        GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
+        {
+            PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
+            hppPPB.SetupDisplay("DEBUG: All Plants", null, 5);
+            hpp.name = "HUDPopup";
+
+            hpp.transform.SetParent(null);
+            hpp.transform.SetParent(GameMainframe.GetInstance().uiGroupHUD.transform);
+            hpp.SetActive(true);
+        }, GameMainframe.GetInstance().hudPopupPrefab);
+
+        GameMainframe.GetInstance().UpdateInventoryQuantities();
     }
 
     void PauseTabSwitching(InputAction.CallbackContext context) // Selection of pause tabs values based on keyboard inputs ONLY when game is paused
@@ -335,6 +365,10 @@ public class PlayerController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            GameMainframe.GetInstance().currentTab = GameMainframe.PauseTabs.KNAPSACK;
+            GameMainframe.GetInstance().UpdateInventoryTabSelect();
+            GameMainframe.GetInstance().GetPauseTabSack().GetComponent<UnityEngine.UI.Toggle>().isOn = true;
+            EventSystem.current.SetSelectedGameObject(null);
         }
         else
         {
@@ -362,5 +396,15 @@ public class PlayerController : MonoBehaviour
 
         collectedPlants[plantName] += quantity;
         //Debug.Log(plantName + " - " + collectedPlants[plantName]);
+    }
+
+    public int GetPlantQty(string plantName)
+    {
+        if (collectedPlants.ContainsKey(plantName))
+        {
+            return collectedPlants[plantName];
+        }
+        else
+            return 0;
     }
 }

@@ -51,9 +51,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Debug",
+                    "name": "DebugH",
                     "type": "Button",
                     "id": "54cd05cc-5b27-4fab-a8ee-975e423b7cf6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DebugJ",
+                    "type": "Button",
+                    "id": "859f5ff7-52fe-4fb7-918a-98b4bb3bf0c6",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press",
@@ -155,7 +164,7 @@
                     "path": "<Mouse>/scroll/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KBM",
                     "action": "CamZoomer",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -166,7 +175,7 @@
                     "path": "<Mouse>/scroll/down",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KBM",
                     "action": "CamZoomer",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -177,7 +186,7 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KBM",
                     "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -188,7 +197,7 @@
                     "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KBM",
                     "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -199,7 +208,7 @@
                     "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KBM",
                     "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -210,8 +219,19 @@
                     "path": "<Keyboard>/h",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Debug",
+                    "groups": "KBM",
+                    "action": "DebugH",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "39fdb375-7a7f-4715-82d2-245fbb3e0c06",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "DebugJ",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -226,6 +246,24 @@
                     "type": "PassThrough",
                     "id": "d21c073c-67e1-461e-86f1-01a9277bee37",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Submit",
+                    "type": "Button",
+                    "id": "6947628e-20b2-46ac-a2fa-e59eb5db8c44",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "1bb93e3e-b399-45dc-87b7-e3ba702cadca",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -303,7 +341,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse;KBM",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -314,7 +352,7 @@
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse;KBM",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -325,7 +363,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse;KBM",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -336,7 +374,7 @@
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse;KBM",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -347,7 +385,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse;KBM",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -358,7 +396,7 @@
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse;KBM",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -369,7 +407,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse;KBM",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -380,7 +418,7 @@
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse;KBM",
                     "action": "Navigate",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -391,7 +429,7 @@
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse;KBM",
                     "action": "Point",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -402,7 +440,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse;KBM",
                     "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -413,7 +451,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KBM",
                     "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -424,7 +462,7 @@
                     "path": "<Mouse>/scroll",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse;KBM",
                     "action": "ScrollWheel",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -435,7 +473,7 @@
                     "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse;KBM",
                     "action": "MiddleClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -446,7 +484,7 @@
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse;KBM",
                     "action": "RightClick",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -468,7 +506,7 @@
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KBM",
                     "action": "PauseTabs",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -479,10 +517,32 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KBM",
                     "action": "PauseTabs",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "e770c9bb-1af4-4ef8-b217-49cccada98c5",
+                    "path": "*/{Submit}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "06e97580-478b-40e8-9994-3c79f465fd0b",
+                    "path": "*/{Cancel}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
@@ -493,12 +553,12 @@
             "bindingGroup": "KBM",
             "devices": [
                 {
-                    "devicePath": "<Keyboard>",
+                    "devicePath": "<Mouse>",
                     "isOptional": false,
                     "isOR": false
                 },
                 {
-                    "devicePath": "<Mouse>",
+                    "devicePath": "<Keyboard>",
                     "isOptional": false,
                     "isOR": false
                 }

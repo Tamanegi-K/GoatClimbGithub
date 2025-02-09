@@ -8,8 +8,8 @@ public class PlantSpawning : MonoBehaviour
     // Tutorial here:
     // https://www.youtube.com/watch?v=gfD8S32xzYI
 
-    public enum PlantColour {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE, WHITE};
-    public enum PlantSpecials { NONE, GLOWING, RARE, NIGHTBLOOM }
+    public enum PlantColour {RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, PINK, WHITE};
+    public enum PlantSpecials { NONE, GLIMMER, CLUSTER, NIGHTBLOOM, RARE }
 
     #region Plant Masterlist
     [System.Serializable]

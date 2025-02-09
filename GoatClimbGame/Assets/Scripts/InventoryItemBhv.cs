@@ -72,7 +72,13 @@ public class InventoryItemBhv : MonoBehaviour
 	}
 
     public void InvItemClick()
-	{
+    {
         GameMainframe.GetInstance().InvOnSelect(invName);
+
+        // if the isOn condition didn't exist, it would fire twice because of the Toggle "On value changed" condition (bruh)
+        if (GameMainframe.GetInstance().currentTab == GameMainframe.PauseTabs.ASSEMBLY && GetComponent<Toggle>().isOn)
+        {
+            GameMainframe.GetInstance().GetAssRight().InvOnClick(invName);
+        }
 	}
 }

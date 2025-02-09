@@ -11,5 +11,6 @@ public class SceneLoader : MonoBehaviour
     void OnEnable()
     {
         SceneManager.LoadScene(sceneToLoad);
+        GameMainframe.GetInstance().ResetSetup(false);
     }
 }
