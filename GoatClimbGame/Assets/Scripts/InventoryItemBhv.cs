@@ -9,16 +9,18 @@ using TMPro;
 
 public class InventoryItemBhv : MonoBehaviour
 {
+    public GameObject objHolder, objNum;
     public TextMeshProUGUI tmpNum;
-    public GameObject objHolder;
     private string invName;
+    public bool isNotPlant = false;
 
     // Start is called before the first frame update
     void Start()
     {
         //if (tmpTxt == null) tmpTxt = transform.Find("NameBG").GetComponent<TextMeshProUGUI>();
-        if (tmpNum == null) tmpNum = transform.Find("NumBG").GetComponent<TextMeshProUGUI>();
         if (objHolder == null) objHolder = transform.Find("IconArea/ObjHolder").gameObject;
+        if (objNum == null) objNum = transform.Find("IconArea/ObjHolder").gameObject;
+        if (tmpNum == null) tmpNum = objNum.GetComponent<TextMeshProUGUI>();
 
         GetComponent<Toggle>().group = GameMainframe.GetInstance().inventoryDisplay.GetComponent<ToggleGroup>();
     }
@@ -71,9 +73,13 @@ public class InventoryItemBhv : MonoBehaviour
         return invName;
 	}
 
-    public void InvItemClick()
+    public void InvItemClick() // attached to button in scene
     {
         GameMainframe.GetInstance().InvOnSelect(invName);
+
+        // The next part is for bouquet assembly - if the item clicked is not a flower/plant, skip the rest
+        if (isNotPlant)
+            return;
 
         // if the isOn condition didn't exist, it would fire twice because of the Toggle "On value changed" condition (bruh)
         if (GameMainframe.GetInstance().currentTab == GameMainframe.PauseTabs.ASSEMBLY && GetComponent<Toggle>().isOn)

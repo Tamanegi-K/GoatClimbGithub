@@ -178,7 +178,7 @@ public class AudioManager : MonoBehaviour
             {
                 GameMainframe.GetInstance().ObjectUse("Step", (thisSoundwave) =>
                 {
-                    Transform feetPoint = GameMainframe.GetInstance().playerContrScrpt.model;
+                    Transform feetPoint = GameMainframe.GetInstance().playerContrScr.model;
 
                     thisSoundwave.SetActive(true);
                     thisSoundwave.name = "Step";

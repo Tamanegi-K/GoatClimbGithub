@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class PlantBhv : MonoBehaviour
     [Header("Inputs")]
     public GameObject billboardUI;
     public GameObject pickedPrefab;
+    public PlantSpawning.PlantSpecials myPlantTag;
     private int amtWhenPicked;
 
     // Start is called before the first frame update
@@ -15,16 +17,20 @@ public class PlantBhv : MonoBehaviour
     {
         billboardUI.SetActive(false);
         billboardUI.GetComponent<TextMeshPro>().text = name + "\n" + "LMB to pick up";
+
+        GameMainframe.DayHasChanged += ChangeState;
+        // https://discussions.unity.com/t/subscribing-to-a-function-method/695110/2
+        ChangeState();
     }
 
-	void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
 	{
         //Debug.Log(other.tag);
 
-        if (other.gameObject.tag == "Player" && GameMainframe.GetInstance().playerContrScrpt.plantLookAt == null)
+        if (other.gameObject.tag == "Player" && GameMainframe.GetInstance().playerContrScr.plantLookAt == null)
         {
             billboardUI.SetActive(true);
-            GameMainframe.GetInstance().playerContrScrpt.plantLookAt = this.gameObject;
+            GameMainframe.GetInstance().playerContrScr.plantLookAt = this.gameObject;
         }
     }
     void OnTriggerExit(Collider other)
@@ -32,7 +38,7 @@ public class PlantBhv : MonoBehaviour
         if (other.gameObject.tag == "Player")
 		{
             billboardUI.SetActive(false);
-            GameMainframe.GetInstance().playerContrScrpt.plantLookAt = null;
+            GameMainframe.GetInstance().playerContrScr.plantLookAt = null;
         }
     }
 
@@ -57,11 +63,52 @@ public class PlantBhv : MonoBehaviour
         return pickedPrefab;
 	}
 
+    public void SetPlantTag(PlantSpawning.PlantSpecials ps)
+	{
+        myPlantTag = ps;
+	}
+
+    public void ChangeState()
+    {
+        // TO DO: CHANGE FLOWER BLOOM STATE HERE
+
+        if (myPlantTag == PlantSpawning.PlantSpecials.NIGHTBLOOM)
+        {
+            if (GameMainframe.isCurrentlyDay)
+            {
+                billboardUI.GetComponent<TextMeshPro>().text = name + "\n" + "Unable to pick during Daytime";
+                ToggleMeshes();
+            }
+            else
+            {
+                billboardUI.GetComponent<TextMeshPro>().text = name + "\n" + "LMB to pick up";
+                ToggleMeshes();
+            }
+        }
+	}
+
+    public void ToggleMeshes()
+	{
+        foreach (Transform t in transform)
+        {
+            t.GetComponent<MeshRenderer>().enabled = !GameMainframe.isCurrentlyDay;
+        }
+	}
+
+    public bool CheckPickable()
+	{
+        // To do every case here
+        if (myPlantTag == PlantSpawning.PlantSpecials.NIGHTBLOOM && GameMainframe.isCurrentlyDay)
+            return false;
+        else
+            return true;
+    }
+
     public int PickMeUp()
     {
         StartCoroutine(PickUpAnim());
         GameMainframe.GetInstance().ObjectEnd(name, this.gameObject);
-        GameMainframe.GetInstance().audioMngr.PlaySFX("pickup" + Random.Range(1, 3), transform.position);
+        GameMainframe.GetInstance().audioMngr.PlaySFX("pickup" + UnityEngine.Random.Range(1, 3), transform.position);
         return amtWhenPicked;
 	}
 
@@ -74,7 +121,7 @@ public class PlantBhv : MonoBehaviour
         
         while (time < timeEnd)
         {
-            Vector3 dest = GameMainframe.GetInstance().playerContrScrpt.gameObject.transform.position;
+            Vector3 dest = GameMainframe.GetInstance().playerContrScr.gameObject.transform.position;
             transform.position = Vector3.Lerp(transform.position, dest, time / timeEnd);
             transform.localScale = new Vector3(1f - (time / timeEnd), 1f - (time / timeEnd), 1f - (time / timeEnd));
             time += Time.deltaTime;
@@ -96,4 +143,10 @@ public class PlantBhv : MonoBehaviour
         gameObject.SetActive(false);
         yield return null;
 	}
+
+    public void ObjReuse()
+	{
+        transform.localScale = Vector3.one;
+        GetComponent<SphereCollider>().enabled = true;
+    }
 }

@@ -8,8 +8,22 @@ public class PlantSpawning : MonoBehaviour
     // Tutorial here:
     // https://www.youtube.com/watch?v=gfD8S32xzYI
 
-    public enum PlantColour {RED, ORANGE, YELLOW, GREEN, BLUE, VIOLET, PINK, WHITE};
-    public enum PlantSpecials { NONE, GLIMMER, CLUSTER, NIGHTBLOOM, RARE }
+    // PLANT TAGS
+    public enum PlantValue { PALE, BRIGHT, VIBRANT, DARK } // from most faded to most saturated, one only
+    public enum PlantColour { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE, WHITE, BLACK }; // colour of flower, one only
+    public enum PlantSpecials { LUSTROUS, INFLORESCENT, NIGHTBLOOM, RARE } // other characteristics that makes this flower special, can have multiple
+
+    // BOUQUET TAGS - only for bouquets
+    public enum BouquetHarmony { CONTRASTING, ANALOGOUS, TRIADIC, SOLID, MULTICOLOURED }; // colour harmonies existing in the bouquet, one only
+    public enum BouquetCentres { JEWELBED, SPECTRUM, PARTITION, TROVE }; // characteristics of the centrepiece in the bouquet, one only
+    public enum BouquetSpecials { RADIANT, MONOSPECIES, DELICATE, BOLD, REFINED, ELEGANT, // other characteristics that makes the bouquet special, can have multiple
+                RED_DOMINANT, ORANGE_DOMINANT, YELLOW_DOMINANT, GREEN_DOMINANT, BLUE_DOMINANT, VIOLET_DOMINANT, PINK_DOMINANT, WHITE_DOMINANT, BLACK_DOMINANT };
+
+    // DESCRIPTIONS FOR EVERY TAG, see the TagDescFiller() function
+    public Hashtable TagDescs = new Hashtable();
+
+    public Dictionary<string, int> spawnedPlants = new Dictionary<string, int>();
+    private bool firstSpawn = true;
 
     #region Plant Masterlist
     [System.Serializable]
@@ -17,8 +31,9 @@ public class PlantSpawning : MonoBehaviour
     {
         public GameObject plantOnfield, plantPickedup;
         public string plantName;
+        public PlantValue plantVal;
         public PlantColour plantCol;
-        public PlantSpecials plantTag;
+        public List<PlantSpecials> plantSpc;
         public string plantDesc;
     }
 
@@ -57,6 +72,10 @@ public class PlantSpawning : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        TagDescFiller();
+
+        // every time the time of day changes, spawn plants again
+        GameMainframe.DayHasChanged += SpawnPlants;
         SpawnPlants();
     }
 
@@ -107,7 +126,17 @@ public class PlantSpawning : MonoBehaviour
         foreach (OnePlantSpawn thisPlant in plantSpawnDeets)
 		{
             //Debug.LogError("spawning: " + thisPlant.plantName);
-            spawnedCount = 0;
+            // Spawns the plant x amount of times based on the minClusterAmt set in the inspector
+            if (firstSpawn)
+            {
+                spawnedCount = 0;
+            }
+            // Once this function has ran once the amount spawned will decrease every day/night
+            else
+            {
+                // if this plant has been spawned before, get the amount currently in the scene and add that amount to spawnedCount (so that it spawns less), otherwise it'll spawn a little more (but still less)
+                spawnedCount = spawnedPlants.TryGetValue(plantMasterlist[thisPlant.indexOfPlant].plantName, out int onField) ? (thisPlant.minClusterAmt / 5) + onField : thisPlant.minClusterAmt / 5;
+            }
 
             // For loop to spawn plants until minimum number is hit
             for (int i = 0; spawnedCount < thisPlant.minClusterAmt; i += 0)
@@ -136,13 +165,17 @@ public class PlantSpawning : MonoBehaviour
                                     PlantBhv singlePlantPBHV = singlePlant.GetComponentInChildren<PlantBhv>(); // code shortening
                                     singlePlantPBHV.SetPickupQty(thisPlant.amtWhenPicked); // setting amount to give when picked up
                                     singlePlantPBHV.SetPickedPrefab(plantMasterlist[thisPlant.indexOfPlant].plantPickedup); // setting object displays
+                                    singlePlantPBHV.SetPlantTag(plantMasterlist[thisPlant.indexOfPlant].plantSpc[0]); // setting plant tag
 
                                     singlePlantPBHV.gameObject.name = plantMasterlist[thisPlant.indexOfPlant].plantName /*thisPlant.plantName*/; // set up plant name (only applies to object that's affected by animation)
 
+                                    singlePlantPBHV.ObjReuse();
                                     singlePlant.SetActive(true);
                                 }, plantMasterlist[thisPlant.indexOfPlant].plantOnfield /*thisPlant.plantPrefab*/);
 
+                                // increment plant spawn stuff
                                 spawnedCount += 1;
+                                IncrementSpawns(plantMasterlist[thisPlant.indexOfPlant].plantName, 1);
                                 //Debug.LogWarning("spawned, no. " + spawnedCount);
                             }
 
@@ -160,13 +193,17 @@ public class PlantSpawning : MonoBehaviour
                                     PlantBhv singlePlantPBHV = singlePlant.GetComponentInChildren<PlantBhv>(); // code shortening
                                     singlePlantPBHV.SetPickupQty(thisPlant.amtWhenPicked); // setting amount to give when picked up
                                     singlePlantPBHV.SetPickedPrefab(plantMasterlist[thisPlant.indexOfPlant].plantPickedup); // setting object displays
+                                    singlePlantPBHV.SetPlantTag(plantMasterlist[thisPlant.indexOfPlant].plantSpc[0]); // setting plant tag
 
                                     singlePlantPBHV.gameObject.name = plantMasterlist[thisPlant.indexOfPlant].plantName /*thisPlant.plantName*/; // set up plant name (only applies to object that's affected by animation
 
+                                    singlePlantPBHV.ObjReuse();
                                     singlePlant.SetActive(true);
                                 }, plantMasterlist[thisPlant.indexOfPlant].plantOnfield /*thisPlant.plantPrefab*/);
 
+                                // increment plant spawn stuff
                                 spawnedCount += 1;
+                                IncrementSpawns(plantMasterlist[thisPlant.indexOfPlant].plantName, 1 /*thisPlant.amtWhenPicked*/);
                                 //Debug.LogWarning("spawned, no. " + spawnedCount);
                             }
                         }
@@ -175,7 +212,7 @@ public class PlantSpawning : MonoBehaviour
 
                 if (spawnedCount == 0)
                 {
-                    if (strikes >= 3)
+                    if (strikes >= 5)
 					{
                         Debug.LogError("Loop broken for " + plantMasterlist[thisPlant.indexOfPlant].plantName + " spawning - either the spawnChance & minClusterAmt is too small, or the spawn area is unable to find the terrain.");
                         break;
@@ -185,6 +222,79 @@ public class PlantSpawning : MonoBehaviour
                 }
             }
         }
+
+        // 
+        firstSpawn = false;
+    }
+
+    public void IncrementSpawns(string plantName, int quantity)
+    {
+        if (!spawnedPlants.ContainsKey(plantName))
+        {
+            spawnedPlants.Add(plantName, 0);
+        }
+
+        spawnedPlants[plantName] += quantity;
+        //Debug.LogWarning("amount of " + plantName + " rn : " + spawnedPlants[plantName]);
+    }
+
+    private void TagDescFiller()
+	{
+        // PlantValues
+        TagDescs.Add(PlantValue.PALE, "The colour on this flower is faded and pastel-like.");
+        TagDescs.Add(PlantValue.BRIGHT, "The colour on this flower is bright and healthy."); // this is otherwise the "default"
+        TagDescs.Add(PlantValue.VIBRANT, "The colour on this flower is deep and saturated.");
+        TagDescs.Add(PlantValue.DARK, "The colour on this flower is dark and refined.");
+
+        // PlantColours (maaaybe not needed?)
+        /*TagDescs.Add(PlantColour.RED, "");
+        TagDescs.Add(PlantColour.ORANGE, "");
+        TagDescs.Add(PlantColour.YELLOW, "");
+        TagDescs.Add(PlantColour.GREEN, "");
+        TagDescs.Add(PlantColour.BLUE, "");
+        TagDescs.Add(PlantColour.VIOLET, "");
+        TagDescs.Add(PlantColour.PINK, "");
+        TagDescs.Add(PlantColour.WHITE, "");
+        TagDescs.Add(PlantColour.BLACK, "");*/
+
+        // PlantSpecials
+        TagDescs.Add(PlantSpecials.LUSTROUS, "This flower has a shiny and crystal-like appearance.");
+        TagDescs.Add(PlantSpecials.INFLORESCENT, "Many clusters of flowers grow from this plant's stem.");
+        TagDescs.Add(PlantSpecials.NIGHTBLOOM, "The flower only blooms at night.");
+        TagDescs.Add(PlantSpecials.RARE, "This flower is significantly harder to find than most.");
+
+        // BouquetHarmonies
+        TagDescs.Add(BouquetHarmony.CONTRASTING, "The accents of the bouquet has a Contrasting colour harmony.");
+        TagDescs.Add(BouquetHarmony.ANALOGOUS, "The accents of the bouquet has a Analogous colour harmony.");
+        TagDescs.Add(BouquetHarmony.TRIADIC, "The accents of the bouquet has a Triadic colour harmony.");
+        TagDescs.Add(BouquetHarmony.SOLID, "The accents of the bouquet has a Solid colour harmony.");
+        TagDescs.Add(BouquetHarmony.MULTICOLOURED, "Every flower that accents the bouquet is a different colour.");
+
+        // BouquetCentres
+        TagDescs.Add(BouquetCentres.JEWELBED, "The centrepiece of the bouquet shares a Constrating colour harmony with its accents.");
+        TagDescs.Add(BouquetCentres.SPECTRUM, "The centrepiece of the bouquet shares an Analogous colour harmony with its accents.");
+        TagDescs.Add(BouquetCentres.PARTITION, "The centrepiece of the bouquet shares a Triadic colour harmony with its accents.");
+        TagDescs.Add(BouquetCentres.TROVE, "The centrepiece of the bouquet shares a Solid colour harmony with its accents.");
+
+        // BouquetSpecials
+        TagDescs.Add(BouquetSpecials.RADIANT, "The centrepiece of the bouquet is a very special flower.");
+        TagDescs.Add(BouquetSpecials.MONOSPECIES, "Every flower that accents the bouquet are the same type.");
+        TagDescs.Add(BouquetSpecials.DELICATE, "4 or more Pale flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.BOLD, "4 or more Bright flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.REFINED, "4 or more Vibrant flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.ELEGANT, "4 or more Dark flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.RED_DOMINANT, "4 or more Red flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.ORANGE_DOMINANT, "4 or more Orange flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.YELLOW_DOMINANT, "4 or more Yellow flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.GREEN_DOMINANT, "4 or more Green flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.BLUE_DOMINANT, "4 or more Blue flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.VIOLET_DOMINANT, "4 or more Violet flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.PINK_DOMINANT, "4 or more Pink flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.WHITE_DOMINANT, "4 or more White flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.BLACK_DOMINANT, "4 or more Black flowers adorn the accents of the bouquet.");
+
+        // How to use the hashtable
+        //Debug.Log(TagDescs[BouquetSpecials.BLACK_DOMINANT]);
     }
 
     public static void DrawCircle(Vector3 position, Quaternion rotation, float radius)

@@ -73,9 +73,18 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""DebugH"",
+                    ""name"": ""DebugToggle"",
                     ""type"": ""Button"",
                     ""id"": ""54cd05cc-5b27-4fab-a8ee-975e423b7cf6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugH"",
+                    ""type"": ""Button"",
+                    ""id"": ""78fd8cf9-5213-4827-a1b3-34872164068e"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
@@ -85,6 +94,15 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
                     ""name"": ""DebugJ"",
                     ""type"": ""Button"",
                     ""id"": ""859f5ff7-52fe-4fb7-918a-98b4bb3bf0c6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugU"",
+                    ""type"": ""Button"",
+                    ""id"": ""3f2042df-609a-461a-b1ff-62e1c6893b76"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press"",
@@ -238,11 +256,11 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""1f58eea5-1759-439d-8a14-924f34a56c23"",
-                    ""path"": ""<Keyboard>/h"",
+                    ""path"": ""<Keyboard>/end"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KBM"",
-                    ""action"": ""DebugH"",
+                    ""action"": ""DebugToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -254,6 +272,28 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""KBM"",
                     ""action"": ""DebugJ"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f091bdbd-ffbc-41b4-86b1-c28127d6a228"",
+                    ""path"": ""<Keyboard>/u"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""DebugU"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0552099-880d-4945-8291-6c489c841c59"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""DebugH"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -595,8 +635,10 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
         m_Defaults_Interaction = m_Defaults.FindAction("Interaction", throwIfNotFound: true);
         m_Defaults_CamZoomer = m_Defaults.FindAction("CamZoomer", throwIfNotFound: true);
         m_Defaults_Escape = m_Defaults.FindAction("Escape", throwIfNotFound: true);
+        m_Defaults_DebugToggle = m_Defaults.FindAction("DebugToggle", throwIfNotFound: true);
         m_Defaults_DebugH = m_Defaults.FindAction("DebugH", throwIfNotFound: true);
         m_Defaults_DebugJ = m_Defaults.FindAction("DebugJ", throwIfNotFound: true);
+        m_Defaults_DebugU = m_Defaults.FindAction("DebugU", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -674,8 +716,10 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Defaults_Interaction;
     private readonly InputAction m_Defaults_CamZoomer;
     private readonly InputAction m_Defaults_Escape;
+    private readonly InputAction m_Defaults_DebugToggle;
     private readonly InputAction m_Defaults_DebugH;
     private readonly InputAction m_Defaults_DebugJ;
+    private readonly InputAction m_Defaults_DebugU;
     public struct DefaultsActions
     {
         private @GoatControls m_Wrapper;
@@ -685,8 +729,10 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
         public InputAction @Interaction => m_Wrapper.m_Defaults_Interaction;
         public InputAction @CamZoomer => m_Wrapper.m_Defaults_CamZoomer;
         public InputAction @Escape => m_Wrapper.m_Defaults_Escape;
+        public InputAction @DebugToggle => m_Wrapper.m_Defaults_DebugToggle;
         public InputAction @DebugH => m_Wrapper.m_Defaults_DebugH;
         public InputAction @DebugJ => m_Wrapper.m_Defaults_DebugJ;
+        public InputAction @DebugU => m_Wrapper.m_Defaults_DebugU;
         public InputActionMap Get() { return m_Wrapper.m_Defaults; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -711,12 +757,18 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
             @Escape.started += instance.OnEscape;
             @Escape.performed += instance.OnEscape;
             @Escape.canceled += instance.OnEscape;
+            @DebugToggle.started += instance.OnDebugToggle;
+            @DebugToggle.performed += instance.OnDebugToggle;
+            @DebugToggle.canceled += instance.OnDebugToggle;
             @DebugH.started += instance.OnDebugH;
             @DebugH.performed += instance.OnDebugH;
             @DebugH.canceled += instance.OnDebugH;
             @DebugJ.started += instance.OnDebugJ;
             @DebugJ.performed += instance.OnDebugJ;
             @DebugJ.canceled += instance.OnDebugJ;
+            @DebugU.started += instance.OnDebugU;
+            @DebugU.performed += instance.OnDebugU;
+            @DebugU.canceled += instance.OnDebugU;
         }
 
         private void UnregisterCallbacks(IDefaultsActions instance)
@@ -736,12 +788,18 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
             @Escape.started -= instance.OnEscape;
             @Escape.performed -= instance.OnEscape;
             @Escape.canceled -= instance.OnEscape;
+            @DebugToggle.started -= instance.OnDebugToggle;
+            @DebugToggle.performed -= instance.OnDebugToggle;
+            @DebugToggle.canceled -= instance.OnDebugToggle;
             @DebugH.started -= instance.OnDebugH;
             @DebugH.performed -= instance.OnDebugH;
             @DebugH.canceled -= instance.OnDebugH;
             @DebugJ.started -= instance.OnDebugJ;
             @DebugJ.performed -= instance.OnDebugJ;
             @DebugJ.canceled -= instance.OnDebugJ;
+            @DebugU.started -= instance.OnDebugU;
+            @DebugU.performed -= instance.OnDebugU;
+            @DebugU.canceled -= instance.OnDebugU;
         }
 
         public void RemoveCallbacks(IDefaultsActions instance)
@@ -885,8 +943,10 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
         void OnInteraction(InputAction.CallbackContext context);
         void OnCamZoomer(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
+        void OnDebugToggle(InputAction.CallbackContext context);
         void OnDebugH(InputAction.CallbackContext context);
         void OnDebugJ(InputAction.CallbackContext context);
+        void OnDebugU(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

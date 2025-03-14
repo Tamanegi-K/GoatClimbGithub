@@ -137,6 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   billboardUI: {fileID: 2102162772709579598}
   pickedPrefab: {fileID: 0}
+  myPlantTag: 0
 --- !u!135 &9203631622550707178
 SphereCollider:
   m_ObjectHideFlags: 0

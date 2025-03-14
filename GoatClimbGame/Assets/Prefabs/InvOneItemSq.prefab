@@ -95,7 +95,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -370,6 +370,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InvOneItemSq
       objectReference: {fileID: 0}
+    - target: {fileID: 6806546893842740597, guid: 388419a8e1c046d4da6e1eb733f6e9a0,
+        type: 3}
+      propertyPath: objNum
+      value: 
+      objectReference: {fileID: 7038904677551009926}
     - target: {fileID: 6806546893842740597, guid: 388419a8e1c046d4da6e1eb733f6e9a0,
         type: 3}
       propertyPath: tmpTxt
@@ -771,6 +776,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b00155e1da2e084481cd5c5db0494aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7038904677551009926 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1470924417283354995, guid: 388419a8e1c046d4da6e1eb733f6e9a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 8486738229093728757}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7901195872806353230 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1756505820783950011, guid: 388419a8e1c046d4da6e1eb733f6e9a0,

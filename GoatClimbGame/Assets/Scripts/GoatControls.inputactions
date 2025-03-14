@@ -51,9 +51,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "DebugH",
+                    "name": "DebugToggle",
                     "type": "Button",
                     "id": "54cd05cc-5b27-4fab-a8ee-975e423b7cf6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DebugH",
+                    "type": "Button",
+                    "id": "78fd8cf9-5213-4827-a1b3-34872164068e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press",
@@ -63,6 +72,15 @@
                     "name": "DebugJ",
                     "type": "Button",
                     "id": "859f5ff7-52fe-4fb7-918a-98b4bb3bf0c6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DebugU",
+                    "type": "Button",
+                    "id": "3f2042df-609a-461a-b1ff-62e1c6893b76",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press",
@@ -216,11 +234,11 @@
                 {
                     "name": "",
                     "id": "1f58eea5-1759-439d-8a14-924f34a56c23",
-                    "path": "<Keyboard>/h",
+                    "path": "<Keyboard>/end",
                     "interactions": "",
                     "processors": "",
                     "groups": "KBM",
-                    "action": "DebugH",
+                    "action": "DebugToggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -232,6 +250,28 @@
                     "processors": "",
                     "groups": "KBM",
                     "action": "DebugJ",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f091bdbd-ffbc-41b4-86b1-c28127d6a228",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "DebugU",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a0552099-880d-4945-8291-6c489c841c59",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "DebugH",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

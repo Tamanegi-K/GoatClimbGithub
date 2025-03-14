@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +7,13 @@ using UnityEngine.UI;
 //using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.Rendering;
 
 public class GameMainframe : MonoBehaviour
 {
     [Header("Object Idenfitication")]
-    public PlayerController playerContrScrpt;
+    public PlayerController playerContrScr;
+    public PlantSpawning plantSpawningScr;
     public SkinnedMeshRenderer goteMesh;
     public AudioManager audioMngr;
     public GameObject inventoryDisplay;
@@ -20,12 +23,19 @@ public class GameMainframe : MonoBehaviour
     private bool titleAnimStarted = false, gameStarted = false;
     private List<GameObject> invHudObjs = new List<GameObject>();
     private bool setupComplete = false, firstPickToggled = false;
-    private Vector3   pauseCoordsUpOpened = Vector3.zero, // Opened meaning game is suspended
-                    pauseCoordsLeftOpened = new Vector3(0f, -64f, 0f),
-                   pauseCoordsRightOpened = Vector3.zero,
-                      pauseCoordsUpClosed = new Vector3(0f, 192f, 0f), // Closed meaning game is NOT suspended
-                    pauseCoordsLeftClosed = new Vector3(-1024f, -64f, 0f),
-                   pauseCoordsRightClosed = new Vector3(1024f, 0f, 0f);
+    private Vector3 pauseCoordsUpOpened = Vector3.zero, // Opened meaning game is suspended
+                  pauseCoordsLeftOpened = new Vector3(0f, -64f, 0f),
+                 pauseCoordsRightOpened = Vector3.zero,
+                    pauseCoordsUpClosed = new Vector3(0f, 192f, 0f), // Closed meaning game is NOT suspended
+                  pauseCoordsLeftClosed = new Vector3(-1024f, -64f, 0f),
+                 pauseCoordsRightClosed = new Vector3(1024f, 0f, 0f);
+
+    public Transform sunRotation;
+    private LensFlareComponentSRP sunLensFlare;
+    public static bool isCurrentlyDay = true;
+    public static float daytimeSpeed = 0.24f;
+    public static float daytimeSpeedInit;
+    public static Action DayHasChanged;
 
     [Header("Prefab Housing")]
     public GameObject hudPopupPrefab;
@@ -139,6 +149,21 @@ public class GameMainframe : MonoBehaviour
         }
     }
 
+	void LateUpdate()
+	{
+        if (!gameStarted || gameSuspended)
+            return;
+
+        //sunRotation.Rotate(-Time.deltaTime * 0.24f, 0f, 0f);
+        sunRotation.RotateAround(sunRotation.position, Vector3.forward, -Time.deltaTime * daytimeSpeed);
+        float lensScale = Mathf.Clamp(3f * Mathf.Sin(sunRotation.eulerAngles.x * Mathf.Deg2Rad), 0f, 3f);
+        sunLensFlare.scale = lensScale;
+
+        if ((lensScale > 0f && !isCurrentlyDay) || (lensScale <= 0f && isCurrentlyDay))
+            ChangeTimeOfDay();
+
+    }
+
 	public bool GetTitleStartedState()
     {
         return titleAnimStarted;
@@ -197,9 +222,9 @@ public class GameMainframe : MonoBehaviour
         uiGroupTitle.alpha = 0f;
         yield return new WaitForSeconds(0.5f);
 
-        playerContrScrpt.controlGiven = true;
-        playerContrScrpt.TogglePlayerControl();
-        audioMngr.ForceBGMCD(Random.Range(audioMngr.bgmCDmin * 10f, audioMngr.bgmCDmax * 10f));
+        playerContrScr.controlGiven = true;
+        playerContrScr.TogglePlayerControl();
+        audioMngr.ForceBGMCD(UnityEngine.Random.Range(audioMngr.bgmCDmin * 10f, audioMngr.bgmCDmax * 10f));
         gameStarted = true;
         gameSuspended = false;
 
@@ -210,7 +235,6 @@ public class GameMainframe : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
         }
         yield return new WaitForSeconds(0.5f);
-
 
         yield return null;
     }
@@ -260,15 +284,23 @@ public class GameMainframe : MonoBehaviour
 
         if (!inTitle)
         {
-            if (playerContrScrpt == null && GameObject.Find("Player").TryGetComponent(out PlayerController pcs))
+            if (playerContrScr == null && GameObject.Find("Player").TryGetComponent(out PlayerController pcs))
             {
-                playerContrScrpt = pcs;
-                goteMesh = playerContrScrpt.gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+                playerContrScr = pcs;
+                goteMesh = playerContrScr.gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
             }
 
             uiGroupWhite.gameObject.SetActive(true); uiGroupWhite.alpha = 0f;
             uiGroupPause.gameObject.SetActive(true); uiGroupPause.alpha = 0f;
         }
+
+        if (sunRotation == null && GameObject.Find("Sun").TryGetComponent(out Transform sT))
+        {
+            sunRotation = sT;
+            sunLensFlare = sunRotation.GetComponent<LensFlareComponentSRP>();
+        }
+
+        daytimeSpeedInit = daytimeSpeed;
 
         setupComplete = true;
     }
@@ -378,9 +410,9 @@ public class GameMainframe : MonoBehaviour
         invHudObjs.Clear();
 
         // Recreate the InvItem grid
-        if (playerContrScrpt.collectedPlants.Count > 0)
+        if (playerContrScr.collectedInventory.Count > 0)
         {
-            foreach (KeyValuePair<string, int> thing in playerContrScrpt.collectedPlants)
+            foreach (KeyValuePair<string, int> thing in playerContrScr.collectedInventory)
             {
                 ObjectUse("InvItem", (ii) =>
                 {
@@ -473,7 +505,7 @@ public class GameMainframe : MonoBehaviour
 
                     // --- TAGS AND COLOURS DISPLAYING ---
                     pauseRightSack.Find("InvDescTops/InvColBG").GetComponentInChildren<TextMeshProUGUI>().text = PascalCaseString(System.Enum.GetName(typeof(PlantSpawning.PlantColour), pi.plantCol));
-                    pauseRightSack.Find("InvDescTops/InvTagBG").GetComponentInChildren<TextMeshProUGUI>().text = PascalCaseString(System.Enum.GetName(typeof(PlantSpawning.PlantSpecials), pi.plantTag));
+                    pauseRightSack.Find("InvDescTops/InvTagBG").GetComponentInChildren<TextMeshProUGUI>().text = PascalCaseString(System.Enum.GetName(typeof(PlantSpawning.PlantSpecials), pi.plantSpc[0]));
 
                     // --- DESCRIPTION DISPLAYING ---
                     pauseRightSack.Find("InvDescBG").GetComponentInChildren<TextMeshProUGUI>().text = pi.plantDesc;
@@ -511,6 +543,14 @@ public class GameMainframe : MonoBehaviour
 	{
         return char.ToUpper(input[0]) + input.Substring(1).ToLower();
 	}
+
+    public static void ChangeTimeOfDay()
+    {
+        isCurrentlyDay = !isCurrentlyDay;
+
+        if (DayHasChanged != null)
+            DayHasChanged();
+    }
 
     public void ResetSetup(bool b) => setupComplete = b;
     public Toggle GetPauseTabSack() => pauseTabSack.GetComponent<Toggle>();
