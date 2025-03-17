@@ -427,14 +427,27 @@ public class GameMainframe : MonoBehaviour
                         {
                             if (pi.plantPickedup != null) foundDispObj = pi.plantPickedup;
                             else foundDispObj = pi.plantOnfield;
+
+                            iiIib.SetupInvDisplay(thing.Key, thing.Value, foundDispObj);
+                            iiIib.isNotPlant = false;
                             break;
                         }
                     }
-                    iiIib.SetupInvDisplay(thing.Key, thing.Value, foundDispObj);
+
+                    foreach (PlantSpawning.OneBouquetMade bm in GetComponent<PlantSpawning>().bouquetsMade)
+                    {
+                        if (bm.bqName == thing.Key)
+                        {
+                            foundDispObj = bm.bqObj;
+
+                            iiIib.SetupInvDisplay(thing.Key, thing.Value, foundDispObj);
+                            iiIib.isNotPlant = true;
+                            break;
+                        }
+                    }
 
                     ii.transform.SetParent(inventoryDisplay.transform);
                     ii.SetActive(true);
-
 
                     if (!firstPickToggled)
                     {
@@ -484,7 +497,7 @@ public class GameMainframe : MonoBehaviour
         if (value != 0) selectedToggle.GetComponent<Toggle>().isOn = true;
     }
 
-    public void InvOnSelect(string input) // Does various things based on what tab is currently selected when clicking on an inventory item
+    public void InvClick(string input) // Does various things based on what tab is currently selected when clicking on an inventory item
 	{
         // TO DO : FOR OTHER RIGHT SIDE INVENTORY SHITS
         // (check InvItemClick() in InventoryItemBhv.cs)
@@ -493,6 +506,8 @@ public class GameMainframe : MonoBehaviour
         if (pauseUpTG.GetFirstActiveToggle() == pauseTabSack.GetComponent<Toggle>())
         {
             GameObject dispObj = null;
+
+            // Logic for plants
             foreach (PlantSpawning.OnePlantInfo pi in GetComponent<PlantSpawning>().plantMasterlist)
             {
                 // Search the plantMasterlist and grab its display obj and desc
@@ -505,7 +520,7 @@ public class GameMainframe : MonoBehaviour
 
                     // --- TAGS AND COLOURS DISPLAYING ---
                     pauseRightSack.Find("InvDescTops/InvColBG").GetComponentInChildren<TextMeshProUGUI>().text = PascalCaseString(System.Enum.GetName(typeof(PlantSpawning.PlantColour), pi.plantCol));
-                    pauseRightSack.Find("InvDescTops/InvTagBG").GetComponentInChildren<TextMeshProUGUI>().text = PascalCaseString(System.Enum.GetName(typeof(PlantSpawning.PlantSpecials), pi.plantSpc[0]));
+                    pauseRightSack.Find("InvDescTops/InvTagBG").GetComponentInChildren<TextMeshProUGUI>().text = PascalCaseString(System.Enum.GetName(typeof(PlantSpawning.PlantSpecials), pi.plantSpc[0])); // TO DO - DISPLAY ALL SPECIAL TAGS INSTEAD OF JUST ONE
 
                     // --- DESCRIPTION DISPLAYING ---
                     pauseRightSack.Find("InvDescBG").GetComponentInChildren<TextMeshProUGUI>().text = pi.plantDesc;
@@ -514,6 +529,50 @@ public class GameMainframe : MonoBehaviour
                     // Check if object has a display object, otherwise use the whole damn plant
                     if (pi.plantPickedup != null) dispObj = pi.plantPickedup;
                     else dispObj = pi.plantOnfield;
+
+                    // Erasing the display object in desc area
+                    foreach (Transform c in sackObjHolder)
+                    {
+                        GetInstance().ObjectEnd(c.name, c.gameObject);
+                        c.gameObject.SetActive(false);
+                    }
+
+                    // Spawning the display object in desc area
+                    GetInstance().ObjectUse(input + "Disp", (pickedDisplay) =>
+                    {
+                        pickedDisplay.name = pickedDisplay.name.Contains("Disp") ? pickedDisplay.name : input + "Disp";
+                        pickedDisplay.transform.SetParent(sackObjHolder);
+
+                        pickedDisplay.transform.localPosition = Vector3.zero;
+                        pickedDisplay.transform.localEulerAngles = Vector3.zero;
+                        pickedDisplay.transform.localScale = Vector3.one;
+                        pickedDisplay.gameObject.SetActive(true);
+                    }, dispObj);
+                    break;
+                }
+            }
+
+            // Logic for non-plants
+            foreach (PlantSpawning.OneBouquetMade bm in GetComponent<PlantSpawning>().bouquetsMade)
+            {
+                // Search the plantMasterlist and grab its display obj and desc
+                if (bm.bqName == input)
+                {
+                    pauseRightSack.Find("InvDescTops").GetComponent<CanvasGroup>().alpha = 1f;
+
+                    // --- NAME DISPLAYING ---
+                    pauseRightSack.Find("InvDescTops/InvNameBG").GetComponentInChildren<TextMeshProUGUI>().text = bm.bqName;
+
+                    // --- TAGS AND COLOURS DISPLAYING ---
+                    pauseRightSack.Find("InvDescTops/InvColBG").GetComponentInChildren<TextMeshProUGUI>().text = PascalCaseString(System.Enum.GetName(typeof(PlantSpawning.BouquetHarmony), bm.bqHarm));
+                    pauseRightSack.Find("InvDescTops/InvTagBG").GetComponentInChildren<TextMeshProUGUI>().text = PascalCaseString(System.Enum.GetName(typeof(PlantSpawning.BouquetSpecials), bm.bqSpcs[0])); // TO DO - DISPLAY ALL SPECIAL TAGS INSTEAD OF JUST ONE
+
+                    // --- DESCRIPTION DISPLAYING ---
+                    pauseRightSack.Find("InvDescBG").GetComponentInChildren<TextMeshProUGUI>().text = bm.bqDesc;
+
+                    // --- OBJECT DISPLAYING ---
+                    // Check if object has a display object, otherwise use the whole damn plant
+                    dispObj = bm.bqObj;
 
                     // Erasing the display object in desc area
                     foreach (Transform c in sackObjHolder)

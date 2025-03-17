@@ -75,7 +75,7 @@ public class InventoryItemBhv : MonoBehaviour
 
     public void InvItemClick() // attached to button in scene
     {
-        GameMainframe.GetInstance().InvOnSelect(invName);
+        GameMainframe.GetInstance().InvClick(invName);
 
         // The next part is for bouquet assembly - if the item clicked is not a flower/plant, skip the rest
         if (isNotPlant)
@@ -84,7 +84,7 @@ public class InventoryItemBhv : MonoBehaviour
         // if the isOn condition didn't exist, it would fire twice because of the Toggle "On value changed" condition (bruh)
         if (GameMainframe.GetInstance().currentTab == GameMainframe.PauseTabs.ASSEMBLY && GetComponent<Toggle>().isOn)
         {
-            GameMainframe.GetInstance().GetAssRight().InvOnClick(invName);
+            GameMainframe.GetInstance().GetAssRight().InvClickBouquet(invName);
         }
 	}
 }

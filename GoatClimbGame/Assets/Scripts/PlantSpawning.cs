@@ -14,14 +14,15 @@ public class PlantSpawning : MonoBehaviour
     public enum PlantSpecials { LUSTROUS, INFLORESCENT, NIGHTBLOOM, RARE } // other characteristics that makes this flower special, can have multiple
 
     // BOUQUET TAGS - only for bouquets
-    public enum BouquetHarmony { CONTRASTING, ANALOGOUS, TRIADIC, SOLID, MULTICOLOURED }; // colour harmonies existing in the bouquet, one only
-    public enum BouquetCentres { JEWELBED, SPECTRUM, PARTITION, TROVE }; // characteristics of the centrepiece in the bouquet, one only
+    public enum BouquetHarmony { NONE, CONTRASTING, ANALOGOUS, TRIADIC, SOLID, MULTICOLOURED }; // colour harmonies existing in the bouquet, one only
+    public enum BouquetCentres { NONE, JEWELBED, SPECTRUM, PARTITION, TROVE }; // characteristics of the centrepiece in the bouquet, one only
     public enum BouquetSpecials { RADIANT, MONOSPECIES, DELICATE, BOLD, REFINED, ELEGANT, // other characteristics that makes the bouquet special, can have multiple
-                RED_DOMINANT, ORANGE_DOMINANT, YELLOW_DOMINANT, GREEN_DOMINANT, BLUE_DOMINANT, VIOLET_DOMINANT, PINK_DOMINANT, WHITE_DOMINANT, BLACK_DOMINANT };
+                RED_DOMINANT, ORANGE_DOMINANT, YELLOW_DOMINANT, GREEN_DOMINANT, BLUE_DOMINANT, VIOLET_DOMINANT, PURPLE_DOMINANT, WHITE_DOMINANT, BLACK_DOMINANT };
 
     // DESCRIPTIONS FOR EVERY TAG, see the TagDescFiller() function
     public Hashtable TagDescs = new Hashtable();
 
+    // Handling the number check on how many plants that spawned in the world
     public Dictionary<string, int> spawnedPlants = new Dictionary<string, int>();
     private bool firstSpawn = true;
 
@@ -67,6 +68,33 @@ public class PlantSpawning : MonoBehaviour
     }
     [SerializeField]
     public OnePlantSpawn[] plantSpawnDeets;
+    #endregion
+
+    #region Making Bouquets
+    [System.Serializable]
+    public class OneBouquetMade
+    {
+        public GameObject bqObj;
+        public int bqID;
+        public string[] flowerNameArray = new string[7] { "", "", "", "", "", "", "" };
+        public string bqName;
+        public BouquetHarmony bqHarm;
+        public BouquetCentres bqCntr;
+        public List<BouquetSpecials> bqSpcs;
+        public string bqDesc;
+
+        // Making a new class with given variables
+        public OneBouquetMade(GameObject iBQObj, int iBQid, string[] iFlowerNameArray, string iBQName, BouquetHarmony iBQHarm, BouquetCentres iBQCntr, List<BouquetSpecials> iBQSpcs, string iBQDesc)
+        {
+            bqObj = iBQObj; bqID = iBQid;
+            flowerNameArray = iFlowerNameArray;
+            bqName = iBQName; bqDesc = iBQDesc;
+            bqHarm = iBQHarm; bqCntr = iBQCntr; bqSpcs = iBQSpcs;
+        }
+    }
+
+    [SerializeField]
+    public List<OneBouquetMade> bouquetsMade;
     #endregion
 
     // Start is called before the first frame update
@@ -289,7 +317,7 @@ public class PlantSpawning : MonoBehaviour
         TagDescs.Add(BouquetSpecials.GREEN_DOMINANT, "4 or more Green flowers adorn the accents of the bouquet.");
         TagDescs.Add(BouquetSpecials.BLUE_DOMINANT, "4 or more Blue flowers adorn the accents of the bouquet.");
         TagDescs.Add(BouquetSpecials.VIOLET_DOMINANT, "4 or more Violet flowers adorn the accents of the bouquet.");
-        TagDescs.Add(BouquetSpecials.PINK_DOMINANT, "4 or more Pink flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.PURPLE_DOMINANT, "4 or more Purple flowers adorn the accents of the bouquet.");
         TagDescs.Add(BouquetSpecials.WHITE_DOMINANT, "4 or more White flowers adorn the accents of the bouquet.");
         TagDescs.Add(BouquetSpecials.BLACK_DOMINANT, "4 or more Black flowers adorn the accents of the bouquet.");
 

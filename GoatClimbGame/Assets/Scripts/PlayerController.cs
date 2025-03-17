@@ -139,9 +139,9 @@ public class PlayerController : MonoBehaviour
         if (uiInputsPauseTabs != null) uiInputsPauseTabs.performed += PauseTabSwitching;
 
         if (kbInputsDebugToggle != null) kbInputsDebugToggle.performed += ToggleDebugState;
-        if (kbInputsDebugH != null)      kbInputsDebugH.performed += ToggleDebugRun;
-        if (kbInputsDebugJ != null)      kbInputsDebugJ.performed += ToggleDebugPlant;
-        if (kbInputsDebugU != null)      kbInputsDebugU.performed += ToggleDebugFastDaytime;
+        if (kbInputsDebugH != null)      kbInputsDebugH.performed += ToggleDebugRunListener;
+        if (kbInputsDebugJ != null)      kbInputsDebugJ.performed += ToggleDebugPlantListener;
+        if (kbInputsDebugU != null)      kbInputsDebugU.performed += ToggleDebugFastDaytimeListener;
 
         // Gravity related crap
         RaycastHit rc;
@@ -279,7 +279,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (pbhv.CheckPickable())
 				{
-                    PlantCollection(pbhv.name, pbhv.PickMeUp());
+                    UpdateInventory(pbhv.name, pbhv.PickMeUp());
                     plantLookAt = null;
 
                     GameMainframe.GetInstance().GetComponent<PlantSpawning>().IncrementSpawns(pbhv.name, /*pbhv.PickMeUp() * */ -1);
@@ -306,6 +306,13 @@ public class PlayerController : MonoBehaviour
 
         debugModeOn = !debugModeOn;
 
+        // Turn all active debugs off
+        if (!debugModeOn)
+		{
+            if (debugSpeed) ToggleDebugRun();
+            if (GameMainframe.daytimeSpeed != GameMainframe.daytimeSpeedInit) ToggleDebugFastDaytime();
+		}
+
         GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
         {
             PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
@@ -319,11 +326,16 @@ public class PlayerController : MonoBehaviour
         }, GameMainframe.GetInstance().hudPopupPrefab);
     }
 
-    public void ToggleDebugRun(InputAction.CallbackContext context)
+    public void ToggleDebugRunListener(InputAction.CallbackContext context)
     {
         if (GameMainframe.GetInstance().GetGameSuspendState() || !debugModeOn)
             return;
 
+        ToggleDebugRun();
+    }
+
+    public void ToggleDebugRun()
+    {
         debugSpeed = !debugSpeed;
 
         if (debugSpeed)
@@ -340,8 +352,8 @@ public class PlayerController : MonoBehaviour
         GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
         {
             PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
-            if (speed != speedInit) hppPPB.SetupDisplay("DEBUG: Fast Walk ON", null);
-            else hppPPB.SetupDisplay("DEBUG: Fast Walk OFF", null);
+            if (speed != speedInit) hppPPB.SetupDisplay("DEBUG: Nyoom ON", null);
+            else hppPPB.SetupDisplay("DEBUG: Nyoom OFF", null);
             hpp.name = "HUDPopup";
 
             hpp.transform.SetParent(null);
@@ -350,16 +362,22 @@ public class PlayerController : MonoBehaviour
         }, GameMainframe.GetInstance().hudPopupPrefab);
     }
 
-    public void ToggleDebugPlant(InputAction.CallbackContext context)
+    public void ToggleDebugPlantListener(InputAction.CallbackContext context)
     {
         if (GameMainframe.GetInstance().GetGameSuspendState() || !debugModeOn)
             return;
 
+        ToggleDebugPlant();
+    }
+
+
+    public void ToggleDebugPlant()
+    {
         GameMainframe.GetInstance().audioMngr.PlaySFX("pickup" + Random.Range(1, 3), transform.position);
         
         foreach (PlantSpawning.OnePlantInfo pi in GameMainframe.GetInstance().GetComponent<PlantSpawning>().plantMasterlist)
         {
-            PlantCollection(pi.plantName, 5);
+            UpdateInventory(pi.plantName, 5);
         }
 
         GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
@@ -376,11 +394,16 @@ public class PlayerController : MonoBehaviour
         GameMainframe.GetInstance().UpdateInventoryQuantities();
     }
 
-    public void ToggleDebugFastDaytime(InputAction.CallbackContext context)
+    public void ToggleDebugFastDaytimeListener(InputAction.CallbackContext context)
     {
         if (GameMainframe.GetInstance().GetGameSuspendState() || !debugModeOn)
             return;
 
+        ToggleDebugFastDaytime();
+    }
+
+    public void ToggleDebugFastDaytime()
+    {
         if (GameMainframe.daytimeSpeed == GameMainframe.daytimeSpeedInit)
             GameMainframe.daytimeSpeed *= 70f;
         else
@@ -436,23 +459,23 @@ public class PlayerController : MonoBehaviour
             currentCamCastPoint = camFarthestPoint.position;
     }
 
-    public void PlantCollection(string plantName, int quantity)
+    public void UpdateInventory(string itemName, int quantity)
 	{
-        if (!collectedInventory.ContainsKey(plantName))
+        if (!collectedInventory.ContainsKey(itemName))
         {
             //Debug.Log(plantName + " not in dictionary, created new entry");
-            collectedInventory.Add(plantName, 0);
+            collectedInventory.Add(itemName, 0);
         }
 
-        collectedInventory[plantName] += quantity;
+        collectedInventory[itemName] += quantity;
         //Debug.Log(plantName + " - " + collectedInventory[plantName]);
     }
 
-    public int GetPlantQty(string plantName)
+    public int GetInventoryQty(string itemName)
     {
-        if (collectedInventory.ContainsKey(plantName))
+        if (collectedInventory.ContainsKey(itemName))
         {
-            return collectedInventory[plantName];
+            return collectedInventory[itemName];
         }
         else
             return 0;

@@ -26,9 +26,9 @@ Transform:
   m_GameObject: {fileID: 2191565284871567370}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7156987149491478376}
   m_Father: {fileID: 9132376450760719232}
@@ -52,10 +52,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.4
-  m_Height: 2.3
+  m_Radius: 0.45
+  m_Height: 2.45
   m_Direction: 1
-  m_Center: {x: 0, y: 0.15, z: 0}
+  m_Center: {x: 0, y: 0.225, z: 0}
 --- !u!1 &3070005101755386839
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +338,6 @@ MonoBehaviour:
   groundDrag: 1
   airMult: 0.5
   controlGiven: 0
-  debug: 0
   layersToCheck:
     serializedVersion: 2
     m_Bits: 328
@@ -421,7 +420,7 @@ PrefabInstance:
     - target: {fileID: 8491048846847645154, guid: 69cc4a802ee8fec4fa0a27e9d554bf23,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -1.02
       objectReference: {fileID: 0}
     - target: {fileID: 8491048846847645154, guid: 69cc4a802ee8fec4fa0a27e9d554bf23,
         type: 3}

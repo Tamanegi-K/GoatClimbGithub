@@ -6,6 +6,8 @@ using TMPro;
 
 public class PlantBhv : MonoBehaviour
 {
+    // THIS SCRIPT IS FOR PLANT BEHAVIOUR AFTER IT IS SPAWNED ON THE TERRAIN
+
     [Header("Inputs")]
     public GameObject billboardUI;
     public GameObject pickedPrefab;

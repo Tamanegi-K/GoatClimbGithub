@@ -140,7 +140,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Rim_Light_Brightness: 13
+    - _Rim_Light_Brightness: 7.53
     - _Rim_Power: 2.8
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
