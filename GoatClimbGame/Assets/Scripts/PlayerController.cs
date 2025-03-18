@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     public bool touchingGrass;
 
     [Header("Camera Handling")]
-    public GameObject plantLookAt;
+    public GameObject objCloseTo;
     public RaycastHit camRC; // WIP: Activates when player physically LOOKS at the plant
     public float camPushRadius = 0.5f;
     public LayerMask camLayersToCheck;
@@ -272,30 +272,30 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(GameMainframe.GetInstance().ToggleTitleFade());
         }
         // For picking up a flower
-        else if (controlGiven && plantLookAt != null)
+        else if (controlGiven && objCloseTo != null)
         {
-            // If plant can be picked up, pick it up, otherwise don't do anything
-            if (plantLookAt.TryGetComponent(out PlantBhv pbhv))
+            // If a flower can be picked up, pick it up
+            if (objCloseTo.TryGetComponent(out PlantBhv pbhv))
             {
                 if (pbhv.CheckPickable())
 				{
                     UpdateInventory(pbhv.name, pbhv.PickMeUp());
-                    plantLookAt = null;
+                    objCloseTo = null;
 
                     GameMainframe.GetInstance().GetComponent<PlantSpawning>().IncrementSpawns(pbhv.name, /*pbhv.PickMeUp() * */ -1);
                 }
+            }
+
+            // If a villager can be interactied with, do that
+            else if (objCloseTo.TryGetComponent(out VillagerBhv vbhv))
+            {
+                vbhv.TalkToMe();
             }
         }
     }
 
     public void TogglePlayerControlKB(InputAction.CallbackContext context)
     {
-        if (GameMainframe.GetInstance().GetGameStartedState())
-        {
-            GameMainframe.GetInstance().ToggleGameSuspendState();
-            controlGiven = !GameMainframe.GetInstance().GetGameSuspendState();
-        }
-
         TogglePlayerControl();
     }
 
@@ -433,6 +433,12 @@ public class PlayerController : MonoBehaviour
 
     public void TogglePlayerControl()
     {
+        if (GameMainframe.GetInstance().GetGameStartedState())
+        {
+            GameMainframe.GetInstance().ToggleGameSuspendState();
+            controlGiven = !GameMainframe.GetInstance().GetGameSuspendState();
+        }
+
         GameMainframe.GetInstance().UpdateInventoryQuantities();
         if (controlGiven == true)
         {
@@ -442,6 +448,8 @@ public class PlayerController : MonoBehaviour
             GameMainframe.GetInstance().UpdateInventoryTabSelect();
             GameMainframe.GetInstance().GetPauseTabSack().GetComponent<UnityEngine.UI.Toggle>().isOn = true;
             EventSystem.current.SetSelectedGameObject(null);
+
+            GameMainframe.GetInstance().SetGameGivingState(false);
         }
         else
         {
@@ -469,6 +477,12 @@ public class PlayerController : MonoBehaviour
 
         collectedInventory[itemName] += quantity;
         //Debug.Log(plantName + " - " + collectedInventory[plantName]);
+
+        // TO DO - FIND A WAY TO REMOVE ITEMS "PEACEFULLY"
+        /*if (collectedInventory[itemName] == 0)
+		{
+            collectedInventory.Remove(itemName);
+		}*/
     }
 
     public int GetInventoryQty(string itemName)

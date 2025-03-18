@@ -11,26 +11,24 @@ public class BouquetAssemblyBhv : MonoBehaviour
     private string[] plantNameArray = new string[7] { "", "", "", "", "", "", "" };
     private int currentSlot = 0;
     public Dictionary<PlantSpawning.PlantColour, int> ccc = new Dictionary<PlantSpawning.PlantColour, int>(); // short for currentColourCount
-    private int bouquetID = 0;
-
+    private int bouquetID = 1;
+    private Vector3 bqDefaultLocalRotation;
+    private Coroutine shakeyCoro;
 
     // Start is called before the first frame update
     void Start()
     {
         ResetColourCount();
         bouquetObj = transform.Find("InvItemBG/Bouquet").gameObject;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        bqDefaultLocalRotation = bouquetObj.transform.localEulerAngles;
     }
 
     public void InvClickBouquet(string input)
     {
         if (currentSlot > 6)
             return;
+
+        shakeyCoro = StartCoroutine(ShakeBouquet(1f));
 
         // If the current tab isn't the Assembly screen, skip all this
         if (!GameMainframe.GetInstance().GetPauseTabToggleGrp().GetFirstActiveToggle() == GameMainframe.GetInstance().GetPauseTabAss().GetComponent<Toggle>())
@@ -104,6 +102,7 @@ public class BouquetAssemblyBhv : MonoBehaviour
 
     public void RestartBouquetBtn() // attached to button in scene
     {
+        shakeyCoro = StartCoroutine(ShakeBouquet(2f));
         foreach (string s in plantNameArray)
 		{
             if (s != "")
@@ -152,8 +151,8 @@ public class BouquetAssemblyBhv : MonoBehaviour
 	}
 
     public void FinishBouquet() // attached to button in scene
-	{
-        // TO DO - PUT ASSEMBLED BOUQUET IN INVENTORY
+    {
+        shakeyCoro = StartCoroutine(ShakeBouquet(3f));
         List<PlantSpawning.PlantValue> inBouquetVals = new List<PlantSpawning.PlantValue>(); // total values in the plantNameArray
         List<PlantSpawning.PlantColour> inBouquetCols = new List<PlantSpawning.PlantColour>(); // total colours in the plantNameArray
         List<PlantSpawning.PlantSpecials> centreSpcs = new List<PlantSpawning.PlantSpecials>(); // special tags in the centrepiece ONLY
@@ -193,7 +192,11 @@ public class BouquetAssemblyBhv : MonoBehaviour
         CountColours(inBouquetCols);
 
         // Making the bouquet entry and adding it to the player's inventory
-        PlantSpawning.OneBouquetMade newBouquet = new PlantSpawning.OneBouquetMade(Instantiate(bouquetObj), bouquetID, plantNameArray, "Bouquet " + bouquetID, AssignBouquetHarmony(), AssignBouquetCentre(), AssignBouquetSpecials(inBouquetVals), "A beautiful bouquet you made! \n \n WIP: Soon you'll be able to name your own bouquets.");
+        // TO DO - WEIRD BUG WHERE SOMETIMES THE MADE BOUQUET CAN BE SEEN ON THE BOTTOM OF UI vvvvvvvvvvvvvvvvv IT'S BECAUSE OF THE INSTANTIATE
+        GameObject madeBQ = Instantiate(bouquetObj);
+        madeBQ.transform.position = new Vector3(madeBQ.transform.position.x, madeBQ.transform.position.y - 500f, madeBQ.transform.position.z);
+
+        PlantSpawning.OneBouquetMade newBouquet = new PlantSpawning.OneBouquetMade(madeBQ, bouquetID, plantNameArray, "Bouquet " + bouquetID, AssignBouquetHarmony(), AssignBouquetCentre(), AssignBouquetSpecials(inBouquetVals), "A beautiful bouquet you made! \n \n WIP: Soon you'll be able to name your own bouquets.");
         GameMainframe.GetInstance().GetComponent<PlantSpawning>().bouquetsMade.Add(newBouquet);
         GameMainframe.GetInstance().playerContrScr.UpdateInventory(newBouquet.bqName, 1);
         bouquetID += 1;
@@ -213,7 +216,7 @@ public class BouquetAssemblyBhv : MonoBehaviour
         int multicolourStrikes = 0;
         foreach (KeyValuePair<PlantSpawning.PlantColour, int> kvp in ccc)
 		{
-            Debug.Log(kvp.Key + " | " + kvp.Value);
+            //Debug.Log(kvp.Key + " | " + kvp.Value);
             if (kvp.Value == 1)
                 multicolourStrikes += 1;
 		}
@@ -225,8 +228,8 @@ public class BouquetAssemblyBhv : MonoBehaviour
 
         // TRIADIC
         else if (
-            ((ccc[PlantSpawning.PlantColour.RED] + ccc[PlantSpawning.PlantColour.YELLOW] + ccc[PlantSpawning.PlantColour.BLUE] >= 6) && ccc[PlantSpawning.PlantColour.RED] >= 1 && ccc[PlantSpawning.PlantColour.YELLOW] >= 1 && ccc[PlantSpawning.PlantColour.BLUE] >= 1) ||
-            ((ccc[PlantSpawning.PlantColour.ORANGE] + ccc[PlantSpawning.PlantColour.GREEN] + ccc[PlantSpawning.PlantColour.PURPLE] >= 6 && ccc[PlantSpawning.PlantColour.ORANGE] >= 1 && ccc[PlantSpawning.PlantColour.GREEN] >= 1 && ccc[PlantSpawning.PlantColour.PURPLE] >= 1))
+            (ccc[PlantSpawning.PlantColour.RED] >= 2 && ccc[PlantSpawning.PlantColour.YELLOW] >= 2 && ccc[PlantSpawning.PlantColour.BLUE] >= 2) ||
+            (ccc[PlantSpawning.PlantColour.ORANGE] >= 2 && ccc[PlantSpawning.PlantColour.GREEN] >= 2 && ccc[PlantSpawning.PlantColour.PURPLE] >= 2)
             )
         {
             resultHarm = PlantSpawning.BouquetHarmony.TRIADIC;
@@ -234,12 +237,12 @@ public class BouquetAssemblyBhv : MonoBehaviour
 
         // ANALOGOUS
         else if (
-            ((ccc[PlantSpawning.PlantColour.RED] + ccc[PlantSpawning.PlantColour.ORANGE] + ccc[PlantSpawning.PlantColour.YELLOW] >= 6) && ccc[PlantSpawning.PlantColour.RED] >= 1 && ccc[PlantSpawning.PlantColour.ORANGE] >= 1 && ccc[PlantSpawning.PlantColour.YELLOW] >= 1) ||
-            ((ccc[PlantSpawning.PlantColour.ORANGE] + ccc[PlantSpawning.PlantColour.YELLOW] + ccc[PlantSpawning.PlantColour.GREEN] >= 6) && ccc[PlantSpawning.PlantColour.ORANGE] >= 1 && ccc[PlantSpawning.PlantColour.YELLOW] >= 1 && ccc[PlantSpawning.PlantColour.GREEN] >= 1) ||
-            ((ccc[PlantSpawning.PlantColour.YELLOW] + ccc[PlantSpawning.PlantColour.GREEN] + ccc[PlantSpawning.PlantColour.BLUE] >= 6) && ccc[PlantSpawning.PlantColour.YELLOW] >= 1 && ccc[PlantSpawning.PlantColour.GREEN] >= 1 && ccc[PlantSpawning.PlantColour.BLUE] >= 1) ||
-            ((ccc[PlantSpawning.PlantColour.GREEN] + ccc[PlantSpawning.PlantColour.BLUE] + ccc[PlantSpawning.PlantColour.PURPLE] >= 6) && ccc[PlantSpawning.PlantColour.GREEN] >= 1 && ccc[PlantSpawning.PlantColour.BLUE] >= 1 && ccc[PlantSpawning.PlantColour.PURPLE] >= 1) ||
-            ((ccc[PlantSpawning.PlantColour.BLUE] + ccc[PlantSpawning.PlantColour.PURPLE] + ccc[PlantSpawning.PlantColour.RED] >= 6) && ccc[PlantSpawning.PlantColour.BLUE] >= 1 && ccc[PlantSpawning.PlantColour.PURPLE] >= 1 && ccc[PlantSpawning.PlantColour.RED] >= 1) ||
-            ((ccc[PlantSpawning.PlantColour.PURPLE] + ccc[PlantSpawning.PlantColour.RED] + ccc[PlantSpawning.PlantColour.ORANGE] >= 6) && ccc[PlantSpawning.PlantColour.PURPLE] >= 1 && ccc[PlantSpawning.PlantColour.RED] >= 1 && ccc[PlantSpawning.PlantColour.ORANGE] >= 1)
+            (ccc[PlantSpawning.PlantColour.RED] >= 2 && ccc[PlantSpawning.PlantColour.ORANGE] >= 2 && ccc[PlantSpawning.PlantColour.YELLOW] >= 2) ||
+            (ccc[PlantSpawning.PlantColour.ORANGE] >= 2 && ccc[PlantSpawning.PlantColour.YELLOW] >= 2 && ccc[PlantSpawning.PlantColour.GREEN] >= 2) ||
+            (ccc[PlantSpawning.PlantColour.YELLOW] >= 2 && ccc[PlantSpawning.PlantColour.GREEN] >= 2 && ccc[PlantSpawning.PlantColour.BLUE] >= 2) ||
+            (ccc[PlantSpawning.PlantColour.GREEN] >= 2 && ccc[PlantSpawning.PlantColour.BLUE] >= 2 && ccc[PlantSpawning.PlantColour.PURPLE] >= 2) ||
+            (ccc[PlantSpawning.PlantColour.BLUE] >= 2 && ccc[PlantSpawning.PlantColour.PURPLE] >= 2 && ccc[PlantSpawning.PlantColour.RED] >= 2) ||
+            (ccc[PlantSpawning.PlantColour.PURPLE] >= 2 && ccc[PlantSpawning.PlantColour.RED] >= 2 && ccc[PlantSpawning.PlantColour.ORANGE] >= 2)
             )
         {
             resultHarm = PlantSpawning.BouquetHarmony.ANALOGOUS;
@@ -247,10 +250,10 @@ public class BouquetAssemblyBhv : MonoBehaviour
 
         // CONTRASTING
         else if (
-            ((ccc[PlantSpawning.PlantColour.RED] + ccc[PlantSpawning.PlantColour.GREEN] >= 6) && ccc[PlantSpawning.PlantColour.RED] >= 1 && ccc[PlantSpawning.PlantColour.GREEN] >= 1) || 
-            ((ccc[PlantSpawning.PlantColour.ORANGE] + ccc[PlantSpawning.PlantColour.BLUE] >= 6) && ccc[PlantSpawning.PlantColour.ORANGE] >= 1 && ccc[PlantSpawning.PlantColour.BLUE] >= 1) || 
-            ((ccc[PlantSpawning.PlantColour.YELLOW] + ccc[PlantSpawning.PlantColour.PURPLE] >= 6) && ccc[PlantSpawning.PlantColour.YELLOW] >= 1 && ccc[PlantSpawning.PlantColour.PURPLE] >= 1) || 
-            ((ccc[PlantSpawning.PlantColour.WHITE] + ccc[PlantSpawning.PlantColour.BLACK] >= 6) && ccc[PlantSpawning.PlantColour.WHITE] >= 1 && ccc[PlantSpawning.PlantColour.BLACK] >= 1)
+            (ccc[PlantSpawning.PlantColour.RED] >= 3 && ccc[PlantSpawning.PlantColour.GREEN] >= 3) || 
+            (ccc[PlantSpawning.PlantColour.ORANGE] >= 3 && ccc[PlantSpawning.PlantColour.BLUE] >= 3) || 
+            (ccc[PlantSpawning.PlantColour.YELLOW] >= 3 && ccc[PlantSpawning.PlantColour.PURPLE] >= 3) || 
+            (ccc[PlantSpawning.PlantColour.WHITE] >= 3 && ccc[PlantSpawning.PlantColour.BLACK] >= 3)
             )
         {
             resultHarm = PlantSpawning.BouquetHarmony.CONTRASTING;
@@ -383,5 +386,34 @@ public class BouquetAssemblyBhv : MonoBehaviour
         ccc.Add(PlantSpawning.PlantColour.PURPLE, 0);
         ccc.Add(PlantSpawning.PlantColour.WHITE, 0);
         ccc.Add(PlantSpawning.PlantColour.BLACK, 0);
+    }
+
+    public IEnumerator ShakeBouquet(float intensityMult)
+	{
+        // Reset anim
+        if (shakeyCoro != null) StopCoroutine(shakeyCoro);
+        bouquetObj.transform.localEulerAngles = bqDefaultLocalRotation;
+
+        // Tilting Bouquet
+        bouquetObj.transform.localEulerAngles = new Vector3(
+            bouquetObj.transform.localEulerAngles.x + Random.Range(-3f, 3f) * intensityMult,
+            bouquetObj.transform.localEulerAngles.y + Random.Range(-3f, 3f) * intensityMult,
+            bouquetObj.transform.localEulerAngles.z + Random.Range(-3f, 3f) * intensityMult
+            );
+
+        // Reorienting bouquet back to normal
+        float t = 0.34f;
+		while (t > 0f)
+		{
+            bouquetObj.transform.localEulerAngles = new Vector3(
+                Mathf.LerpAngle(bouquetObj.transform.localEulerAngles.x, bqDefaultLocalRotation.x, 12f * Time.deltaTime),
+                Mathf.LerpAngle(bouquetObj.transform.localEulerAngles.y, bqDefaultLocalRotation.y, 12f * Time.deltaTime),
+                Mathf.LerpAngle(bouquetObj.transform.localEulerAngles.z, bqDefaultLocalRotation.z, 12f * Time.deltaTime)
+                );
+
+            t -= Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+		}
+        bouquetObj.transform.localEulerAngles = bqDefaultLocalRotation;
     }
 }

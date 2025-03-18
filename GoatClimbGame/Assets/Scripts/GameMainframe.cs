@@ -18,8 +18,11 @@ public class GameMainframe : MonoBehaviour
     public AudioManager audioMngr;
     public GameObject inventoryDisplay;
     public bool inTitle = false;
+    public List<GameObject> villagersOnField;
 
     [Header("Variables")]
+    public Transform sunRotation;
+    private LensFlareComponentSRP sunLensFlare;
     private bool titleAnimStarted = false, gameStarted = false;
     private List<GameObject> invHudObjs = new List<GameObject>();
     private bool setupComplete = false, firstPickToggled = false;
@@ -29,9 +32,6 @@ public class GameMainframe : MonoBehaviour
                     pauseCoordsUpClosed = new Vector3(0f, 192f, 0f), // Closed meaning game is NOT suspended
                   pauseCoordsLeftClosed = new Vector3(-1024f, -64f, 0f),
                  pauseCoordsRightClosed = new Vector3(1024f, 0f, 0f);
-
-    public Transform sunRotation;
-    private LensFlareComponentSRP sunLensFlare;
     public static bool isCurrentlyDay = true;
     public static float daytimeSpeed = 0.24f;
     public static float daytimeSpeedInit;
@@ -42,7 +42,7 @@ public class GameMainframe : MonoBehaviour
     public GameObject hudInventoryPrefab;
 
     [Header("Pause Menu Interactivity")]
-    public bool gameSuspended = false;
+    public bool gameSuspended = false, isGiving = false;
     public enum PauseTabs { KNAPSACK, ASSEMBLY, SETTINGS };
     public PauseTabs currentTab = PauseTabs.KNAPSACK;
     public CanvasGroup uiGroupTitle, uiGroupWhite, uiGroupPause, uiGroupHUD;
@@ -50,6 +50,27 @@ public class GameMainframe : MonoBehaviour
     private ToggleGroup pauseUpTG;
     private GameObject pauseTabSack, pauseTabAss, pauseTabSttngs;
     private Transform sackObjHolder, assGridList;
+
+    #region Request Details
+    private int totalRequests = 0;
+    [System.Serializable]
+    public class Request
+    {
+        public string requesteeName;
+        public int requesteeID;
+        public PlantSpawning.BouquetHarmony requestedHarm;
+        public PlantSpawning.BouquetCentres requestedCntr;
+        public List<PlantSpawning.BouquetSpecials> requestedSpcs;
+
+        public Request(string iRQName, int iRQId, PlantSpawning.BouquetHarmony iRQHarm, PlantSpawning.BouquetCentres iRQCntr, List<PlantSpawning.BouquetSpecials> iRQSpcs)
+        {
+            requesteeName = iRQName; requesteeID = iRQId;
+            requestedHarm = iRQHarm; requestedCntr = iRQCntr; requestedSpcs = iRQSpcs;
+        }
+    }
+    [SerializeField]
+    public List<Request> requestList;
+    #endregion
 
     #region OBJECT POOLING
     public static Dictionary<string, List<GameObject>> objectPools = new Dictionary<string, List<GameObject>>();
@@ -164,26 +185,6 @@ public class GameMainframe : MonoBehaviour
 
     }
 
-	public bool GetTitleStartedState()
-    {
-        return titleAnimStarted;
-    }
-
-    public bool GetGameStartedState()
-    {
-        return gameStarted;
-    }
-
-    public bool GetGameSuspendState()
-    {
-        return gameSuspended;
-    }
-
-    public void ToggleGameSuspendState()
-    {
-        gameSuspended = !gameSuspended;
-    }
-
     public IEnumerator ToggleTitleFade()
     {
         if (titleAnimStarted)
@@ -224,7 +225,7 @@ public class GameMainframe : MonoBehaviour
 
         playerContrScr.controlGiven = true;
         playerContrScr.TogglePlayerControl();
-        audioMngr.ForceBGMCD(UnityEngine.Random.Range(audioMngr.bgmCDmin * 10f, audioMngr.bgmCDmax * 10f));
+        audioMngr.ForceBGMCD(UnityEngine.Random.Range(audioMngr.bgmCDmin * 30f, audioMngr.bgmCDmax * 30f));
         gameStarted = true;
         gameSuspended = false;
 
@@ -288,6 +289,11 @@ public class GameMainframe : MonoBehaviour
             {
                 playerContrScr = pcs;
                 goteMesh = playerContrScr.gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+            }
+
+            if (plantSpawningScr == null)
+            {
+                plantSpawningScr = GetComponent<PlantSpawning>();
             }
 
             uiGroupWhite.gameObject.SetActive(true); uiGroupWhite.alpha = 0f;
@@ -382,6 +388,7 @@ public class GameMainframe : MonoBehaviour
         }
     }
 
+    #region Functions for Buttons (see inspector)
     public void PauseTabKS()
     {
         currentTab = PauseTabs.KNAPSACK;
@@ -396,8 +403,9 @@ public class GameMainframe : MonoBehaviour
     {
         currentTab = PauseTabs.SETTINGS;
     }
+	#endregion
 
-    public void UpdateInventoryQuantities() // Displays of the right side of the inventory screen and also runs right side stuff (see bottom for individual functions based on tab toggles)
+	public void UpdateInventoryQuantities() // Displays of the right side of the inventory screen and also runs right side stuff (see bottom for individual functions based on tab toggles)
     {
         //InventoryItemBhv[] children = inventoryDisplay.GetComponentsInChildren<InventoryItemBhv>(true);
         // Flush the InvItem grid
@@ -457,7 +465,10 @@ public class GameMainframe : MonoBehaviour
 
                     invHudObjs.Add(ii);
                 }, hudInventoryPrefab);
+
+                //Debug.Log(thing);
             }
+            //Debug.LogWarning("end");
         }
     }
 
@@ -611,6 +622,31 @@ public class GameMainframe : MonoBehaviour
             DayHasChanged();
     }
 
+    public void GenerateRequest()
+	{
+        totalRequests += 1;
+
+        // get a random villager and make the request
+        int randomIndex = UnityEngine.Random.Range(0, villagersOnField.Count);
+        string randomName = villagersOnField[randomIndex].GetComponent<VillagerBhv>().villagerName;
+
+        // randomise request details
+        // TO DO - MAKE IT USE EVERY TAG, FOR NOW WE'RE TRUNCATING IT SINCE WE DON'T HAVE ENOUGH FLOWERS
+        PlantSpawning.BouquetHarmony randomHarm = PlantSpawning.BouquetHarmony.NONE;
+        PlantSpawning.BouquetCentres randomCntr = PlantSpawning.BouquetCentres.NONE;
+        List<PlantSpawning.BouquetSpecials> randomSpcs = new List<PlantSpawning.BouquetSpecials>();
+
+        Request newRequest = new Request(randomName, totalRequests, randomHarm, randomCntr, randomSpcs);
+        villagersOnField[randomIndex].GetComponent<VillagerBhv>().requestID = totalRequests;
+        requestList.Add(newRequest);
+	}
+
+    public bool GetTitleStartedState() => titleAnimStarted;
+    public bool GetGameStartedState() => gameStarted;
+    public bool GetGameSuspendState() => gameSuspended;
+    public void ToggleGameSuspendState() => gameSuspended = !gameSuspended;
+    public bool GetGameGivingState() => isGiving;
+    public void SetGameGivingState(bool b) => isGiving = b;
     public void ResetSetup(bool b) => setupComplete = b;
     public Toggle GetPauseTabSack() => pauseTabSack.GetComponent<Toggle>();
     public ToggleGroup GetPauseTabToggleGrp() => pauseUpTG.GetComponent<ToggleGroup>();

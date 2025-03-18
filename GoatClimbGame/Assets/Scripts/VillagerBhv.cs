@@ -2,14 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 
 public class VillagerBhv : MonoBehaviour
 {
+    [Header("Variable Inputs")]
+    public string villagerName;
     public int currentPOIIndex;
-    public NavMeshAgent agent;
-    public Animator stateAnimator;
     public float timeIdlingMin = 60f * 2f, timeIdlingMax = 60f * 4f; // this value is in seconds
     public float idlingTimer;
+    public int matUseIndex;
+    public List<Material> matList;
+    public int requestID; // if number is 0 or less, they don't have a request
+
+    [Header("Component Inputs")]
+    public GameObject billboardUI;
+    public NavMeshAgent agent;
+    public Animator stateAnimator;
+    public SkinnedMeshRenderer skr;
 
     // Determine several Points of Interest for a villager to "patrol" around
     // They'll move into a random coordinate in the POI every time they would change locations
@@ -28,24 +38,59 @@ public class VillagerBhv : MonoBehaviour
     #endregion
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        if (stateAnimator == null) stateAnimator = transform.Find("Bird").GetComponent<Animator>();
+        if (billboardUI == null) billboardUI = transform.Find("BBUI").gameObject;
         if (agent == null) agent = GetComponent<NavMeshAgent>();
+        if (stateAnimator == null) stateAnimator = GetComponentInChildren<Animator>();
+        if (skr == null) skr = GetComponentInChildren<SkinnedMeshRenderer>();
+
+        billboardUI.SetActive(false);
+        billboardUI.GetComponent<TextMeshPro>().text = villagerName /*+ "\n" + "LMB to pick up"*/;
+
+        if (matUseIndex > matList.Count) matUseIndex = 0;
+        skr.material = matList[matUseIndex];
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        //Debug.Log(other.tag);
+
+        if (other.gameObject.tag == "Player" && GameMainframe.GetInstance().playerContrScr.objCloseTo == null)
+        {
+            billboardUI.SetActive(true);
+            GameMainframe.GetInstance().playerContrScr.objCloseTo = this.gameObject;
+            agent.isStopped = true;
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            billboardUI.SetActive(false);
+            GameMainframe.GetInstance().playerContrScr.objCloseTo = null;
+            agent.isStopped = false;
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-        if (idlingTimer <= 0f)
+        if (!agent.isStopped)
 		{
-            GetCoordInNextPOI();
-		}
-        else
-		{
-            idlingTimer -= Time.deltaTime;
-		}
+            if (idlingTimer <= 0f)
+            {
+                GetCoordInNextPOI();
+            }
+            else
+            {
+                idlingTimer -= Time.deltaTime;
+            }
+        }
 
+        // When they're near their destination, stop the walking animation
+        // Shoutouts to https://discussions.unity.com/t/how-can-i-tell-when-a-navmeshagent-has-reached-its-destination/52403
         if (agent.remainingDistance <= agent.stoppingDistance)
 		{
             if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
@@ -53,6 +98,10 @@ public class VillagerBhv : MonoBehaviour
                 stateAnimator.SetBool("isMoving", false);
             }
 		}
+        else if (agent.isStopped)
+        {
+            stateAnimator.SetBool("isMoving", false);
+        }
         else
         {
             stateAnimator.SetBool("isMoving", true);
@@ -94,6 +143,18 @@ public class VillagerBhv : MonoBehaviour
         currentPOIIndex = chosenPOIindex;
         idlingTimer = Random.Range(timeIdlingMin, timeIdlingMax);
         agent.SetDestination(randomCoordInPOI);
+    }
+
+
+    public void TalkToMe()
+    {
+        stateAnimator.SetTrigger("interact");
+
+        if (requestID > 0)
+		{
+            GameMainframe.GetInstance().playerContrScr.TogglePlayerControl();
+            GameMainframe.GetInstance().SetGameGivingState(true);
+        }
     }
 
     public static void DrawCircle(Vector3 position, Quaternion rotation, float radius)

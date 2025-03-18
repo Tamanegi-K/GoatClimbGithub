@@ -40,7 +40,7 @@ public class InventoryItemBhv : MonoBehaviour
         }
     }
 
-    public void SetupInvDisplay(string input, int num, GameObject go)
+    public void SetupInvDisplay(string input, int num = 1, GameObject go = null)
 	{
         invName = input;
         tmpNum.text = num.ToString();
@@ -78,13 +78,45 @@ public class InventoryItemBhv : MonoBehaviour
         GameMainframe.GetInstance().InvClick(invName);
 
         // The next part is for bouquet assembly - if the item clicked is not a flower/plant, skip the rest
-        if (isNotPlant)
-            return;
+        //if (isNotPlant)
+            //return;
 
         // if the isOn condition didn't exist, it would fire twice because of the Toggle "On value changed" condition (bruh)
-        if (GameMainframe.GetInstance().currentTab == GameMainframe.PauseTabs.ASSEMBLY && GetComponent<Toggle>().isOn)
+        if (GameMainframe.GetInstance().currentTab == GameMainframe.PauseTabs.ASSEMBLY && GetComponent<Toggle>().isOn && !isNotPlant)
         {
             GameMainframe.GetInstance().GetAssRight().InvClickBouquet(invName);
         }
+
+        // ig player is giving something to a villager and the item clicked is a bouquet
+        // TO DO - make the inventory properly show that they're giving something
+        else if (GameMainframe.GetInstance().currentTab == GameMainframe.PauseTabs.KNAPSACK && GameMainframe.GetInstance().GetGameGivingState() && isNotPlant)
+		{
+            foreach (PlantSpawning.OneBouquetMade bq in GameMainframe.GetInstance().plantSpawningScr.bouquetsMade)
+            {
+                if (bq.bqName == invName && GameMainframe.GetInstance().playerContrScr.GetInventoryQty(invName) > 0)
+                {
+                    // TO DO - CHECK BOUQUET IS UP TO PAR WITH REQUEST, FOR NOW IT'LL TAKE ANY BOUQUET
+                    GameMainframe.GetInstance().playerContrScr.UpdateInventory(invName, -1);
+                    //GameMainframe.GetInstance().plantSpawningScr.bouquetsMade.Remove(bq);
+                    GameMainframe.GetInstance().playerContrScr.TogglePlayerControl();
+
+                    // TO DO - SAFELY REMOVE REQUEST FROM LIST AND RELEASE VILLAGER'S REQUESTID, RN IT'LL JUST REMOVE THE FIRST ONE
+                    //foreach (GameMainframe.Request oneRequest in GameMainframe.GetInstance().requestList)
+                    //{
+                    foreach (GameObject go in GameMainframe.GetInstance().villagersOnField)
+                    {
+                        if (GameMainframe.GetInstance().requestList[0].requesteeName == go.GetComponent<VillagerBhv>().villagerName)
+                        {
+                            go.GetComponent<VillagerBhv>().requestID = 0;
+                            GameMainframe.GetInstance().requestList.RemoveAt(0);
+                            break;
+                        }
+                    }
+                    //}
+                    break;
+                }
+            }
+            
+		}
 	}
 }

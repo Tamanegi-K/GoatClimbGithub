@@ -13,6 +13,10 @@ public class PlantBhv : MonoBehaviour
     public GameObject pickedPrefab;
     public PlantSpawning.PlantSpecials myPlantTag;
     private int amtWhenPicked;
+    void Awake()
+    {
+        if (billboardUI == null) billboardUI = transform.Find("BBUI").gameObject;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -29,10 +33,10 @@ public class PlantBhv : MonoBehaviour
 	{
         //Debug.Log(other.tag);
 
-        if (other.gameObject.tag == "Player" && GameMainframe.GetInstance().playerContrScr.plantLookAt == null)
+        if (other.gameObject.tag == "Player" && GameMainframe.GetInstance().playerContrScr.objCloseTo == null)
         {
             billboardUI.SetActive(true);
-            GameMainframe.GetInstance().playerContrScr.plantLookAt = this.gameObject;
+            GameMainframe.GetInstance().playerContrScr.objCloseTo = this.gameObject;
         }
     }
     void OnTriggerExit(Collider other)
@@ -40,7 +44,7 @@ public class PlantBhv : MonoBehaviour
         if (other.gameObject.tag == "Player")
 		{
             billboardUI.SetActive(false);
-            GameMainframe.GetInstance().playerContrScr.plantLookAt = null;
+            GameMainframe.GetInstance().playerContrScr.objCloseTo = null;
         }
     }
 
