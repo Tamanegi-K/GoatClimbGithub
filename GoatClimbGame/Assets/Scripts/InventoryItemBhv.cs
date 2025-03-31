@@ -13,6 +13,7 @@ public class InventoryItemBhv : MonoBehaviour
     public TextMeshProUGUI tmpNum;
     private string invName;
     public bool isNotPlant = false;
+    public float localY, yScale;
 
     // Start is called before the first frame update
     void Start()
@@ -29,13 +30,39 @@ public class InventoryItemBhv : MonoBehaviour
     void Update()
     {
         // hiding the 3d display objects when unpaused (god why is this so fkn hard)
-        if (GameMainframe.GetInstance().uiGroupPause.alpha <= 0f)
+        if (GameMainframe.GetInstance().uiGroupPause.alpha <= 0.2f)
 		{
             objHolder.SetActive(false);
         }
         else
         {
-            objHolder.SetActive(true);
+            // Scromching the 3d object when it's "out of view" in the inventory panel
+            //float yScale = 50f;
+            localY = transform.position.y;
+            if (localY > 1251f)
+            {
+                yScale = Mathf.Clamp(Mathf.Lerp(0f, 50f, ((1251f + 90f + 16f + 25f) - localY) / 90f), 0f, 50f);
+            }
+            else if (localY < 601f)
+            {
+                yScale = Mathf.Clamp(Mathf.Lerp(0f, 50f, (localY - (601f - 90f - 16f + 25f)) / 90f), 0f, 50f);
+            }
+            else
+			{
+                yScale = 50f;
+			}
+
+            objHolder.transform.localScale = new Vector3(50f, yScale, 50f);
+
+            if (yScale <= 5f)
+            {
+                objHolder.SetActive(false);
+            }
+            else
+            {
+                objHolder.SetActive(true);
+            }
+
             //objHolder.transform.localScale = new Vector3(50f, GameMainframe.GetInstance().uiGroupPause.alpha * 50f, 50f);
         }
     }

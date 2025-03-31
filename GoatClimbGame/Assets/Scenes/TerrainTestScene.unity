@@ -829,7 +829,7 @@ MonoBehaviour:
   m_Content: {fileID: 1322796608}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 2
+  m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
@@ -21068,7 +21068,7 @@ MonoBehaviour:
     plantTyp: 5
     plantVal: 2
     plantCol: 1
-    plantSpc: 00000000
+    plantSpc: 04000000
     plantDesc: Known for its striking beauty and slight resemblance to a tigerkin's
       fur, this flower is sought after by many plant enthusiasts.
   - plantOnfield: {fileID: 842437072280783543, guid: 178e9b8a9db7c454c9086f4cf981a4fd,
