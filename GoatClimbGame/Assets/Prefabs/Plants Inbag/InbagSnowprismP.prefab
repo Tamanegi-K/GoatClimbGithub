@@ -181,7 +181,7 @@ PrefabInstance:
     - target: {fileID: 5761887061491630803, guid: 221d5a4f9d6e20e4a900c7a906d59b9e,
         type: 3}
       propertyPath: m_Name
-      value: InbagSnowprismV
+      value: InbagSnowprismP
       objectReference: {fileID: 0}
     - target: {fileID: 5916615764297934988, guid: 221d5a4f9d6e20e4a900c7a906d59b9e,
         type: 3}

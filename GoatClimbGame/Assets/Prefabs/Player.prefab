@@ -128,7 +128,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2015
+    m_Bits: 991
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -346,7 +346,7 @@ MonoBehaviour:
   currentHitObj: {fileID: 0}
   currentHitDist: 0
   touchingGrass: 0
-  plantLookAt: {fileID: 0}
+  objCloseTo: {fileID: 0}
   camPushRadius: 0.5
   camLayersToCheck:
     serializedVersion: 2

@@ -9,15 +9,16 @@ public class PlantSpawning : MonoBehaviour
     // https://www.youtube.com/watch?v=gfD8S32xzYI
 
     // PLANT TAGS
+    public enum PlantType { HYACINTH, HYDRANGEA, HIBISCUS, TULIP, ORCHID, LILY, OTHER } // species of flower
     public enum PlantValue { PALE, BRIGHT, VIBRANT, DARK } // from most faded to most saturated, one only
-    public enum PlantColour { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE, WHITE, BLACK }; // colour of flower, one only
-    public enum PlantSpecials { LUSTROUS, INFLORESCENT, NIGHTBLOOM, RARE } // other characteristics that makes this flower special, can have multiple
+    public enum PlantColour { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE }; // colour of flower, one only
+    public enum PlantSpecials { NONE, LUSTROUS, INFLORESCENT, NIGHTBLOOM, RARE } // other characteristics that makes this flower special, can have multiple
 
     // BOUQUET TAGS - only for bouquets
     public enum BouquetHarmony { NONE, CONTRASTING, ANALOGOUS, TRIADIC, SOLID, MULTICOLOURED }; // colour harmonies existing in the bouquet, one only
     public enum BouquetCentres { NONE, JEWELBED, SPECTRUM, PARTITION, TROVE }; // characteristics of the centrepiece in the bouquet, one only
-    public enum BouquetSpecials { RADIANT, MONOSPECIES, DELICATE, BOLD, REFINED, ELEGANT, // other characteristics that makes the bouquet special, can have multiple
-                RED_DOMINANT, ORANGE_DOMINANT, YELLOW_DOMINANT, GREEN_DOMINANT, BLUE_DOMINANT, VIOLET_DOMINANT, PURPLE_DOMINANT, WHITE_DOMINANT, BLACK_DOMINANT };
+    public enum BouquetSpecials { NONE, RADIANT, MONOSPECIES, DELICATE, BOLD, REFINED, ELEGANT, // other characteristics that makes the bouquet special, can have multiple
+                RED_DOMINANT, ORANGE_DOMINANT, YELLOW_DOMINANT, GREEN_DOMINANT, BLUE_DOMINANT, VIOLET_DOMINANT, PURPLE_DOMINANT };
 
     // DESCRIPTIONS FOR EVERY TAG, see the TagDescFiller() function
     public Hashtable TagDescs = new Hashtable();
@@ -32,6 +33,7 @@ public class PlantSpawning : MonoBehaviour
     {
         public GameObject plantOnfield, plantPickedup;
         public string plantName;
+        public PlantType plantTyp;
         public PlantValue plantVal;
         public PlantColour plantCol;
         public List<PlantSpecials> plantSpc;
@@ -274,16 +276,13 @@ public class PlantSpawning : MonoBehaviour
         TagDescs.Add(PlantValue.VIBRANT, "The colour on this flower is deep and saturated.");
         TagDescs.Add(PlantValue.DARK, "The colour on this flower is dark and refined.");
 
-        // PlantColours (maaaybe not needed?)
-        /*TagDescs.Add(PlantColour.RED, "");
-        TagDescs.Add(PlantColour.ORANGE, "");
-        TagDescs.Add(PlantColour.YELLOW, "");
-        TagDescs.Add(PlantColour.GREEN, "");
-        TagDescs.Add(PlantColour.BLUE, "");
-        TagDescs.Add(PlantColour.VIOLET, "");
-        TagDescs.Add(PlantColour.PINK, "");
-        TagDescs.Add(PlantColour.WHITE, "");
-        TagDescs.Add(PlantColour.BLACK, "");*/
+        // PlantColours
+        TagDescs.Add(PlantColour.RED, "A rosy colour representing affection, passion, and love.");
+        TagDescs.Add(PlantColour.ORANGE, "A cheery colour representing enthusiasm, fascination, and confidence.");
+        TagDescs.Add(PlantColour.YELLOW, "A lively colour representing friendship, happiness, and optimism.");
+        TagDescs.Add(PlantColour.GREEN, "A vigourous colour representing renewal, longevity, and hope.\n\nGreen flowers are uncommon, considering how flowers adapted and evolved to attract pollinators with striking colours.");
+        TagDescs.Add(PlantColour.BLUE, "A prudent colour representing beauty, inspiration, and serenity.");
+        TagDescs.Add(PlantColour.PURPLE, "A majestic colour representing respect, luxury, and elegance.\n\nBoth reddish and blueish purples fit under this tag.");
 
         // PlantSpecials
         TagDescs.Add(PlantSpecials.LUSTROUS, "This flower has a shiny and crystal-like appearance.");
@@ -318,8 +317,6 @@ public class PlantSpawning : MonoBehaviour
         TagDescs.Add(BouquetSpecials.BLUE_DOMINANT, "4 or more Blue flowers adorn the accents of the bouquet.");
         TagDescs.Add(BouquetSpecials.VIOLET_DOMINANT, "4 or more Violet flowers adorn the accents of the bouquet.");
         TagDescs.Add(BouquetSpecials.PURPLE_DOMINANT, "4 or more Purple flowers adorn the accents of the bouquet.");
-        TagDescs.Add(BouquetSpecials.WHITE_DOMINANT, "4 or more White flowers adorn the accents of the bouquet.");
-        TagDescs.Add(BouquetSpecials.BLACK_DOMINANT, "4 or more Black flowers adorn the accents of the bouquet.");
 
         // How to use the hashtable
         //Debug.Log(TagDescs[BouquetSpecials.BLACK_DOMINANT]);

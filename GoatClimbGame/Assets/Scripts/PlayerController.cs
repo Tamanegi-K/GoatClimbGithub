@@ -494,4 +494,6 @@ public class PlayerController : MonoBehaviour
         else
             return 0;
     }
+
+    public GoatControls GetInputSystem() => goatControls;
 }

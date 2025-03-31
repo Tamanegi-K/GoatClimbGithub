@@ -267,8 +267,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 640966888515742367, guid: 388419a8e1c046d4da6e1eb733f6e9a0,
         type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 640966888515742367, guid: 388419a8e1c046d4da6e1eb733f6e9a0,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1470924417283354995, guid: 388419a8e1c046d4da6e1eb733f6e9a0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1470924417283354995, guid: 388419a8e1c046d4da6e1eb733f6e9a0,
         type: 3}
@@ -320,6 +330,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2321160728049129176, guid: 388419a8e1c046d4da6e1eb733f6e9a0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2370519310021823340, guid: 388419a8e1c046d4da6e1eb733f6e9a0,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -369,6 +384,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InvOneItemSq
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719175322924527520, guid: 388419a8e1c046d4da6e1eb733f6e9a0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719175322924527520, guid: 388419a8e1c046d4da6e1eb733f6e9a0,
+        type: 3}
+      propertyPath: m_TagString
+      value: Highlightable
       objectReference: {fileID: 0}
     - target: {fileID: 6806546893842740597, guid: 388419a8e1c046d4da6e1eb733f6e9a0,
         type: 3}

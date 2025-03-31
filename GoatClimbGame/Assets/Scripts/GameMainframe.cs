@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 //using UnityEngine.SceneManagement;
@@ -40,13 +41,14 @@ public class GameMainframe : MonoBehaviour
     [Header("Prefab Housing")]
     public GameObject hudPopupPrefab;
     public GameObject hudInventoryPrefab;
+    public GameObject pauseSackTagPrefab;
 
     [Header("Pause Menu Interactivity")]
     public bool gameSuspended = false, isGiving = false;
     public enum PauseTabs { KNAPSACK, ASSEMBLY, SETTINGS };
     public PauseTabs currentTab = PauseTabs.KNAPSACK;
     public CanvasGroup uiGroupTitle, uiGroupWhite, uiGroupPause, uiGroupHUD;
-    private RectTransform pauseUp, pauseLeft, pauseRightSack, pauseRightAss, pauseRightSttngs;
+    private RectTransform pauseUp, pauseLeft, pauseRightSack, pauseRightAss, pauseRightSackTags, pauseRightSttngs;
     private ToggleGroup pauseUpTG;
     private GameObject pauseTabSack, pauseTabAss, pauseTabSttngs;
     private Transform sackObjHolder, assGridList;
@@ -270,6 +272,7 @@ public class GameMainframe : MonoBehaviour
 
             // Right 1 - Knapsack
             pauseRightSack = uiGroupPause.transform.Find("InvDescGroup").GetComponent<RectTransform>();
+            pauseRightSackTags = pauseRightSack.Find("InvDescTops/InvDescTagsVP/InvDescTags").GetComponent<RectTransform>();
             sackObjHolder = pauseRightSack.Find("ObjHolder").transform;
 
             // Right 2 - Assembly
@@ -496,12 +499,15 @@ public class GameMainframe : MonoBehaviour
         {
             case PauseTabs.KNAPSACK:
                 pauseTabSack.GetComponentInChildren<TextMeshProUGUI>().text = "• Knapsack •";
+                selectedToggle = pauseTabSack;
                 break;
             case PauseTabs.ASSEMBLY:
                 pauseTabAss.GetComponentInChildren<TextMeshProUGUI>().text = "• Assembly •";
+                selectedToggle = pauseTabAss;
                 break;
             case PauseTabs.SETTINGS:
                 pauseTabSttngs.GetComponentInChildren<TextMeshProUGUI>().text = "• Settings •";
+                selectedToggle = pauseTabSttngs;
                 break;
         }
 
@@ -527,11 +533,53 @@ public class GameMainframe : MonoBehaviour
                     pauseRightSack.Find("InvDescTops").GetComponent<CanvasGroup>().alpha = 1f;
    
                     // --- NAME DISPLAYING ---
-                    pauseRightSack.Find("InvDescTops/InvNameBG").GetComponentInChildren<TextMeshProUGUI>().text = pi.plantName;
+                    pauseRightSack.Find("InvDescTops/InvDescTopTitle/InvNameBG").GetComponentInChildren<TextMeshProUGUI>().text = pi.plantName;
 
                     // --- TAGS AND COLOURS DISPLAYING ---
-                    pauseRightSack.Find("InvDescTops/InvColBG").GetComponentInChildren<TextMeshProUGUI>().text = PascalCaseString(System.Enum.GetName(typeof(PlantSpawning.PlantColour), pi.plantCol));
-                    pauseRightSack.Find("InvDescTops/InvTagBG").GetComponentInChildren<TextMeshProUGUI>().text = PascalCaseString(System.Enum.GetName(typeof(PlantSpawning.PlantSpecials), pi.plantSpc[0])); // TO DO - DISPLAY ALL SPECIAL TAGS INSTEAD OF JUST ONE
+                    // Erasing the display tags in desc tag area
+                    foreach (Transform pt in pauseRightSackTags)
+                    {
+                        GetInstance().ObjectEnd("InvTag", pt.gameObject);
+                        pt.gameObject.SetActive(false);
+                    }
+
+                    // Placing tag for plant's value/colour
+                    GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
+                    {
+                        pickedDisplay.name = pickedDisplay.name.Contains("InvTag") ? pickedDisplay.name : "InvTag";
+                        pickedDisplay.transform.SetParent(pauseRightSackTags);
+
+                        pickedDisplay.transform.localPosition = Vector3.zero;
+                        pickedDisplay.GetComponent<InvTagInfo>().AssignTag(pi.plantVal);
+                        pickedDisplay.gameObject.SetActive(true);
+                    }, pauseSackTagPrefab);
+
+                    GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
+                    {
+                        pickedDisplay.name = pickedDisplay.name.Contains("InvTag") ? pickedDisplay.name : "InvTag";
+                        pickedDisplay.transform.SetParent(pauseRightSackTags);
+
+                        pickedDisplay.transform.localPosition = Vector3.zero;
+                        pickedDisplay.GetComponent<InvTagInfo>().AssignTag(pi.plantCol);
+                        pickedDisplay.gameObject.SetActive(true);
+                    }, pauseSackTagPrefab);
+
+                    // Placing tag for plant's specials, one for each one
+                    foreach (PlantSpawning.PlantSpecials pSpc in pi.plantSpc)
+                    {
+                        if (pSpc != PlantSpawning.PlantSpecials.NONE)
+                        {
+                            GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
+                            {
+                                pickedDisplay.name = pickedDisplay.name.Contains("InvTag") ? pickedDisplay.name : "InvTag";
+                                pickedDisplay.transform.SetParent(pauseRightSackTags);
+
+                                pickedDisplay.transform.localPosition = Vector3.zero;
+                                pickedDisplay.GetComponent<InvTagInfo>().AssignTag(pSpc);
+                                pickedDisplay.gameObject.SetActive(true);
+                            }, pauseSackTagPrefab);
+                        }
+                    }
 
                     // --- DESCRIPTION DISPLAYING ---
                     pauseRightSack.Find("InvDescBG").GetComponentInChildren<TextMeshProUGUI>().text = pi.plantDesc;
@@ -572,11 +620,59 @@ public class GameMainframe : MonoBehaviour
                     pauseRightSack.Find("InvDescTops").GetComponent<CanvasGroup>().alpha = 1f;
 
                     // --- NAME DISPLAYING ---
-                    pauseRightSack.Find("InvDescTops/InvNameBG").GetComponentInChildren<TextMeshProUGUI>().text = bm.bqName;
+                    pauseRightSack.Find("InvDescTops/InvDescTopTitle/InvNameBG").GetComponentInChildren<TextMeshProUGUI>().text = bm.bqName;
 
                     // --- TAGS AND COLOURS DISPLAYING ---
-                    pauseRightSack.Find("InvDescTops/InvColBG").GetComponentInChildren<TextMeshProUGUI>().text = PascalCaseString(System.Enum.GetName(typeof(PlantSpawning.BouquetHarmony), bm.bqHarm));
-                    pauseRightSack.Find("InvDescTops/InvTagBG").GetComponentInChildren<TextMeshProUGUI>().text = PascalCaseString(System.Enum.GetName(typeof(PlantSpawning.BouquetSpecials), bm.bqSpcs[0])); // TO DO - DISPLAY ALL SPECIAL TAGS INSTEAD OF JUST ONE
+                    // Erasing the display tags in desc tag area
+                    foreach (Transform pt in pauseRightSackTags)
+                    {
+                        GetInstance().ObjectEnd("InvTag", pt.gameObject);
+                        pt.gameObject.SetActive(false);
+                    }
+
+                    // Placing tag for bouquet's harmony/centre
+                    if (bm.bqHarm != PlantSpawning.BouquetHarmony.NONE)
+                    {
+                        GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
+                        {
+                            pickedDisplay.name = pickedDisplay.name.Contains("InvTag") ? pickedDisplay.name : "InvTag";
+                            pickedDisplay.transform.SetParent(pauseRightSackTags);
+
+                            pickedDisplay.transform.localPosition = Vector3.zero;
+                            pickedDisplay.GetComponent<InvTagInfo>().AssignTag(bm.bqHarm);
+                            pickedDisplay.gameObject.SetActive(true);
+                        }, pauseSackTagPrefab);
+                    }
+
+                    if (bm.bqCntr != PlantSpawning.BouquetCentres.NONE)
+                    {
+                        GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
+                        {
+                            pickedDisplay.name = pickedDisplay.name.Contains("InvTag") ? pickedDisplay.name : "InvTag";
+                            pickedDisplay.transform.SetParent(pauseRightSackTags);
+
+                            pickedDisplay.transform.localPosition = Vector3.zero;
+                            pickedDisplay.GetComponent<InvTagInfo>().AssignTag(bm.bqCntr);
+                            pickedDisplay.gameObject.SetActive(true);
+                        }, pauseSackTagPrefab);
+                    }
+
+                    // Placing tag for bouquet's specials, one for each one
+                    foreach (PlantSpawning.BouquetSpecials bSpc in bm.bqSpcs)
+                    {
+                        if (bSpc != PlantSpawning.BouquetSpecials.NONE)
+                        {
+                            GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
+                            {
+                                pickedDisplay.name = pickedDisplay.name.Contains("InvTag") ? pickedDisplay.name : "InvTag";
+                                pickedDisplay.transform.SetParent(pauseRightSackTags);
+
+                                pickedDisplay.transform.localPosition = Vector3.zero;
+                                pickedDisplay.GetComponent<InvTagInfo>().AssignTag(bSpc);
+                                pickedDisplay.gameObject.SetActive(true);
+                            }, pauseSackTagPrefab);
+                        }
+                    }
 
                     // --- DESCRIPTION DISPLAYING ---
                     pauseRightSack.Find("InvDescBG").GetComponentInChildren<TextMeshProUGUI>().text = bm.bqDesc;
@@ -611,7 +707,9 @@ public class GameMainframe : MonoBehaviour
 
     public string PascalCaseString(string input)
 	{
-        return char.ToUpper(input[0]) + input.Substring(1).ToLower();
+        input = input.Replace("_", " ");
+        return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(input.ToLower());
+        //return input.Substring(0, 1).ToUpper() + input.Substring(1).ToLower();
 	}
 
     public static void ChangeTimeOfDay()

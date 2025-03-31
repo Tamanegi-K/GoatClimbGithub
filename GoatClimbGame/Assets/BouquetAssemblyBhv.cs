@@ -252,8 +252,7 @@ public class BouquetAssemblyBhv : MonoBehaviour
         else if (
             (ccc[PlantSpawning.PlantColour.RED] >= 3 && ccc[PlantSpawning.PlantColour.GREEN] >= 3) || 
             (ccc[PlantSpawning.PlantColour.ORANGE] >= 3 && ccc[PlantSpawning.PlantColour.BLUE] >= 3) || 
-            (ccc[PlantSpawning.PlantColour.YELLOW] >= 3 && ccc[PlantSpawning.PlantColour.PURPLE] >= 3) || 
-            (ccc[PlantSpawning.PlantColour.WHITE] >= 3 && ccc[PlantSpawning.PlantColour.BLACK] >= 3)
+            (ccc[PlantSpawning.PlantColour.YELLOW] >= 3 && ccc[PlantSpawning.PlantColour.PURPLE] >= 3)
             )
         {
             resultHarm = PlantSpawning.BouquetHarmony.CONTRASTING;
@@ -266,9 +265,7 @@ public class BouquetAssemblyBhv : MonoBehaviour
             ccc[PlantSpawning.PlantColour.YELLOW] >= 6 ||
             ccc[PlantSpawning.PlantColour.GREEN] >= 6 ||
             ccc[PlantSpawning.PlantColour.BLUE] >= 6 ||
-            ccc[PlantSpawning.PlantColour.PURPLE] >= 6 ||
-            ccc[PlantSpawning.PlantColour.WHITE] >= 6 ||
-            ccc[PlantSpawning.PlantColour.BLACK] >= 6
+            ccc[PlantSpawning.PlantColour.PURPLE] >= 6
             )
         {
             resultHarm = PlantSpawning.BouquetHarmony.SOLID;
@@ -359,10 +356,6 @@ public class BouquetAssemblyBhv : MonoBehaviour
             resultSpcs.Add(PlantSpawning.BouquetSpecials.BLUE_DOMINANT);
         if (ccc[PlantSpawning.PlantColour.PURPLE] >= 4)
             resultSpcs.Add(PlantSpawning.BouquetSpecials.PURPLE_DOMINANT);
-        if (ccc[PlantSpawning.PlantColour.WHITE] >= 4)
-            resultSpcs.Add(PlantSpawning.BouquetSpecials.WHITE_DOMINANT);
-        if (ccc[PlantSpawning.PlantColour.BLACK] >= 4)
-            resultSpcs.Add(PlantSpawning.BouquetSpecials.BLACK_DOMINANT);
 
         return resultSpcs;
     }
@@ -384,8 +377,6 @@ public class BouquetAssemblyBhv : MonoBehaviour
         ccc.Add(PlantSpawning.PlantColour.GREEN, 0);
         ccc.Add(PlantSpawning.PlantColour.BLUE, 0);
         ccc.Add(PlantSpawning.PlantColour.PURPLE, 0);
-        ccc.Add(PlantSpawning.PlantColour.WHITE, 0);
-        ccc.Add(PlantSpawning.PlantColour.BLACK, 0);
     }
 
     public IEnumerator ShakeBouquet(float intensityMult)
