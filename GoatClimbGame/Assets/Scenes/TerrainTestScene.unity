@@ -5531,117 +5531,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 433062959}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &472790232
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 472790236}
-  - component: {fileID: 472790235}
-  - component: {fileID: 472790234}
-  - component: {fileID: 472790233}
-  m_Layer: 5
-  m_Name: Cube (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &472790233
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 472790232}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &472790234
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 472790232}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &472790235
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 472790232}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!224 &472790236
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 472790232}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1080}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -640, y: 1620}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &473434332
 GameObject:
   m_ObjectHideFlags: 0
@@ -12360,14 +12249,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7058824}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e5b76b3a2af9d50499697d3bfebfa91f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -16370,117 +16259,6 @@ Terrain:
   m_EnableHeightmapRayTracing: 1
   m_EnableTreesAndDetailsRayTracing: 0
   m_TreeMotionVectorModeOverride: 3
---- !u!1 &1551787170
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1551787174}
-  - component: {fileID: 1551787173}
-  - component: {fileID: 1551787172}
-  - component: {fileID: 1551787171}
-  m_Layer: 5
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &1551787171
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1551787170}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1551787172
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1551787170}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1551787173
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1551787170}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!224 &1551787174
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1551787170}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1080}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1280, y: 540}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1553530072
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18122,7 +17900,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1783052153}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -19024,14 +18802,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7058824}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e5b76b3a2af9d50499697d3bfebfa91f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -21132,52 +20910,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantMasterlist:
-  - plantOnfield: {fileID: 3653157995796256392, guid: 66aec35981c2cdd489013801f7307cc7,
+  - plantOnfield: {fileID: 8582112572557416182, guid: ea31c7486c86a1742a465d5f67ae5fbb,
       type: 3}
-    plantPickedup: {fileID: 1346865914412531148, guid: 5bda73395cb3deb489e9253e8ff12459,
+    plantPickedup: {fileID: 9165188540876562663, guid: 8215cfd1c93d430459fb83d741d18f9a,
       type: 3}
-    plantName: Queen of the Night
+    plantName: Orange Hyacinths
     plantTyp: 0
     plantVal: 0
-    plantCol: 0
-    plantSpc: 0300000004000000
-    plantDesc: A nocturnal flower that blooms only at night and wilts by dawn. Besides
-      its wonderful appearance, it is also used in traditional medicines.
-  - plantOnfield: {fileID: 451565063866945698, guid: 1272550f7815adb4ab12efe9f3a8bbce,
+    plantCol: 1
+    plantSpc: 02000000
+    plantDesc: A fragrant flowering plant that thrives on one stem. It is said that
+      the flowers were grown from the blood of a god that embraced love.
+  - plantOnfield: {fileID: 8582112572557416182, guid: 8a1103f35295b4749827b48eead8ed5a,
       type: 3}
-    plantPickedup: {fileID: 1346865914412531148, guid: 8a08ac336e3e1bc4fb380ef7ae5adc18,
+    plantPickedup: {fileID: 9165188540876562663, guid: c59d52cb4d1c835438964e5d95f0c3c6,
       type: 3}
-    plantName: Goldenbells
+    plantName: Banana Hyacinths
     plantTyp: 0
-    plantVal: 1
+    plantVal: 3
     plantCol: 2
-    plantSpc: 04000000
-    plantDesc: An array of flowers resembling tiny hand bells. Rumours say that when
-      pollinated, they make a gentle jingling sound.
-  - plantOnfield: {fileID: 2737080249410112875, guid: 6252ffa5affd5be41bdd3f2c91e29f3b,
-      type: 3}
-    plantPickedup: {fileID: 5424592168151799516, guid: 24f446d97dafb8c44b1b1ee86d89a4ea,
-      type: 3}
-    plantName: Icy Snowprism
-    plantTyp: 0
-    plantVal: 1
-    plantCol: 4
-    plantSpc: 0100000004000000
-    plantDesc: A beautiful, iridescent variant of primrose that that gleams in the
-      night sky like a gem. The cold climate it grows in help to create its crystal-like
-      appearance.
-  - plantOnfield: {fileID: 2737080249410112875, guid: 34eb0acbf92cb17479d1618972148828,
-      type: 3}
-    plantPickedup: {fileID: 5424592168151799516, guid: cdd7aec18a5607547b01e8799a49601a,
-      type: 3}
-    plantName: Rosy Snowprism
-    plantTyp: 0
-    plantVal: 1
-    plantCol: 5
-    plantSpc: 0100000004000000
-    plantDesc: A beautiful, iridescent variant of primrose that that gleams in the
-      night sky like a gem. The cold climate it grows in help to create its crystal-like
-      appearance.
+    plantSpc: 0200000004000000
+    plantDesc: This hyacinth lived much longer than its usual lifespan due to the
+      environment it grew in. While most flowers gradually lose colour in time, the
+      colour of this hyacinth only gets deeper, resembling ripe bananas.
   - plantOnfield: {fileID: 8582112572557416182, guid: c2cd5ac6684c5834daafcdbcdc36e03c,
       type: 3}
     plantPickedup: {fileID: 9165188540876562663, guid: 59df3968a6a9ac84091ff2065d376622,
@@ -21200,30 +20955,192 @@ MonoBehaviour:
     plantSpc: 02000000
     plantDesc: A fragrant flowering plant that thrives on one stem. It is said that
       the flowers were grown from the blood of a god that embraced love.
-  - plantOnfield: {fileID: 3040383729424543426, guid: a74a62b18d20755428cab01af400bafd,
-      type: 3}
-    plantPickedup: {fileID: 8981978352180708568, guid: 1bd5f6297a083c242b0805904c175af7,
-      type: 3}
-    plantName: Blue Hydrangea
-    plantTyp: 0
-    plantVal: 1
-    plantCol: 4
-    plantSpc: 02000000
-    plantDesc: A genus of flower with over seventy different species. The colour
-      of the flowers is sometimes determined by the acidity of the soil it grows
-      on.
   - plantOnfield: {fileID: 3040383729424543426, guid: b80916757151b74489491aa8b6f771e1,
       type: 3}
     plantPickedup: {fileID: 8981978352180708568, guid: 606fd81e468a30b4d9851a83251bbecb,
       type: 3}
-    plantName: Red Hydrangea
-    plantTyp: 0
+    plantName: Red Hydrangeas
+    plantTyp: 1
     plantVal: 1
     plantCol: 0
     plantSpc: 02000000
     plantDesc: A genus of flower with over seventy different species. The colour
-      of the flowers is sometimes determined by the acidity of the soil it grows
-      on.
+      of the flowers is sometimes determined by the acidity of the soil it grew on;
+      this particular one likely grew in alkaline soil.
+  - plantOnfield: {fileID: 3040383729424543426, guid: a41d0fc2dfd5d964c83d7e84cb11f9f4,
+      type: 3}
+    plantPickedup: {fileID: 8981978352180708568, guid: f753c02247158dc4ca9232b369111fc6,
+      type: 3}
+    plantName: Purple Hydrangeas
+    plantTyp: 1
+    plantVal: 2
+    plantCol: 5
+    plantSpc: 02000000
+    plantDesc: A genus of flower with over seventy different species. The colour
+      of the flowers is sometimes determined by the acidity of the soil it grew on;
+      this particular one likely grew in neutral soil.
+  - plantOnfield: {fileID: 3040383729424543426, guid: a74a62b18d20755428cab01af400bafd,
+      type: 3}
+    plantPickedup: {fileID: 8981978352180708568, guid: 1bd5f6297a083c242b0805904c175af7,
+      type: 3}
+    plantName: Blue Hydrangeas
+    plantTyp: 1
+    plantVal: 2
+    plantCol: 4
+    plantSpc: 02000000
+    plantDesc: A genus of flower with over seventy different species. The colour
+      of the flowers is sometimes determined by the acidity of the soil it grew on;
+      this particular one likely grew in acidic soil.
+  - plantOnfield: {fileID: 3040383729424543426, guid: 2d63e8514cb7d8b49ba00ca832ff1453,
+      type: 3}
+    plantPickedup: {fileID: 8981978352180708568, guid: fdab53c7d8266e14baa507fab9a75f46,
+      type: 3}
+    plantName: Cabbage Hydrangeas
+    plantTyp: 1
+    plantVal: 1
+    plantCol: 3
+    plantSpc: 0200000004000000
+    plantDesc: Flowers wilt and turn brown with age. Hydrangeas, however, gracefully
+      fade into a lovely shade of green that speaks volumes of its health and age.
+      Hence, these flowers represent longevity and good health.
+  - plantOnfield: {fileID: 842437072280783543, guid: d59aefa0d6ba62141ba112cb5c702034,
+      type: 3}
+    plantPickedup: {fileID: 333919884730591912, guid: 346934a2a0e0f2849a574c26c6d573c7,
+      type: 3}
+    plantName: Red Tulip
+    plantTyp: 3
+    plantVal: 2
+    plantCol: 0
+    plantSpc: 00000000
+    plantDesc: A flower that grows in abundance during springtime. It is commonly
+      gifted as a represention of love and affection.
+  - plantOnfield: {fileID: 842437072280783543, guid: 712ab0b5849fdfa4fa5d7effb5261a00,
+      type: 3}
+    plantPickedup: {fileID: 333919884730591912, guid: f55c1d428ec6eeb4ebab001bef827c43,
+      type: 3}
+    plantName: Orange Tulip
+    plantTyp: 3
+    plantVal: 1
+    plantCol: 1
+    plantSpc: 00000000
+    plantDesc: A flower that grows in abundance during springtime. It is commonly
+      gifted as a represention of love and affection.
+  - plantOnfield: {fileID: 842437072280783543, guid: 8524601704d69574886b861d35d33a27,
+      type: 3}
+    plantPickedup: {fileID: 333919884730591912, guid: 7abe12232207171499229fedca610cc8,
+      type: 3}
+    plantName: Yellow Tulip
+    plantTyp: 3
+    plantVal: 2
+    plantCol: 2
+    plantSpc: 00000000
+    plantDesc: A flower that grows in abundance during springtime. It is commonly
+      gifted as a represention of love and affection.
+  - plantOnfield: {fileID: 842437072280783543, guid: d53e4304245ae2942b1d09b1840f36a5,
+      type: 3}
+    plantPickedup: {fileID: 333919884730591912, guid: 8671fe9ad16b6d841a5027a2d3904394,
+      type: 3}
+    plantName: Darkberry Pod
+    plantTyp: 3
+    plantVal: 3
+    plantCol: 5
+    plantSpc: 04000000
+    plantDesc: Some tulip bulbs are mildly poisonous and generally discouraged for
+      consumption. This one, however, is delicious and sweet. Not only safe to eat,
+      it is also great for juice and garnish.
+  - plantOnfield: {fileID: 842437072280783543, guid: 3fb3dc4d523ee9045a49464f56d875cf,
+      type: 3}
+    plantPickedup: {fileID: 2943237166128358823, guid: a401a87e3ffc3c04c8ecb8adaca4dd7a,
+      type: 3}
+    plantName: Red Lily
+    plantTyp: 5
+    plantVal: 3
+    plantCol: 0
+    plantSpc: 00000000
+    plantDesc: A flower with well-defined petals and long stamens. Since this type
+      of flower is easy to grow, they are a favourite among gardeners and florists
+      alike.
+  - plantOnfield: {fileID: 842437072280783543, guid: f55874149b77f1148afabd1a1f749676,
+      type: 3}
+    plantPickedup: {fileID: 2943237166128358823, guid: 1df5fa89217f80844a92d7e9888628cc,
+      type: 3}
+    plantName: Tiger's Eye
+    plantTyp: 5
+    plantVal: 2
+    plantCol: 1
+    plantSpc: 00000000
+    plantDesc: Known for its striking beauty and slight resemblance to a tigerkin's
+      fur, this flower is sought after by many plant enthusiasts.
+  - plantOnfield: {fileID: 842437072280783543, guid: 178e9b8a9db7c454c9086f4cf981a4fd,
+      type: 3}
+    plantPickedup: {fileID: 2943237166128358823, guid: d7ec364a4f7371e45b3f7fba88f88637,
+      type: 3}
+    plantName: Green Lily
+    plantTyp: 5
+    plantVal: 0
+    plantCol: 3
+    plantSpc: 00000000
+    plantDesc: A flower with well-defined petals and long stamens. Since this type
+      of flower is easy to grow, they are a favourite among gardeners and florists
+      alike.
+  - plantOnfield: {fileID: 842437072280783543, guid: 88d58a2058adc94428a35b6bb9ff2935,
+      type: 3}
+    plantPickedup: {fileID: 2943237166128358823, guid: 278ab79abbf450f49b4e5f49d34da251,
+      type: 3}
+    plantName: Blue Lily
+    plantTyp: 5
+    plantVal: 1
+    plantCol: 4
+    plantSpc: 00000000
+    plantDesc: A flower with well-defined petals and long stamens. Since this type
+      of flower is easy to grow, they are a favourite among gardeners and florists
+      alike.
+  - plantOnfield: {fileID: 3653157995796256392, guid: 66aec35981c2cdd489013801f7307cc7,
+      type: 3}
+    plantPickedup: {fileID: 1346865914412531148, guid: 5bda73395cb3deb489e9253e8ff12459,
+      type: 3}
+    plantName: Queen of the Night
+    plantTyp: 4
+    plantVal: 0
+    plantCol: 0
+    plantSpc: 0300000004000000
+    plantDesc: A nocturnal flower that blooms only at night and wilts by dawn. Besides
+      its wonderful appearance, it is also used in traditional medicines.
+  - plantOnfield: {fileID: 451565063866945698, guid: 1272550f7815adb4ab12efe9f3a8bbce,
+      type: 3}
+    plantPickedup: {fileID: 1346865914412531148, guid: 8a08ac336e3e1bc4fb380ef7ae5adc18,
+      type: 3}
+    plantName: Goldenbells
+    plantTyp: 5
+    plantVal: 1
+    plantCol: 2
+    plantSpc: 04000000
+    plantDesc: An array of special lilies resembling tiny hand bells. Rumours say
+      that when pollinated, they make a gentle jingling sound.
+  - plantOnfield: {fileID: 2737080249410112875, guid: 6252ffa5affd5be41bdd3f2c91e29f3b,
+      type: 3}
+    plantPickedup: {fileID: 5424592168151799516, guid: 24f446d97dafb8c44b1b1ee86d89a4ea,
+      type: 3}
+    plantName: Icy Snowprism
+    plantTyp: 6
+    plantVal: 0
+    plantCol: 4
+    plantSpc: 0100000004000000
+    plantDesc: A beautiful, iridescent variant of primrose that that gleams in the
+      night sky like a gem. The cold climate it grows in help to create its crystal-like
+      appearance.
+  - plantOnfield: {fileID: 2737080249410112875, guid: 34eb0acbf92cb17479d1618972148828,
+      type: 3}
+    plantPickedup: {fileID: 5424592168151799516, guid: cdd7aec18a5607547b01e8799a49601a,
+      type: 3}
+    plantName: Rosy Snowprism
+    plantTyp: 6
+    plantVal: 1
+    plantCol: 5
+    plantSpc: 0100000004000000
+    plantDesc: A beautiful, iridescent variant of primrose that that gleams in the
+      night sky like a gem. The cold climate it grows in help to create its crystal-like
+      appearance.
   plantSpawnDeets:
   - indexOfPlant: 1
     amtWhenPicked: 3
@@ -23445,8 +23362,6 @@ SceneRoots:
   - {fileID: 218637848}
   - {fileID: 766302987}
   - {fileID: 123420278}
-  - {fileID: 1551787174}
-  - {fileID: 472790236}
   - {fileID: 1477958926}
   - {fileID: 84873031}
   - {fileID: 2144485949}

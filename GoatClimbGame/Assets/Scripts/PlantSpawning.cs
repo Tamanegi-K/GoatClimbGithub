@@ -9,7 +9,7 @@ public class PlantSpawning : MonoBehaviour
     // https://www.youtube.com/watch?v=gfD8S32xzYI
 
     // PLANT TAGS
-    public enum PlantType { HYACINTH, HYDRANGEA, HIBISCUS, TULIP, ORCHID, LILY, OTHER } // species of flower
+    public enum PlantType { HYACINTH, HYDRANGEA, HIBISCUS, TULIP, ORCHID, LILY, SNOWPRISM } // species of flower
     public enum PlantValue { PALE, BRIGHT, VIBRANT, DARK } // from most faded to most saturated, one only
     public enum PlantColour { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE }; // colour of flower, one only
     public enum PlantSpecials { NONE, LUSTROUS, INFLORESCENT, NIGHTBLOOM, RARE } // other characteristics that makes this flower special, can have multiple
@@ -288,7 +288,7 @@ public class PlantSpawning : MonoBehaviour
         TagDescs.Add(PlantSpecials.LUSTROUS, "This flower has a shiny and crystal-like appearance.");
         TagDescs.Add(PlantSpecials.INFLORESCENT, "Many clusters of flowers grow from this plant's stem.");
         TagDescs.Add(PlantSpecials.NIGHTBLOOM, "The flower only blooms at night.");
-        TagDescs.Add(PlantSpecials.RARE, "This flower is significantly harder to find than most.");
+        TagDescs.Add(PlantSpecials.RARE, "This flower is considered special and may be harder to find than most.");
 
         // BouquetHarmonies
         TagDescs.Add(BouquetHarmony.CONTRASTING, "The accents of the bouquet has a Contrasting colour harmony.");
@@ -304,7 +304,7 @@ public class PlantSpawning : MonoBehaviour
         TagDescs.Add(BouquetCentres.TROVE, "The centrepiece of the bouquet shares a Solid colour harmony with its accents.");
 
         // BouquetSpecials
-        TagDescs.Add(BouquetSpecials.RADIANT, "The centrepiece of the bouquet is a very special flower.");
+        TagDescs.Add(BouquetSpecials.RADIANT, "The centrepiece of the bouquet is a Rare flower.");
         TagDescs.Add(BouquetSpecials.MONOSPECIES, "Every flower that accents the bouquet are the same type.");
         TagDescs.Add(BouquetSpecials.DELICATE, "4 or more Pale flowers adorn the accents of the bouquet.");
         TagDescs.Add(BouquetSpecials.BOLD, "4 or more Bright flowers adorn the accents of the bouquet.");
