@@ -135,7 +135,7 @@ Transform:
   m_GameObject: {fileID: 961715813828638805}
   serializedVersion: 2
   m_LocalRotation: {x: -0.16867729, y: 0.9607871, z: -0.21542124, w: 0.045052927}
-  m_LocalPosition: {x: -0.35, y: 0.78, z: 0.005}
+  m_LocalPosition: {x: -0.3, y: 0.78, z: 0.005}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -241,13 +241,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1385954930339728312}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20574906, y: 0.9402668, z: -0.23703365, w: 0.13183635}
-  m_LocalPosition: {x: 0.35, y: 0.8299999, z: 0.005}
+  m_LocalRotation: {x: -0.16867727, y: -0.9607871, z: 0.21542127, w: 0.045053024}
+  m_LocalPosition: {x: 0.3, y: 0.78, z: 0.005}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 319036326692063414}
-  m_LocalEulerAnglesHint: {x: 30, y: -10, z: 22}
+  m_LocalEulerAnglesHint: {x: 23.5, y: -170, z: 22}
 --- !u!23 &1802209693075595449
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -440,7 +440,7 @@ GameObject:
   m_Layer: 5
   m_Name: Bouquet
   m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -455,7 +455,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2324243973693355126}
   - {fileID: 7244683481470008758}
@@ -793,13 +793,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9056159628391270645}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.9659258, z: 0.2588191, w: 0}
-  m_LocalPosition: {x: 0, y: 1.18, z: -0.2}
-  m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
+  m_LocalRotation: {x: 0, y: -0.97629607, z: 0.2164396, w: 0}
+  m_LocalPosition: {x: 0, y: 0.9, z: -0.2}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 319036326692063414}
-  m_LocalEulerAnglesHint: {x: 30, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 25, y: -180, z: 0}
 --- !u!23 &5714186079998610826
 MeshRenderer:
   m_ObjectHideFlags: 0

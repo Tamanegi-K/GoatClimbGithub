@@ -192,9 +192,10 @@ public class BouquetAssemblyBhv : MonoBehaviour
         CountColours(inBouquetCols);
 
         // Making the bouquet entry and adding it to the player's inventory
-        // TO DO - WEIRD BUG WHERE SOMETIMES THE MADE BOUQUET CAN BE SEEN ON THE BOTTOM OF UI vvvvvvvvvvvvvvvvv IT'S BECAUSE OF THE INSTANTIATE
         GameObject madeBQ = Instantiate(bouquetObj);
-        madeBQ.transform.position = new Vector3(madeBQ.transform.position.x, madeBQ.transform.position.y - 500f, madeBQ.transform.position.z);
+        madeBQ.SetActive(false);
+        madeBQ.transform.localScale = Vector3.one;
+        //madeBQ.transform.position = new Vector3(madeBQ.transform.position.x, madeBQ.transform.position.y - 500f, madeBQ.transform.position.z);
 
         PlantSpawning.OneBouquetMade newBouquet = new PlantSpawning.OneBouquetMade(madeBQ, bouquetID, plantNameArray, "Bouquet " + bouquetID, AssignBouquetHarmony(), AssignBouquetCentre(), AssignBouquetSpecials(inBouquetVals), "A beautiful bouquet you made! \n \n WIP: Soon you'll be able to name your own bouquets.");
         GameMainframe.GetInstance().GetComponent<PlantSpawning>().bouquetsMade.Add(newBouquet);
