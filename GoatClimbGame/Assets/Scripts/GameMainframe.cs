@@ -37,6 +37,7 @@ public class GameMainframe : MonoBehaviour
     public static float daytimeSpeed = 0.24f;
     public static float daytimeSpeedInit;
     public static Action DayHasChanged;
+    public static int requestDiff = 0;
 
     [Header("Prefab Housing")]
     public GameObject hudPopupPrefab;
@@ -195,6 +196,7 @@ public class GameMainframe : MonoBehaviour
         if (audioMngr == null)
 		{
             SetUpObjs();
+            audioMngr.SetAudioListener(playerContrScr.transform.Find("CameraPivot").gameObject);
 		}
 
         audioMngr.StopBGMCurrent();
@@ -516,7 +518,6 @@ public class GameMainframe : MonoBehaviour
 
     public void InvClick(string input) // Does various things based on what tab is currently selected when clicking on an inventory item
 	{
-        // TO DO : FOR OTHER RIGHT SIDE INVENTORY SHITS
         // (check InvItemClick() in InventoryItemBhv.cs)
 
         // Description appearance

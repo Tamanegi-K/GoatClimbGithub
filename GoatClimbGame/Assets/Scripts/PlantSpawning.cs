@@ -305,7 +305,7 @@ public class PlantSpawning : MonoBehaviour
 
         // BouquetSpecials
         TagDescs.Add(BouquetSpecials.RADIANT, "The centrepiece of the bouquet is a Rare flower.");
-        TagDescs.Add(BouquetSpecials.MONOSPECIES, "Every flower that accents the bouquet are the same type.");
+        TagDescs.Add(BouquetSpecials.MONOSPECIES, "Every flower in the bouquet are the same type.");
         TagDescs.Add(BouquetSpecials.DELICATE, "4 or more Pale flowers adorn the accents of the bouquet.");
         TagDescs.Add(BouquetSpecials.BOLD, "4 or more Bright flowers adorn the accents of the bouquet.");
         TagDescs.Add(BouquetSpecials.REFINED, "4 or more Vibrant flowers adorn the accents of the bouquet.");

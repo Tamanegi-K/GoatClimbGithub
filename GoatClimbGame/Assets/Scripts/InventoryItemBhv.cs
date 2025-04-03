@@ -136,6 +136,7 @@ public class InventoryItemBhv : MonoBehaviour
                         {
                             go.GetComponent<VillagerBhv>().requestID = 0;
                             GameMainframe.GetInstance().requestList.RemoveAt(0);
+                            GameMainframe.requestDiff += 1; // requests to "get harder" the more you do them
                             break;
                         }
                     }

@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     // Use FindObjectOfType<AudioManager>().Play("Name"); to play a sound
 
     private List<GameObject> ambObjs = new List<GameObject>(), ambObjsPers = new List<GameObject>();
+    private AudioListener uiAudioListener;
 
     [Header("Volume Control (will become actual UI soon")]
     [Range(0f, 1f)] public float volMaster = 1f;
@@ -303,6 +304,11 @@ public class AudioManager : MonoBehaviour
         }
 
     }
+
+    public void SetAudioListener(GameObject go)
+	{
+        uiAudioListener = go.GetComponent<AudioListener>();
+	}
     
     // WIP REAL TIME VOLUME CONTROL FOR MUSIC AND AMBIENCE
     /*public void UpdateVolumeControl()
