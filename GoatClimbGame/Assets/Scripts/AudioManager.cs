@@ -165,7 +165,20 @@ public class AudioManager : MonoBehaviour
             if (s.name == name)
             {
                 // TO DO: DO LIKE PLAYSFX()
-                return;
+                if (s.name == name)
+                {
+                    GameMainframe.GetInstance().ObjectUse("UISoundwave", (thisSoundwave) =>
+                    {
+                        thisSoundwave.SetActive(true);
+                        thisSoundwave.name = "UISoundwave";
+                        SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
+                        swBhv.SetUpSoundwave(Vector3.zero, s.clip, s.volume * volMaster * volSFX, s.pitch, s.pitchRandoRange, s.spatialBlend, s.minDist, s.maxDist, s.loop);
+                        thisSoundwave.transform.parent = uiAudioListener.transform;
+
+                        thisSoundwave.GetComponent<AudioSource>().Play();
+                    }, singleSoundwave);
+                    return;
+                }
             }
         }
         Debug.LogError("Couldn't find " + name);

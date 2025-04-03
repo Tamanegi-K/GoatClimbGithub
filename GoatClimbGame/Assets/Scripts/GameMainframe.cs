@@ -37,7 +37,6 @@ public class GameMainframe : MonoBehaviour
     public static float daytimeSpeed = 0.24f;
     public static float daytimeSpeedInit;
     public static Action DayHasChanged;
-    public static int requestDiff = 0;
 
     [Header("Prefab Housing")]
     public GameObject hudPopupPrefab;
@@ -56,6 +55,7 @@ public class GameMainframe : MonoBehaviour
 
     #region Request Details
     private int totalRequests = 0;
+    public static float requestDiff = 0;
     [System.Serializable]
     public class Request
     {
@@ -410,13 +410,22 @@ public class GameMainframe : MonoBehaviour
     }
 	#endregion
 
-	public void UpdateInventoryQuantities() // Displays of the right side of the inventory screen and also runs right side stuff (see bottom for individual functions based on tab toggles)
+	public void UpdateInventoryQuantities() // Displays of the LEFT side of the inventory screen and also runs right side stuff (see bottom for individual functions based on tab toggles)
     {
         //InventoryItemBhv[] children = inventoryDisplay.GetComponentsInChildren<InventoryItemBhv>(true);
         // Flush the InvItem grid
         foreach (GameObject i in invHudObjs)
         {
-            ObjectEnd("InvItem", i);
+            //// Erasing the display object INSIDE the grid
+            //foreach (Transform c in i.transform.Find("IconArea/ObjHolder"))
+            //{
+            //    c.transform.SetParent(null);
+            //    ObjectEnd(c.name, c.gameObject);
+            //    c.gameObject.SetActive(false);
+            //}
+
+            i.transform.SetParent(null);
+            ObjectEnd("InvGrid", i);
             i.SetActive(false);
         }
 
@@ -427,10 +436,10 @@ public class GameMainframe : MonoBehaviour
         {
             foreach (KeyValuePair<string, int> thing in playerContrScr.collectedInventory)
             {
-                ObjectUse("InvItem", (ii) =>
+                ObjectUse("InvGrid", (ii) =>
                 {
                     InventoryItemBhv iiIib = ii.GetComponent<InventoryItemBhv>();
-                    ii.name = "InvItem";
+                    ii.name = "InvGrid";
 
                     // Find the display object's prefab (A LITTLE BACK ASSWARDS BUT FUCK IT
                     GameObject foundDispObj = null;
@@ -470,10 +479,7 @@ public class GameMainframe : MonoBehaviour
 
                     invHudObjs.Add(ii);
                 }, hudInventoryPrefab);
-
-                //Debug.Log(thing);
             }
-            //Debug.LogWarning("end");
         }
     }
 
@@ -730,10 +736,32 @@ public class GameMainframe : MonoBehaviour
         string randomName = villagersOnField[randomIndex].GetComponent<VillagerBhv>().villagerName;
 
         // randomise request details
-        // TO DO - MAKE IT USE EVERY TAG, FOR NOW WE'RE TRUNCATING IT SINCE WE DON'T HAVE ENOUGH FLOWERS
         PlantSpawning.BouquetHarmony randomHarm = PlantSpawning.BouquetHarmony.NONE;
         PlantSpawning.BouquetCentres randomCntr = PlantSpawning.BouquetCentres.NONE;
         List<PlantSpawning.BouquetSpecials> randomSpcs = new List<PlantSpawning.BouquetSpecials>();
+
+        // TO DO - MAKE IT USE EVERY TAG, FOR NOW WE'RE TRUNCATING IT SINCE WE DON'T HAVE ENOUGH FLOWERS
+        for (float i = requestDiff; i > 0 ; i -= 1)
+        {
+            string r = plantSpawningScr.GetRandomQuestTag();
+
+            if (Enum.TryParse(r, out PlantSpawning.BouquetHarmony rH))
+			{
+                randomHarm = rH;
+            }
+            else if (Enum.TryParse(r, out PlantSpawning.BouquetCentres rC))
+            {
+                randomCntr = rC;
+            }
+            else if (Enum.TryParse(r, out PlantSpawning.BouquetSpecials rS))
+            {
+                randomSpcs.Add(rS);
+            }
+            if (i == 2)
+			{
+                randomHarm = (PlantSpawning.BouquetHarmony)UnityEngine.Random.Range(1, 6);
+			}
+        }
 
         Request newRequest = new Request(randomName, totalRequests, randomHarm, randomCntr, randomSpcs);
         villagersOnField[randomIndex].GetComponent<VillagerBhv>().requestID = totalRequests;

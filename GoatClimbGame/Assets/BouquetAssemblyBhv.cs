@@ -97,6 +97,7 @@ public class BouquetAssemblyBhv : MonoBehaviour
                 currentSlot += 1;
                 CheckComplete();
 
+                colourWheelScr.CountColoursNow(plantNameArray);
                 break;
             }
         }
@@ -142,6 +143,8 @@ public class BouquetAssemblyBhv : MonoBehaviour
         currentSlot = 0;
         CheckComplete();
         GameMainframe.GetInstance().UpdateInventoryQuantities();
+
+        colourWheelScr.CountColoursNow(plantNameArray);
     }
 
     private void CheckComplete()

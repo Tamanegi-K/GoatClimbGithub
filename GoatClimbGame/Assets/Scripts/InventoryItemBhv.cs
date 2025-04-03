@@ -83,9 +83,9 @@ public class InventoryItemBhv : MonoBehaviour
         if (go == null) return; // if there's no object to display, skip the next bit
 
         // Reinserting the display object
-        GameMainframe.GetInstance().ObjectUse(input + "Inv", (pickedDisplay) =>
+        GameMainframe.GetInstance().ObjectUse("Inv_" + input, (pickedDisplay) =>
         {
-            pickedDisplay.name = pickedDisplay.name.Contains("Inv") ? pickedDisplay.name : input + "Inv";
+            pickedDisplay.name = pickedDisplay.name.Contains("Inv_") ? pickedDisplay.name : "Inv_" + input;
             pickedDisplay.transform.SetParent(objHolder.transform);
 
             pickedDisplay.transform.localPosition = Vector3.zero;
@@ -123,6 +123,7 @@ public class InventoryItemBhv : MonoBehaviour
                 if (bq.bqName == invName && GameMainframe.GetInstance().playerContrScr.GetInventoryQty(invName) > 0)
                 {
                     // TO DO - CHECK BOUQUET IS UP TO PAR WITH REQUEST, FOR NOW IT'LL TAKE ANY BOUQUET
+                    //if (GameMainframe.GetInstance().requestList[0].)
                     GameMainframe.GetInstance().playerContrScr.UpdateInventory(invName, -1);
                     //GameMainframe.GetInstance().plantSpawningScr.bouquetsMade.Remove(bq);
                     GameMainframe.GetInstance().playerContrScr.TogglePlayerControl();
@@ -136,7 +137,7 @@ public class InventoryItemBhv : MonoBehaviour
                         {
                             go.GetComponent<VillagerBhv>().requestID = 0;
                             GameMainframe.GetInstance().requestList.RemoveAt(0);
-                            GameMainframe.requestDiff += 1; // requests to "get harder" the more you do them
+                            GameMainframe.requestDiff = Mathf.Clamp(GameMainframe.requestDiff + 0.15f, 1f, 6f); // requests to "get harder" the more you do them
                             break;
                         }
                     }

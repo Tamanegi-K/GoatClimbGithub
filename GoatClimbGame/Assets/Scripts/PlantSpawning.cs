@@ -99,10 +99,12 @@ public class PlantSpawning : MonoBehaviour
     public List<OneBouquetMade> bouquetsMade;
     #endregion
 
+
     // Start is called before the first frame update
     void Start()
     {
         TagDescFiller();
+        GetRandomQuestTag();
 
         // every time the time of day changes, spawn plants again
         GameMainframe.DayHasChanged += SpawnPlants;
@@ -320,6 +322,92 @@ public class PlantSpawning : MonoBehaviour
 
         // How to use the hashtable
         //Debug.Log(TagDescs[BouquetSpecials.BLACK_DOMINANT]);
+    }
+
+    public string GetRandomQuestTag(int randomStyle = 0)
+	{
+        // randomStyle index (tailored based on requestDiff):
+        // 0 - any one
+        // 1 - bouquet harmonies only
+        // 2 - bouquet centres only
+        // 3 - any special
+        // 4 - 4 or more value conditions
+        // 5 - 4 or more colour conditions
+        // 6 - radiant/monospecies
+        List<string> tempTagList = new List<string>();
+
+        // HARMONIES
+        if (randomStyle == 0 || randomStyle == 1)
+        {
+            string[] bHarmonies = System.Enum.GetNames(typeof(BouquetHarmony));
+            for (int i = 0; i < bHarmonies.Length; i += 1)
+            {
+                if (bHarmonies[i] != "NONE")
+                    tempTagList.Add(bHarmonies[i]);
+            }
+        }
+
+        // CENTRES
+        if (randomStyle == 0 || randomStyle == 2)
+        {
+            string[] bCentres = System.Enum.GetNames(typeof(BouquetCentres));
+            for (int i = 1; i < bCentres.Length; i += 1)
+            { 
+                tempTagList.Add(bCentres[i]);
+            }
+        }
+
+        // EVERY SPECIAL
+        if (randomStyle == 0 || randomStyle == 3)
+		{
+            string[] bSpecials = System.Enum.GetNames(typeof(BouquetSpecials));
+            for (int i = 1; i < bSpecials.Length; i += 1)
+            {
+                tempTagList.Add(bSpecials[i]);
+            }
+        }
+
+        // VALUE CONDITIONS
+        if (randomStyle == 4)
+        {
+            string[] bSpecials = System.Enum.GetNames(typeof(BouquetSpecials));
+            for (int i = 3; i <= 6; i += 1)
+            {
+                tempTagList.Add(bSpecials[i]);
+            }
+        }
+
+        // COLOUR CONDITIONS
+        if (randomStyle == 5)
+        {
+            string[] bSpecials = System.Enum.GetNames(typeof(BouquetSpecials));
+            for (int i = 7; i <= 13; i += 1)
+            {
+                tempTagList.Add(bSpecials[i]);
+            }
+        }
+
+        // LAST TWO
+        if (randomStyle == 6)
+        {
+            string[] bSpecials = System.Enum.GetNames(typeof(BouquetSpecials));
+            for (int i = 1; i <= 2; i += 1)
+            {
+                tempTagList.Add(bSpecials[i]);
+            }
+        }
+
+        // Shuffles the list, shoutouts to the Fisher-Yates Shuffle Algorithm
+        // https://www.wayline.io/blog/how-to-shuffle-a-list-in-unity
+        for (int i = tempTagList.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            string temp = tempTagList[i];
+            tempTagList[i] = tempTagList[j];
+            tempTagList[j] = temp;
+        }
+
+        return tempTagList[Random.Range(0, tempTagList.Count)];
     }
 
     public static void DrawCircle(Vector3 position, Quaternion rotation, float radius)

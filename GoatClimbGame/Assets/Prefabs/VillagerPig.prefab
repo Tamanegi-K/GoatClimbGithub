@@ -132,6 +132,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 6610c666c4de32f4e90d0c15605a872b, type: 2}
   - {fileID: 2100000, guid: f0b312e853ec6fa4e96c842bcb885c07, type: 2}
   - {fileID: 2100000, guid: 38489c5c19d56c544b3c3af9b29094d2, type: 2}
+  requestID: 0
   billboardUI: {fileID: 0}
   agent: {fileID: 0}
   stateAnimator: {fileID: 0}
@@ -301,6 +302,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BBUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1297662195837492824, guid: 026f0257af188a242adf9e0cf8c94f19,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4120875925258472040, guid: 026f0257af188a242adf9e0cf8c94f19,
         type: 3}

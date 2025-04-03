@@ -478,11 +478,19 @@ public class PlayerController : MonoBehaviour
         collectedInventory[itemName] += quantity;
         //Debug.Log(plantName + " - " + collectedInventory[plantName]);
 
-        // TO DO - FIND A WAY TO REMOVE ITEMS "PEACEFULLY"
-        /*if (collectedInventory[itemName] == 0)
+        if (collectedInventory[itemName] <= 0)
 		{
             collectedInventory.Remove(itemName);
-		}*/
+
+            // Remove "gaps" in inventory
+            Dictionary<string, int> tempInv = new Dictionary<string, int>();
+            foreach (KeyValuePair<string, int> kvp in collectedInventory)
+			{
+                tempInv.Add(kvp.Key, kvp.Value);
+			}
+            collectedInventory.Clear();
+            collectedInventory = tempInv;
+		}
     }
 
     public int GetInventoryQty(string itemName)
