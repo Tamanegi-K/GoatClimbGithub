@@ -743,30 +743,48 @@ public class GameMainframe : MonoBehaviour
         // TO DO - MAKE IT USE EVERY TAG, FOR NOW WE'RE TRUNCATING IT SINCE WE DON'T HAVE ENOUGH FLOWERS
         for (float i = requestDiff; i > 0 ; i -= 1)
         {
-            string r = plantSpawningScr.GetRandomQuestTag();
+            string r = plantSpawningScr.GetRandomQuestTag(Mathf.RoundToInt(i));
+            Debug.Log(r);
 
             if (Enum.TryParse(r, out PlantSpawning.BouquetHarmony rH))
 			{
-                randomHarm = rH;
+                if (randomHarm == PlantSpawning.BouquetHarmony.NONE)
+                    randomHarm = rH;
             }
             else if (Enum.TryParse(r, out PlantSpawning.BouquetCentres rC))
             {
-                randomCntr = rC;
+                if (randomCntr == PlantSpawning.BouquetCentres.NONE)
+                    randomCntr = rC;
             }
             else if (Enum.TryParse(r, out PlantSpawning.BouquetSpecials rS))
             {
-                randomSpcs.Add(rS);
+                if (randomSpcs.Count <= 0)
+                    randomSpcs.Add(rS);
             }
-            if (i == 2)
-			{
-                randomHarm = (PlantSpawning.BouquetHarmony)UnityEngine.Random.Range(1, 6);
-			}
         }
 
         Request newRequest = new Request(randomName, totalRequests, randomHarm, randomCntr, randomSpcs);
         villagersOnField[randomIndex].GetComponent<VillagerBhv>().requestID = totalRequests;
         requestList.Add(newRequest);
 	}
+
+    public void FinishRequest(int index)
+	{
+        // TO DO - SAFELY REMOVE REQUEST FROM LIST AND RELEASE VILLAGER'S REQUESTID, RN IT'LL JUST REMOVE THE FIRST ONE
+        //foreach (GameMainframe.Request oneRequest in GameMainframe.GetInstance().requestList)
+        //{
+        foreach (GameObject go in GetInstance().villagersOnField)
+        {
+            if (requestList[index].requesteeName == go.GetComponent<VillagerBhv>().villagerName)
+            {
+                go.GetComponent<VillagerBhv>().requestID = 0;
+                requestList.RemoveAt(0);
+                requestDiff = Mathf.Clamp(requestDiff + 0.15f, 1f, 6f); // requests to "get harder" the more you do them
+                break;
+            }
+        }
+        //}
+    }
 
     public bool GetTitleStartedState() => titleAnimStarted;
     public bool GetGameStartedState() => gameStarted;

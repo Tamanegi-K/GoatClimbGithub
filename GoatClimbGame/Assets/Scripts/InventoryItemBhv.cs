@@ -128,20 +128,7 @@ public class InventoryItemBhv : MonoBehaviour
                     //GameMainframe.GetInstance().plantSpawningScr.bouquetsMade.Remove(bq);
                     GameMainframe.GetInstance().playerContrScr.TogglePlayerControl();
 
-                    // TO DO - SAFELY REMOVE REQUEST FROM LIST AND RELEASE VILLAGER'S REQUESTID, RN IT'LL JUST REMOVE THE FIRST ONE
-                    //foreach (GameMainframe.Request oneRequest in GameMainframe.GetInstance().requestList)
-                    //{
-                    foreach (GameObject go in GameMainframe.GetInstance().villagersOnField)
-                    {
-                        if (GameMainframe.GetInstance().requestList[0].requesteeName == go.GetComponent<VillagerBhv>().villagerName)
-                        {
-                            go.GetComponent<VillagerBhv>().requestID = 0;
-                            GameMainframe.GetInstance().requestList.RemoveAt(0);
-                            GameMainframe.requestDiff = Mathf.Clamp(GameMainframe.requestDiff + 0.15f, 1f, 6f); // requests to "get harder" the more you do them
-                            break;
-                        }
-                    }
-                    //}
+                    GameMainframe.GetInstance().FinishRequest(0); // TO DO should throw in index of request
                     break;
                 }
             }

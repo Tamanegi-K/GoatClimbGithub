@@ -107,6 +107,15 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DebugI"",
+                    ""type"": ""Button"",
+                    ""id"": ""f6f9f806-1fd6-472b-b4b7-0d565466e6dc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -294,6 +303,17 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""KBM"",
                     ""action"": ""DebugH"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0b57b6c-fe90-4cda-b1b0-34a12f4dded1"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""DebugI"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -639,6 +659,7 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
         m_Defaults_DebugH = m_Defaults.FindAction("DebugH", throwIfNotFound: true);
         m_Defaults_DebugJ = m_Defaults.FindAction("DebugJ", throwIfNotFound: true);
         m_Defaults_DebugU = m_Defaults.FindAction("DebugU", throwIfNotFound: true);
+        m_Defaults_DebugI = m_Defaults.FindAction("DebugI", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -720,6 +741,7 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Defaults_DebugH;
     private readonly InputAction m_Defaults_DebugJ;
     private readonly InputAction m_Defaults_DebugU;
+    private readonly InputAction m_Defaults_DebugI;
     public struct DefaultsActions
     {
         private @GoatControls m_Wrapper;
@@ -733,6 +755,7 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
         public InputAction @DebugH => m_Wrapper.m_Defaults_DebugH;
         public InputAction @DebugJ => m_Wrapper.m_Defaults_DebugJ;
         public InputAction @DebugU => m_Wrapper.m_Defaults_DebugU;
+        public InputAction @DebugI => m_Wrapper.m_Defaults_DebugI;
         public InputActionMap Get() { return m_Wrapper.m_Defaults; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -769,6 +792,9 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
             @DebugU.started += instance.OnDebugU;
             @DebugU.performed += instance.OnDebugU;
             @DebugU.canceled += instance.OnDebugU;
+            @DebugI.started += instance.OnDebugI;
+            @DebugI.performed += instance.OnDebugI;
+            @DebugI.canceled += instance.OnDebugI;
         }
 
         private void UnregisterCallbacks(IDefaultsActions instance)
@@ -800,6 +826,9 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
             @DebugU.started -= instance.OnDebugU;
             @DebugU.performed -= instance.OnDebugU;
             @DebugU.canceled -= instance.OnDebugU;
+            @DebugI.started -= instance.OnDebugI;
+            @DebugI.performed -= instance.OnDebugI;
+            @DebugI.canceled -= instance.OnDebugI;
         }
 
         public void RemoveCallbacks(IDefaultsActions instance)
@@ -947,6 +976,7 @@ public partial class @GoatControls: IInputActionCollection2, IDisposable
         void OnDebugH(InputAction.CallbackContext context);
         void OnDebugJ(InputAction.CallbackContext context);
         void OnDebugU(InputAction.CallbackContext context);
+        void OnDebugI(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

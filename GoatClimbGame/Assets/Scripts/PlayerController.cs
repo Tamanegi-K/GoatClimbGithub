@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     public Dictionary<string, int> collectedInventory = new Dictionary<string, int>();
 
     [Header("Debug Mode")]
-    private InputAction kbInputsDebugToggle, kbInputsDebugH, kbInputsDebugJ, kbInputsDebugU;
+    private InputAction kbInputsDebugToggle, kbInputsDebugH, kbInputsDebugJ, kbInputsDebugU, kbInputsDebugI;
     private bool debugModeOn = false, debugSpeed = false;
 
     void OnEnable()
@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour
         kbInputsDebugH = goatControls.Defaults.DebugH;
         kbInputsDebugJ = goatControls.Defaults.DebugJ;
         kbInputsDebugU = goatControls.Defaults.DebugU;
+        kbInputsDebugI = goatControls.Defaults.DebugI;
     }
 
     // Update is called once per frame
@@ -142,6 +143,7 @@ public class PlayerController : MonoBehaviour
         if (kbInputsDebugH != null)      kbInputsDebugH.performed += ToggleDebugRunListener;
         if (kbInputsDebugJ != null)      kbInputsDebugJ.performed += ToggleDebugPlantListener;
         if (kbInputsDebugU != null)      kbInputsDebugU.performed += ToggleDebugFastDaytimeListener;
+        if (kbInputsDebugI != null)      kbInputsDebugI.performed += ToggleDebugReqGenerationListener;
 
         // Gravity related crap
         RaycastHit rc;
@@ -420,6 +422,48 @@ public class PlayerController : MonoBehaviour
             hpp.transform.SetParent(GameMainframe.GetInstance().uiGroupHUD.transform);
             hpp.SetActive(true);
         }, GameMainframe.GetInstance().hudPopupPrefab);
+    }
+
+    public void ToggleDebugReqGenerationListener(InputAction.CallbackContext context)
+    {
+        if (GameMainframe.GetInstance().GetGameSuspendState() || !debugModeOn)
+            return;
+
+        ToggleDebugReqGeneration();
+    }
+
+    public void ToggleDebugReqGeneration()
+    {
+        if (GameMainframe.GetInstance().requestList.Count <= 0)
+        {
+            GameMainframe.GetInstance().GenerateRequest();
+
+            GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
+            {
+                PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
+                hppPPB.SetupDisplay("DEBUG: Request Generated!", null);
+                hpp.name = "HUDPopup";
+
+                hpp.transform.SetParent(null);
+                hpp.transform.SetParent(GameMainframe.GetInstance().uiGroupHUD.transform);
+                hpp.SetActive(true);
+            }, GameMainframe.GetInstance().hudPopupPrefab);
+        }
+        else
+        {
+            GameMainframe.GetInstance().FinishRequest(0);
+
+            GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
+            {
+                PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
+                hppPPB.SetupDisplay("DEBUG: Request Cleared!", null);
+                hpp.name = "HUDPopup";
+
+                hpp.transform.SetParent(null);
+                hpp.transform.SetParent(GameMainframe.GetInstance().uiGroupHUD.transform);
+                hpp.SetActive(true);
+            }, GameMainframe.GetInstance().hudPopupPrefab);
+        }
     }
 
     void PauseTabSwitching(InputAction.CallbackContext context) // Selection of pause tabs values based on keyboard inputs ONLY when game is paused
