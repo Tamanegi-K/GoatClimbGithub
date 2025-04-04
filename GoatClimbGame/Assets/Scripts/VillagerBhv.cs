@@ -148,6 +148,9 @@ public class VillagerBhv : MonoBehaviour
 
     public void TalkToMe()
     {
+        if (GameMainframe.GetInstance().playerContrScr.collectedInventory.Count <= 0)
+            return;
+
         stateAnimator.SetTrigger("interact");
 
         if (requestID > 0)

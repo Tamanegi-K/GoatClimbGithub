@@ -123,50 +123,7 @@ public class InventoryItemBhv : MonoBehaviour
 
         // ig player is giving something to a villager and the item clicked is a bouquet
         // TO DO - make the inventory properly show that they're giving something
-        else if (GameMainframe.GetInstance().currentTab == GameMainframe.PauseTabs.KNAPSACK && GameMainframe.GetInstance().GetGameGivingState() && isNotPlant)
-		{
-            foreach (PlantSpawning.OneBouquetMade bq in GameMainframe.GetInstance().plantSpawningScr.bouquetsMade)
-            {
-                if (bq.bqName == invName && GameMainframe.GetInstance().playerContrScr.GetInventoryQty(invName) > 0)
-                {
-                    bool checkHarm = false, checkCntr = false;
-                    int checkSpcs = 0;
-
-                    if (PlantSpawning.BouquetHarmony.NONE == GameMainframe.GetInstance().requestList[0].requestedHarm ||
-                        bq.bqHarm == GameMainframe.GetInstance().requestList[0].requestedHarm)
-                        checkHarm = true;
-                    
-                    if (PlantSpawning.BouquetCentres.NONE == GameMainframe.GetInstance().requestList[0].requestedCntr ||
-                        bq.bqCntr == GameMainframe.GetInstance().requestList[0].requestedCntr)
-                        checkCntr = true;
-
-                    foreach (PlantSpawning.BouquetSpecials reqBS in GameMainframe.GetInstance().requestList[0].requestedSpcs)
-					{
-                        if (PlantSpawning.BouquetSpecials.NONE != reqBS)
-                        {
-                            foreach (PlantSpawning.BouquetSpecials boqBS in bq.bqSpcs)
-                            {
-                                if (reqBS == boqBS)
-                                    checkSpcs += 1;
-                            }
-                        }
-                        else
-                            checkSpcs += 1;
-					}
-
-                    // TO DO - CHECK BOUQUET IS UP TO PAR WITH REQUEST, FOR NOW IT'LL TAKE ANY BOUQUET
-                    if (checkHarm && checkCntr && checkSpcs >= GameMainframe.GetInstance().requestList[0].requestedSpcs.Count)
-                    {
-                        GameMainframe.GetInstance().playerContrScr.UpdateInventory(invName, -1);
-                        //GameMainframe.GetInstance().plantSpawningScr.bouquetsMade.Remove(bq);
-                        GameMainframe.GetInstance().playerContrScr.TogglePlayerControl();
-
-                        GameMainframe.GetInstance().FinishRequest(0, true); // TO DO should throw in index of request
-                        break;
-                    }
-                }
-            }
-            
-		}
+        // MOVED TO GAMEMAINFRAME under CheckRequest()
+        GameMainframe.GetInstance().CheckRequest(invName, isNotPlant);
 	}
 }

@@ -52,7 +52,7 @@ public class GameMainframe : MonoBehaviour
     private RectTransform pauseUp, pauseLeft, pauseRightSack, pauseRightAss, pauseRightSackTags, pauseRightSttngs, pauseRightTrade, pauseRightTradeTagsLeft, pauseRightTradeTagsRight;
     private ToggleGroup pauseUpTG;
     private GameObject pauseTabSack, pauseTabAss, pauseTabSttngs;
-    private Transform sackObjHolder, assGridList;
+    private Transform sackObjHolder, assGridList, tradeObjHolder;
 
     #region Request Details
     private int totalRequests = 0;
@@ -171,6 +171,7 @@ public class GameMainframe : MonoBehaviour
             Vector3 speeen = sackObjHolder.localEulerAngles;
             speeen.y = speeen.y > 360f ? speeen.y + (Time.fixedDeltaTime * 18f) - 360f : speeen.y + (Time.fixedDeltaTime * 18f);
             sackObjHolder.localEulerAngles = speeen;
+            tradeObjHolder.localEulerAngles = speeen;
         }
     }
 
@@ -289,7 +290,8 @@ public class GameMainframe : MonoBehaviour
             pauseRightTrade = uiGroupPause.transform.Find("InvTradeGroup").GetComponent<RectTransform>();
             pauseRightTradeTagsLeft = pauseRightTrade.Find("InvTradeLefts/InvTradeLeftTagsVP/InvTradeLeftTags").GetComponent<RectTransform>();
             pauseRightTradeTagsRight = pauseRightTrade.Find("InvTradeRights/InvTradeRightTagsVP/InvTradeRightTags").GetComponent<RectTransform>();
-            Debug.Log(pauseRightTradeTagsRight);
+            tradeObjHolder = pauseRightTrade.Find("ObjHolder").transform;
+            //Debug.Log(pauseRightTradeTagsRight);
         }
 
         if (uiGroupHUD == null && GameObject.Find("Canvas/HUD").TryGetComponent(out CanvasGroup h))
@@ -552,7 +554,7 @@ public class GameMainframe : MonoBehaviour
 	{
         // (check InvItemClick() in InventoryItemBhv.cs)
 
-        // Description appearance
+        // Description appearance based on tab is currently active
         if (pauseUpTG.GetFirstActiveToggle() == pauseTabSack.GetComponent<Toggle>())
         {
             GameObject dispObj = null;
@@ -567,6 +569,7 @@ public class GameMainframe : MonoBehaviour
    
                     // --- NAME DISPLAYING ---
                     pauseRightSack.Find("InvDescTops/InvDescTopTitle/InvNameBG").GetComponentInChildren<TextMeshProUGUI>().text = pi.plantName;
+                    pauseRightTrade.Find("InvTradeLefts/InvTradeLeftName/InvNameBG").GetComponentInChildren<TextMeshProUGUI>().text = pi.plantName;
 
                     // --- TAGS AND COLOURS DISPLAYING ---
                     // Erasing the display tags in desc tag area
@@ -575,8 +578,13 @@ public class GameMainframe : MonoBehaviour
                         GetInstance().ObjectEnd("InvTag", pt.gameObject);
                         pt.gameObject.SetActive(false);
                     }
+                    foreach (Transform pt in pauseRightTradeTagsLeft)
+                    {
+                        GetInstance().ObjectEnd("InvTagL", pt.gameObject);
+                        pt.gameObject.SetActive(false);
+                    }
 
-                    // Placing tag for plant's value/colour
+                    // Placing tag for plant's value
                     GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
                     {
                         pickedDisplay.name = "InvTag";
@@ -587,10 +595,31 @@ public class GameMainframe : MonoBehaviour
                         pickedDisplay.gameObject.SetActive(true);
                     }, pauseSackTagPrefab);
 
+                    GetInstance().ObjectUse("InvTagL", (pickedDisplay) =>
+                    {
+                        pickedDisplay.name = "InvTagL";
+                        pickedDisplay.transform.SetParent(pauseRightTradeTagsLeft);
+
+                        pickedDisplay.transform.localPosition = Vector3.zero;
+                        pickedDisplay.GetComponent<InvTagInfo>().AssignTag(pi.plantVal);
+                        pickedDisplay.gameObject.SetActive(true);
+                    }, pauseSackTagPrefab);
+
+                    // Placing tag for plant's value
                     GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
                     {
                         pickedDisplay.name = "InvTag";
                         pickedDisplay.transform.SetParent(pauseRightSackTags);
+
+                        pickedDisplay.transform.localPosition = Vector3.zero;
+                        pickedDisplay.GetComponent<InvTagInfo>().AssignTag(pi.plantCol);
+                        pickedDisplay.gameObject.SetActive(true);
+                    }, pauseSackTagPrefab);
+
+                    GetInstance().ObjectUse("InvTagL", (pickedDisplay) =>
+                    {
+                        pickedDisplay.name = "InvTagL";
+                        pickedDisplay.transform.SetParent(pauseRightTradeTagsLeft);
 
                         pickedDisplay.transform.localPosition = Vector3.zero;
                         pickedDisplay.GetComponent<InvTagInfo>().AssignTag(pi.plantCol);
@@ -606,6 +635,16 @@ public class GameMainframe : MonoBehaviour
                             {
                                 pickedDisplay.name = "InvTag";
                                 pickedDisplay.transform.SetParent(pauseRightSackTags);
+
+                                pickedDisplay.transform.localPosition = Vector3.zero;
+                                pickedDisplay.GetComponent<InvTagInfo>().AssignTag(pSpc);
+                                pickedDisplay.gameObject.SetActive(true);
+                            }, pauseSackTagPrefab);
+
+                            GetInstance().ObjectUse("InvTagL", (pickedDisplay) =>
+                            {
+                                pickedDisplay.name = "InvTagL";
+                                pickedDisplay.transform.SetParent(pauseRightTradeTagsLeft);
 
                                 pickedDisplay.transform.localPosition = Vector3.zero;
                                 pickedDisplay.GetComponent<InvTagInfo>().AssignTag(pSpc);
@@ -628,12 +667,35 @@ public class GameMainframe : MonoBehaviour
                         GetInstance().ObjectEnd(c.name, c.gameObject);
                         c.gameObject.SetActive(false);
                     }
+                    foreach (Transform c in tradeObjHolder)
+                    {
+                        GetInstance().ObjectEnd(c.name, c.gameObject);
+                        c.gameObject.SetActive(false);
+                    }
 
                     // Spawning the display object in desc area
                     GetInstance().ObjectUse(input + "Disp", (pickedDisplay) =>
                     {
                         pickedDisplay.name = pickedDisplay.name.Contains("Disp") ? pickedDisplay.name : input + "Disp";
                         pickedDisplay.transform.SetParent(sackObjHolder);
+
+                        pickedDisplay.transform.localPosition = Vector3.zero;
+                        pickedDisplay.transform.localEulerAngles = Vector3.zero;
+                        pickedDisplay.transform.localScale = Vector3.one;
+
+                        // change layer of display object
+                        foreach (Transform tf in pickedDisplay.transform)
+                        {
+                            tf.gameObject.layer = LayerMask.NameToLayer("UI");
+                        }
+
+                        pickedDisplay.gameObject.SetActive(true);
+                    }, dispObj);
+
+                    GetInstance().ObjectUse(input + "DispL", (pickedDisplay) =>
+                    {
+                        pickedDisplay.name = pickedDisplay.name.Contains("DispL") ? pickedDisplay.name : input + "DispL";
+                        pickedDisplay.transform.SetParent(tradeObjHolder);
 
                         pickedDisplay.transform.localPosition = Vector3.zero;
                         pickedDisplay.transform.localEulerAngles = Vector3.zero;
@@ -661,6 +723,7 @@ public class GameMainframe : MonoBehaviour
 
                     // --- NAME DISPLAYING ---
                     pauseRightSack.Find("InvDescTops/InvDescTopTitle/InvNameBG").GetComponentInChildren<TextMeshProUGUI>().text = bm.bqName;
+                    pauseRightTrade.Find("InvTradeLefts/InvTradeLeftName/InvNameBG").GetComponentInChildren<TextMeshProUGUI>().text = bm.bqName;
 
                     // --- TAGS AND COLOURS DISPLAYING ---
                     // Erasing the display tags in desc tag area
@@ -669,8 +732,13 @@ public class GameMainframe : MonoBehaviour
                         GetInstance().ObjectEnd("InvTag", pt.gameObject);
                         pt.gameObject.SetActive(false);
                     }
+                    foreach (Transform pt in pauseRightTradeTagsLeft)
+                    {
+                        GetInstance().ObjectEnd("InvTagL", pt.gameObject);
+                        pt.gameObject.SetActive(false);
+                    }
 
-                    // Placing tag for bouquet's harmony/centre
+                    // Placing tag for bouquet's harmony
                     if (bm.bqHarm != PlantSpawning.BouquetHarmony.NONE)
                     {
                         GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
@@ -682,14 +750,35 @@ public class GameMainframe : MonoBehaviour
                             pickedDisplay.GetComponent<InvTagInfo>().AssignTag(bm.bqHarm);
                             pickedDisplay.gameObject.SetActive(true);
                         }, pauseSackTagPrefab);
+
+                        GetInstance().ObjectUse("InvTagL", (pickedDisplay) =>
+                        {
+                            pickedDisplay.name = "InvTagL";
+                            pickedDisplay.transform.SetParent(pauseRightTradeTagsLeft);
+
+                            pickedDisplay.transform.localPosition = Vector3.zero;
+                            pickedDisplay.GetComponent<InvTagInfo>().AssignTag(bm.bqHarm);
+                            pickedDisplay.gameObject.SetActive(true);
+                        }, pauseSackTagPrefab);
                     }
 
+                    // placing tag for bouquet's centre
                     if (bm.bqCntr != PlantSpawning.BouquetCentres.NONE)
                     {
                         GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
                         {
                             pickedDisplay.name = "InvTag";
                             pickedDisplay.transform.SetParent(pauseRightSackTags);
+
+                            pickedDisplay.transform.localPosition = Vector3.zero;
+                            pickedDisplay.GetComponent<InvTagInfo>().AssignTag(bm.bqCntr);
+                            pickedDisplay.gameObject.SetActive(true);
+                        }, pauseSackTagPrefab);
+
+                        GetInstance().ObjectUse("InvTagL", (pickedDisplay) =>
+                        {
+                            pickedDisplay.name = "InvTagL";
+                            pickedDisplay.transform.SetParent(pauseRightTradeTagsLeft);
 
                             pickedDisplay.transform.localPosition = Vector3.zero;
                             pickedDisplay.GetComponent<InvTagInfo>().AssignTag(bm.bqCntr);
@@ -711,6 +800,16 @@ public class GameMainframe : MonoBehaviour
                                 pickedDisplay.GetComponent<InvTagInfo>().AssignTag(bSpc);
                                 pickedDisplay.gameObject.SetActive(true);
                             }, pauseSackTagPrefab);
+
+                            GetInstance().ObjectUse("InvTagL", (pickedDisplay) =>
+                            {
+                                pickedDisplay.name = "InvTagL";
+                                pickedDisplay.transform.SetParent(pauseRightTradeTagsLeft);
+
+                                pickedDisplay.transform.localPosition = Vector3.zero;
+                                pickedDisplay.GetComponent<InvTagInfo>().AssignTag(bSpc);
+                                pickedDisplay.gameObject.SetActive(true);
+                            }, pauseSackTagPrefab);
                         }
                     }
 
@@ -727,12 +826,28 @@ public class GameMainframe : MonoBehaviour
                         GetInstance().ObjectEnd(c.name, c.gameObject);
                         c.gameObject.SetActive(false);
                     }
+                    foreach (Transform c in tradeObjHolder)
+                    {
+                        GetInstance().ObjectEnd(c.name, c.gameObject);
+                        c.gameObject.SetActive(false);
+                    }
 
                     // Spawning the display object in desc area
                     GetInstance().ObjectUse(input + "Disp", (pickedDisplay) =>
                     {
                         pickedDisplay.name = pickedDisplay.name.Contains("Disp") ? pickedDisplay.name : input + "Disp";
                         pickedDisplay.transform.SetParent(sackObjHolder);
+
+                        pickedDisplay.transform.localPosition = Vector3.zero;
+                        pickedDisplay.transform.localEulerAngles = Vector3.zero;
+                        pickedDisplay.transform.localScale = Vector3.one;
+                        pickedDisplay.gameObject.SetActive(true);
+                    }, dispObj);
+
+                    GetInstance().ObjectUse(input + "DispL", (pickedDisplay) =>
+                    {
+                        pickedDisplay.name = pickedDisplay.name.Contains("DispL") ? pickedDisplay.name : input + "DispL";
+                        pickedDisplay.transform.SetParent(tradeObjHolder);
 
                         pickedDisplay.transform.localPosition = Vector3.zero;
                         pickedDisplay.transform.localEulerAngles = Vector3.zero;
@@ -969,6 +1084,59 @@ public class GameMainframe : MonoBehaviour
                 }, pauseSackTagPrefab);
             }
         }
+    }
+
+    public void CheckRequest(string clickedItem, bool ifFalseJustDontEvenDoAnything)
+	{
+        if (!ifFalseJustDontEvenDoAnything)
+            return;
+
+        if (currentTab == GameMainframe.PauseTabs.KNAPSACK && GetGameGivingState())
+        {
+            foreach (PlantSpawning.OneBouquetMade bq in GameMainframe.GetInstance().plantSpawningScr.bouquetsMade)
+            {
+                if (bq.bqName == clickedItem && playerContrScr.GetInventoryQty(clickedItem) > 0)
+                {
+                    bool checkHarm = false, checkCntr = false;
+                    int checkSpcs = 0;
+
+                    if (PlantSpawning.BouquetHarmony.NONE == requestList[0].requestedHarm ||
+                        bq.bqHarm == requestList[0].requestedHarm)
+                        checkHarm = true;
+
+                    if (PlantSpawning.BouquetCentres.NONE == requestList[0].requestedCntr ||
+                        bq.bqCntr == requestList[0].requestedCntr)
+                        checkCntr = true;
+
+                    foreach (PlantSpawning.BouquetSpecials reqBS in requestList[0].requestedSpcs)
+                    {
+                        if (PlantSpawning.BouquetSpecials.NONE != reqBS)
+                        {
+                            foreach (PlantSpawning.BouquetSpecials boqBS in bq.bqSpcs)
+                            {
+                                if (reqBS == boqBS)
+                                    checkSpcs += 1;
+                            }
+                        }
+                        else
+                            checkSpcs += 1;
+                    }
+
+                    // TO DO - CHECK BOUQUET IS UP TO PAR WITH REQUEST, FOR NOW IT'LL TAKE ANY BOUQUET
+                    if (checkHarm && checkCntr && checkSpcs >= requestList[0].requestedSpcs.Count)
+                    {
+                        playerContrScr.UpdateInventory(clickedItem, -1);
+                        //GameMainframe.GetInstance().plantSpawningScr.bouquetsMade.Remove(bq);
+                        playerContrScr.TogglePlayerControl();
+
+                        //FinishRequest(0, true); // TO DO should throw in index of request
+                        break;
+                    }
+                }
+            }
+
+        }
+
     }
 
     public void FinishRequest(int index, bool isSuccess)
