@@ -11,14 +11,15 @@ public class PlantSpawning : MonoBehaviour
     // PLANT TAGS
     public enum PlantType { HYACINTH, HYDRANGEA, HIBISCUS, TULIP, ORCHID, LILY, SNOWPRISM } // species of flower
     public enum PlantValue { PALE, BRIGHT, VIBRANT, DARK } // from most faded to most saturated, one only
-    public enum PlantColour { RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE }; // colour of flower, one only
+    public enum PlantColour { NONE, RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE }; // colour of flower, one only
     public enum PlantSpecials { NONE, LUSTROUS, INFLORESCENT, NIGHTBLOOM, RARE } // other characteristics that makes this flower special, can have multiple
 
     // BOUQUET TAGS - only for bouquets
     public enum BouquetHarmony { NONE, CONTRASTING, ANALOGOUS, TRIADIC, SOLID, MULTICOLOURED }; // colour harmonies existing in the bouquet, one only
     public enum BouquetCentres { NONE, JEWELBED, SPECTRUM, PARTITION, TROVE }; // characteristics of the centrepiece in the bouquet, one only
-    public enum BouquetSpecials { NONE, RADIANT, MONOSPECIES, DELICATE, BOLD, REFINED, ELEGANT, // other characteristics that makes the bouquet special, can have multiple
-                RED_DOMINANT, ORANGE_DOMINANT, YELLOW_DOMINANT, GREEN_DOMINANT, BLUE_DOMINANT, VIOLET_DOMINANT, PURPLE_DOMINANT };
+    public enum BouquetSpecials { NONE, RADIANT, MONOSPECIES, FRAGRANT, DELICATE, BOLD, REFINED, MYSTERIOUS, // other characteristics that makes the bouquet special, can have multiple
+                LOVELY, CONFIDENT, JOYFUL, HOPEFUL, SERENE, ELEGANT,
+                UNIFORM };
 
     // DESCRIPTIONS FOR EVERY TAG, see the TagDescFiller() function
     public Hashtable TagDescs = new Hashtable();
@@ -104,7 +105,7 @@ public class PlantSpawning : MonoBehaviour
     void Start()
     {
         TagDescFiller();
-        GetRandomQuestTag();
+        GetRandomQuestTag(false, false, false, false);
 
         // every time the time of day changes, spawn plants again
         GameMainframe.DayHasChanged += SpawnPlants;
@@ -281,7 +282,7 @@ public class PlantSpawning : MonoBehaviour
         // PlantColours
         TagDescs.Add(PlantColour.RED, "A rosy colour representing affection, passion, and love.");
         TagDescs.Add(PlantColour.ORANGE, "A cheery colour representing enthusiasm, fascination, and confidence.");
-        TagDescs.Add(PlantColour.YELLOW, "A lively colour representing friendship, happiness, and optimism.");
+        TagDescs.Add(PlantColour.YELLOW, "A lively colour representing friendship, optimism, and joy.");
         TagDescs.Add(PlantColour.GREEN, "A vigourous colour representing renewal, longevity, and hope.\n\nGreen flowers are uncommon, considering how flowers adapted and evolved to attract pollinators with striking colours.");
         TagDescs.Add(PlantColour.BLUE, "A prudent colour representing beauty, inspiration, and serenity.");
         TagDescs.Add(PlantColour.PURPLE, "A majestic colour representing respect, luxury, and elegance.\n\nBoth reddish and blueish purples fit under this tag.");
@@ -293,10 +294,10 @@ public class PlantSpawning : MonoBehaviour
         TagDescs.Add(PlantSpecials.RARE, "This flower is considered special and may be harder to find than most.");
 
         // BouquetHarmonies
-        TagDescs.Add(BouquetHarmony.CONTRASTING, "The accents of the bouquet has a Contrasting colour harmony.");
-        TagDescs.Add(BouquetHarmony.ANALOGOUS, "The accents of the bouquet has a Analogous colour harmony.");
-        TagDescs.Add(BouquetHarmony.TRIADIC, "The accents of the bouquet has a Triadic colour harmony.");
-        TagDescs.Add(BouquetHarmony.SOLID, "The accents of the bouquet has a Solid colour harmony.");
+        TagDescs.Add(BouquetHarmony.CONTRASTING, "The accents of the bouquet created a Contrasting colour harmony.");
+        TagDescs.Add(BouquetHarmony.ANALOGOUS, "The accents of the bouquet created a Analogous colour harmony.");
+        TagDescs.Add(BouquetHarmony.TRIADIC, "The accents of the bouquet created a Triadic colour harmony.");
+        TagDescs.Add(BouquetHarmony.SOLID, "The accents of the bouquet created a Solid colour harmony.");
         TagDescs.Add(BouquetHarmony.MULTICOLOURED, "Every flower that accents the bouquet is a different colour.");
 
         // BouquetCentres
@@ -307,37 +308,33 @@ public class PlantSpawning : MonoBehaviour
 
         // BouquetSpecials
         TagDescs.Add(BouquetSpecials.RADIANT, "The centrepiece of the bouquet is a Rare flower.");
-        TagDescs.Add(BouquetSpecials.MONOSPECIES, "Every flower in the bouquet are the same type.");
+        TagDescs.Add(BouquetSpecials.MONOSPECIES, "Every flower that accent bouquet are the same type.");
+        TagDescs.Add(BouquetSpecials.FRAGRANT, "4 or more flowers in the bouquet are Inflorescent.");
+
         TagDescs.Add(BouquetSpecials.DELICATE, "4 or more Pale flowers adorn the accents of the bouquet.");
         TagDescs.Add(BouquetSpecials.BOLD, "4 or more Bright flowers adorn the accents of the bouquet.");
         TagDescs.Add(BouquetSpecials.REFINED, "4 or more Vibrant flowers adorn the accents of the bouquet.");
-        TagDescs.Add(BouquetSpecials.ELEGANT, "4 or more Dark flowers adorn the accents of the bouquet.");
-        TagDescs.Add(BouquetSpecials.RED_DOMINANT, "4 or more Red flowers adorn the accents of the bouquet.");
-        TagDescs.Add(BouquetSpecials.ORANGE_DOMINANT, "4 or more Orange flowers adorn the accents of the bouquet.");
-        TagDescs.Add(BouquetSpecials.YELLOW_DOMINANT, "4 or more Yellow flowers adorn the accents of the bouquet.");
-        TagDescs.Add(BouquetSpecials.GREEN_DOMINANT, "4 or more Green flowers adorn the accents of the bouquet.");
-        TagDescs.Add(BouquetSpecials.BLUE_DOMINANT, "4 or more Blue flowers adorn the accents of the bouquet.");
-        TagDescs.Add(BouquetSpecials.VIOLET_DOMINANT, "4 or more Violet flowers adorn the accents of the bouquet.");
-        TagDescs.Add(BouquetSpecials.PURPLE_DOMINANT, "4 or more Purple flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.MYSTERIOUS, "4 or more Dark flowers adorn the accents of the bouquet.");
+
+        TagDescs.Add(BouquetSpecials.LOVELY, "4 or more Red flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.CONFIDENT, "4 or more Orange flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.JOYFUL, "4 or more Yellow flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.HOPEFUL, "4 or more Green flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.SERENE, "4 or more Blue flowers adorn the accents of the bouquet.");
+        TagDescs.Add(BouquetSpecials.ELEGANT, "4 or more Purple flowers adorn the accents of the bouquet.");
+
+        TagDescs.Add(BouquetSpecials.UNIFORM, "Every flower that accents the bouquet are the same.");
 
         // How to use the hashtable
         //Debug.Log(TagDescs[BouquetSpecials.BLACK_DOMINANT]);
     }
 
-    public string GetRandomQuestTag(int randomStyle = 0)
+    public string GetRandomQuestTag(bool excludeHarmonies, bool excludeCentres, bool exclude4V, bool exclude4C)
 	{
-        // randomStyle index (tailored based on requestDiff):
-        // 0 - any one
-        // 1 - bouquet harmonies only
-        // 2 - bouquet centres only
-        // 3 - any special
-        // 4 - 4 or more value conditions
-        // 5 - 4 or more colour conditions
-        // 6 - radiant/monospecies
         List<string> tempTagList = new List<string>();
 
         // HARMONIES
-        if (randomStyle == 0 || randomStyle == 1)
+        if (!excludeHarmonies)
         {
             string[] bHarmonies = System.Enum.GetNames(typeof(BouquetHarmony));
             for (int i = 0; i < bHarmonies.Length; i += 1)
@@ -348,7 +345,7 @@ public class PlantSpawning : MonoBehaviour
         }
 
         // CENTRES
-        if (randomStyle == 0 || randomStyle == 2)
+        if (!excludeCentres)
         {
             string[] bCentres = System.Enum.GetNames(typeof(BouquetCentres));
             for (int i = 1; i < bCentres.Length; i += 1)
@@ -358,43 +355,19 @@ public class PlantSpawning : MonoBehaviour
         }
 
         // EVERY SPECIAL
-        if (randomStyle == 0 || randomStyle == 3)
-		{
-            string[] bSpecials = System.Enum.GetNames(typeof(BouquetSpecials));
-            for (int i = 1; i < bSpecials.Length; i += 1)
-            {
-                tempTagList.Add(bSpecials[i]);
-            }
-        }
-
-        // VALUE CONDITIONS
-        if (randomStyle == 4)
+        string[] bSpecials = System.Enum.GetNames(typeof(BouquetSpecials));
+        for (int i = 1; i < bSpecials.Length; i += 1)
         {
-            string[] bSpecials = System.Enum.GetNames(typeof(BouquetSpecials));
-            for (int i = 3; i <= 6; i += 1)
+            if (exclude4V && i <= 4 && i >= 7)
             {
-                tempTagList.Add(bSpecials[i]);
+                // do nothing
             }
-        }
-
-        // COLOUR CONDITIONS
-        if (randomStyle == 5)
-        {
-            string[] bSpecials = System.Enum.GetNames(typeof(BouquetSpecials));
-            for (int i = 7; i <= 13; i += 1)
+            else if (exclude4C && i <= 8 && i >= 13)
             {
-                tempTagList.Add(bSpecials[i]);
+                // do nothing
             }
-        }
-
-        // LAST TWO
-        if (randomStyle == 6)
-        {
-            string[] bSpecials = System.Enum.GetNames(typeof(BouquetSpecials));
-            for (int i = 1; i <= 2; i += 1)
-            {
+            else
                 tempTagList.Add(bSpecials[i]);
-            }
         }
 
         // Shuffles the list, shoutouts to the Fisher-Yates Shuffle Algorithm

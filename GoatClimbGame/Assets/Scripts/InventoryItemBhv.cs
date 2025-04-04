@@ -91,6 +91,13 @@ public class InventoryItemBhv : MonoBehaviour
             pickedDisplay.transform.localPosition = Vector3.zero;
             pickedDisplay.transform.localEulerAngles = Vector3.zero;
             pickedDisplay.transform.localScale = Vector3.one;
+
+            // change layer of display object
+            foreach (Transform tf in pickedDisplay.transform)
+            {
+                tf.gameObject.layer = LayerMask.NameToLayer("UI");
+            }
+
             pickedDisplay.gameObject.SetActive(true);
         }, go);
     }
@@ -122,14 +129,41 @@ public class InventoryItemBhv : MonoBehaviour
             {
                 if (bq.bqName == invName && GameMainframe.GetInstance().playerContrScr.GetInventoryQty(invName) > 0)
                 {
-                    // TO DO - CHECK BOUQUET IS UP TO PAR WITH REQUEST, FOR NOW IT'LL TAKE ANY BOUQUET
-                    //if (GameMainframe.GetInstance().requestList[0].)
-                    GameMainframe.GetInstance().playerContrScr.UpdateInventory(invName, -1);
-                    //GameMainframe.GetInstance().plantSpawningScr.bouquetsMade.Remove(bq);
-                    GameMainframe.GetInstance().playerContrScr.TogglePlayerControl();
+                    bool checkHarm = false, checkCntr = false;
+                    int checkSpcs = 0;
 
-                    GameMainframe.GetInstance().FinishRequest(0); // TO DO should throw in index of request
-                    break;
+                    if (PlantSpawning.BouquetHarmony.NONE == GameMainframe.GetInstance().requestList[0].requestedHarm ||
+                        bq.bqHarm == GameMainframe.GetInstance().requestList[0].requestedHarm)
+                        checkHarm = true;
+                    
+                    if (PlantSpawning.BouquetCentres.NONE == GameMainframe.GetInstance().requestList[0].requestedCntr ||
+                        bq.bqCntr == GameMainframe.GetInstance().requestList[0].requestedCntr)
+                        checkCntr = true;
+
+                    foreach (PlantSpawning.BouquetSpecials reqBS in GameMainframe.GetInstance().requestList[0].requestedSpcs)
+					{
+                        if (PlantSpawning.BouquetSpecials.NONE != reqBS)
+                        {
+                            foreach (PlantSpawning.BouquetSpecials boqBS in bq.bqSpcs)
+                            {
+                                if (reqBS == boqBS)
+                                    checkSpcs += 1;
+                            }
+                        }
+                        else
+                            checkSpcs += 1;
+					}
+
+                    // TO DO - CHECK BOUQUET IS UP TO PAR WITH REQUEST, FOR NOW IT'LL TAKE ANY BOUQUET
+                    if (checkHarm && checkCntr && checkSpcs >= GameMainframe.GetInstance().requestList[0].requestedSpcs.Count)
+                    {
+                        GameMainframe.GetInstance().playerContrScr.UpdateInventory(invName, -1);
+                        //GameMainframe.GetInstance().plantSpawningScr.bouquetsMade.Remove(bq);
+                        GameMainframe.GetInstance().playerContrScr.TogglePlayerControl();
+
+                        GameMainframe.GetInstance().FinishRequest(0, true); // TO DO should throw in index of request
+                        break;
+                    }
                 }
             }
             

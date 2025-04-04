@@ -7,8 +7,10 @@ public class ColWheelBhv : MonoBehaviour
 {
     public CanvasGroup fader;
     public List<Image> colDetectors = new List<Image>();
+    public List<Transform> colCentres = new List<Transform>();
     public Image hrmContr, hrmTriad;
     public List<Image> hrmAnal = new List<Image>();
+    private PlantSpawning.PlantColour centreCol = PlantSpawning.PlantColour.NONE;
     private float redAngle = 0f, orangeAngle = 300f, yellowAngle = 240f;
 
     [System.Serializable]
@@ -34,13 +36,14 @@ public class ColWheelBhv : MonoBehaviour
     void LateUpdate()
     {
         // If nothing was put in, do not fade in anyhing
-        if (cccNoC[PlantSpawning.PlantColour.RED] + cccNoC[PlantSpawning.PlantColour.ORANGE] + cccNoC[PlantSpawning.PlantColour.YELLOW] + cccNoC[PlantSpawning.PlantColour.GREEN] + cccNoC[PlantSpawning.PlantColour.BLUE] + cccNoC[PlantSpawning.PlantColour.PURPLE] <= 0)
+        if (centreCol == PlantSpawning.PlantColour.NONE)
         {
             fader.alpha = 0f;
             return;
         }
 
-        fader.alpha = Mathf.Abs(Mathf.Cos(Time.time * 5f / Mathf.PI));
+        // harmony detection pulsing
+        fader.alpha = Mathf.Lerp(0.2f, 1f, Mathf.Abs(Mathf.Cos(Time.time * 5f / Mathf.PI)));
     }
 
     public void CountColoursNow(string[] inputs)
@@ -53,16 +56,21 @@ public class ColWheelBhv : MonoBehaviour
         cccNoC.Add(PlantSpawning.PlantColour.GREEN, 0);
         cccNoC.Add(PlantSpawning.PlantColour.BLUE, 0);
         cccNoC.Add(PlantSpawning.PlantColour.PURPLE, 0);
+        centreCol = PlantSpawning.PlantColour.NONE;
         
         // Count the colours using the names of plants
-        for (int i = 1; i < 7; i += 1)
+        for (int i = 0; i < 7; i += 1)
         {
             foreach (PlantSpawning.OnePlantInfo opi in GameMainframe.GetInstance().GetComponent<PlantSpawning>().plantMasterlist)
             {
                 // Loop through name of flower with the plantMasterlist and only execute if it matches
                 if (opi.plantName == inputs[i])
                 {
-                    cccNoC[opi.plantCol] += 1;
+                    if (i == 0)
+                        centreCol = opi.plantCol;
+                    else
+                        cccNoC[opi.plantCol] += 1;
+
                     //Debug.Log(cccNoC[opi.plantCol] + " ++");
                 }
             }
@@ -78,21 +86,52 @@ public class ColWheelBhv : MonoBehaviour
             colDetectors[i].enabled = false;
             colDetectors[i].sprite = colourDectUI[i].off;
         }
+        for (int i = 0; i < colCentres.Count; i += 1)
+        {
+            colCentres[i].localScale = Vector3.one;
+        }
         hrmContr.enabled = false; hrmTriad.enabled = false;
         for (int i = 0; i < hrmAnal.Count; i += 1)
         {
             hrmAnal[i].enabled = false;
         }
 
+        // --- CENTREPIECE ---
+        if (centreCol == PlantSpawning.PlantColour.RED)
+            colCentres[0].localScale = Vector3.one * 1.15f;
+        else if (centreCol == PlantSpawning.PlantColour.ORANGE)
+            colCentres[1].localScale = Vector3.one * 1.15f;
+        else if (centreCol == PlantSpawning.PlantColour.YELLOW)
+            colCentres[2].localScale = Vector3.one * 1.15f;
+        else if (centreCol == PlantSpawning.PlantColour.GREEN)
+            colCentres[3].localScale = Vector3.one * 1.15f;
+        else if (centreCol == PlantSpawning.PlantColour.BLUE)
+            colCentres[4].localScale = Vector3.one * 1.15f;
+        else if (centreCol == PlantSpawning.PlantColour.PURPLE)
+            colCentres[5].localScale = Vector3.one * 1.15f;
+
+        if (totalCounts <= 0)
+            return;
+
         // --- HARMONIES ---
         // CONTRASTING
         if ( // R/G
-            cccNoC[PlantSpawning.PlantColour.RED] >= 0 &&
+            (
+            cccNoC[PlantSpawning.PlantColour.RED] >= 1 &&
             cccNoC[PlantSpawning.PlantColour.ORANGE] <= 0 &&
             cccNoC[PlantSpawning.PlantColour.YELLOW] <= 0 &&
             cccNoC[PlantSpawning.PlantColour.GREEN] >= 0 &&
             cccNoC[PlantSpawning.PlantColour.BLUE] <= 0 &&
             cccNoC[PlantSpawning.PlantColour.PURPLE] <= 0
+            ) ||
+            (
+            cccNoC[PlantSpawning.PlantColour.RED] >= 0 &&
+            cccNoC[PlantSpawning.PlantColour.ORANGE] <= 0 &&
+            cccNoC[PlantSpawning.PlantColour.YELLOW] <= 0 &&
+            cccNoC[PlantSpawning.PlantColour.GREEN] >= 1 &&
+            cccNoC[PlantSpawning.PlantColour.BLUE] <= 0 &&
+            cccNoC[PlantSpawning.PlantColour.PURPLE] <= 0
+            )
             )
 		{
             hrmContr.enabled = true;
@@ -102,12 +141,22 @@ public class ColWheelBhv : MonoBehaviour
             colDetectors[3].enabled = true; colDetectors[3].sprite = colourDectUI[3].off;
         }
         else if ( // O/B
+            (
             cccNoC[PlantSpawning.PlantColour.RED] <= 0 &&
-            cccNoC[PlantSpawning.PlantColour.ORANGE] >= 0 &&
+            cccNoC[PlantSpawning.PlantColour.ORANGE] >= 1 &&
             cccNoC[PlantSpawning.PlantColour.YELLOW] <= 0 &&
             cccNoC[PlantSpawning.PlantColour.GREEN] <= 0 &&
             cccNoC[PlantSpawning.PlantColour.BLUE] >= 0 &&
             cccNoC[PlantSpawning.PlantColour.PURPLE] <= 0
+            ) ||
+            (
+            cccNoC[PlantSpawning.PlantColour.RED] <= 0 &&
+            cccNoC[PlantSpawning.PlantColour.ORANGE] >= 0 &&
+            cccNoC[PlantSpawning.PlantColour.YELLOW] <= 0 &&
+            cccNoC[PlantSpawning.PlantColour.GREEN] <= 0 &&
+            cccNoC[PlantSpawning.PlantColour.BLUE] >= 1 &&
+            cccNoC[PlantSpawning.PlantColour.PURPLE] <= 0
+            ) 
             )
         {
             hrmContr.enabled = true;
@@ -117,12 +166,22 @@ public class ColWheelBhv : MonoBehaviour
             colDetectors[4].enabled = true; colDetectors[4].sprite = colourDectUI[4].off;
         }
         else if ( // Y/P
+            (
+            cccNoC[PlantSpawning.PlantColour.RED] <= 0 &&
+            cccNoC[PlantSpawning.PlantColour.ORANGE] <= 0 &&
+            cccNoC[PlantSpawning.PlantColour.YELLOW] >= 1 &&
+            cccNoC[PlantSpawning.PlantColour.GREEN] <= 0 &&
+            cccNoC[PlantSpawning.PlantColour.BLUE] <= 0 &&
+            cccNoC[PlantSpawning.PlantColour.PURPLE] >= 0
+            ) ||
+            (
             cccNoC[PlantSpawning.PlantColour.RED] <= 0 &&
             cccNoC[PlantSpawning.PlantColour.ORANGE] <= 0 &&
             cccNoC[PlantSpawning.PlantColour.YELLOW] >= 0 &&
             cccNoC[PlantSpawning.PlantColour.GREEN] <= 0 &&
             cccNoC[PlantSpawning.PlantColour.BLUE] <= 0 &&
-            cccNoC[PlantSpawning.PlantColour.PURPLE] >= 0
+            cccNoC[PlantSpawning.PlantColour.PURPLE] >= 1
+            ) 
             )
         {
             hrmContr.enabled = true;
@@ -136,9 +195,9 @@ public class ColWheelBhv : MonoBehaviour
         if ( // P/R/O
             cccNoC[PlantSpawning.PlantColour.RED] >= 0 &&
             cccNoC[PlantSpawning.PlantColour.ORANGE] >= 0 &&
-            cccNoC[PlantSpawning.PlantColour.YELLOW] == 0 &&
-            cccNoC[PlantSpawning.PlantColour.GREEN] == 0 &&
-            cccNoC[PlantSpawning.PlantColour.BLUE] == 0 &&
+            cccNoC[PlantSpawning.PlantColour.YELLOW] <= 0 &&
+            cccNoC[PlantSpawning.PlantColour.GREEN] <= 0 &&
+            cccNoC[PlantSpawning.PlantColour.BLUE] <= 0 &&
             cccNoC[PlantSpawning.PlantColour.PURPLE] >= 0
             )
         {

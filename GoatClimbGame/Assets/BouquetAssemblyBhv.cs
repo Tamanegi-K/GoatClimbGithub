@@ -65,6 +65,13 @@ public class BouquetAssemblyBhv : MonoBehaviour
                     pickedDisplay.transform.localPosition = Vector3.zero;
                     pickedDisplay.transform.localEulerAngles = Vector3.zero;
                     pickedDisplay.transform.localScale = Vector3.one;
+
+                    // change layer of display object
+                    foreach (Transform tf in pickedDisplay.transform)
+                    {
+                        tf.gameObject.layer = LayerMask.NameToLayer("UI");
+                    }
+
                     pickedDisplay.gameObject.SetActive(true);
                 }, dispObj);
 
@@ -86,6 +93,13 @@ public class BouquetAssemblyBhv : MonoBehaviour
                     pickedDisplay.transform.localPosition = Vector3.zero;
                     pickedDisplay.transform.localEulerAngles = Vector3.zero;
                     pickedDisplay.transform.localScale = Vector3.one;
+
+                    // change layer of display object
+                    foreach (Transform tf in pickedDisplay.transform)
+                    {
+                        tf.gameObject.layer = LayerMask.NameToLayer("UI");
+                    }
+
                     pickedDisplay.gameObject.SetActive(true);
                 }, dispObj);
 
@@ -161,6 +175,7 @@ public class BouquetAssemblyBhv : MonoBehaviour
         List<PlantSpawning.PlantType> inBouquetTyps = new List<PlantSpawning.PlantType>(); // total types in the plantNameArray
         List<PlantSpawning.PlantValue> inBouquetVals = new List<PlantSpawning.PlantValue>(); // total values in the plantNameArray
         List<PlantSpawning.PlantColour> inBouquetCols = new List<PlantSpawning.PlantColour>(); // total colours in the plantNameArray
+        List<PlantSpawning.PlantSpecials> inBouquetSpcs = new List<PlantSpawning.PlantSpecials>(); // total special tags in the plantNameArray
         List<PlantSpawning.PlantSpecials> centreSpcs = new List<PlantSpawning.PlantSpecials>(); // special tags in the centrepiece ONLY
         bool isOnCentrepiece = true; // first index of the plantNameArray is always the centrepiece
 
@@ -175,6 +190,11 @@ public class BouquetAssemblyBhv : MonoBehaviour
                     inBouquetTyps.Add(opi.plantTyp);
                     inBouquetVals.Add(opi.plantVal);
                     inBouquetCols.Add(opi.plantCol);
+
+                    foreach (PlantSpawning.PlantSpecials opiPS in opi.plantSpc)
+					{
+                        inBouquetSpcs.Add(opiPS);
+					}
 
                     if (isOnCentrepiece)
                     {
@@ -204,7 +224,7 @@ public class BouquetAssemblyBhv : MonoBehaviour
         madeBQ.transform.localScale = Vector3.one;
         //madeBQ.transform.position = new Vector3(madeBQ.transform.position.x, madeBQ.transform.position.y - 500f, madeBQ.transform.position.z);
 
-        PlantSpawning.OneBouquetMade newBouquet = new PlantSpawning.OneBouquetMade(madeBQ, bouquetID, plantNameArray, "Bouquet " + bouquetID, AssignBouquetHarmony(), AssignBouquetCentre(inBouquetCols[0]), AssignBouquetSpecials(inBouquetTyps, inBouquetVals), "A beautiful bouquet you made! \n \n WIP: Soon you'll be able to name your own bouquets.");
+        PlantSpawning.OneBouquetMade newBouquet = new PlantSpawning.OneBouquetMade(madeBQ, bouquetID, plantNameArray, "Bouquet " + bouquetID, AssignBouquetHarmony(), AssignBouquetCentre(inBouquetCols[0]), AssignBouquetSpecials(inBouquetTyps, inBouquetVals, inBouquetSpcs), "A beautiful bouquet you made! \n \n WIP: Soon you'll be able to name your own bouquets.");
         GameMainframe.GetInstance().GetComponent<PlantSpawning>().bouquetsMade.Add(newBouquet);
         GameMainframe.GetInstance().playerContrScr.UpdateInventory(newBouquet.bqName, 1);
         bouquetID += 1;
@@ -222,7 +242,7 @@ public class BouquetAssemblyBhv : MonoBehaviour
 
         // MULTICOLOURED
         int multicolourStrikes = 0;
-        foreach (KeyValuePair<PlantSpawning.PlantColour, int> kvp in ccc)
+        foreach (KeyValuePair<PlantSpawning.PlantColour, int> kvp in cccNoC)
 		{
             //Debug.Log(kvp.Key + " | " + kvp.Value);
             if (kvp.Value == 1)
@@ -235,8 +255,8 @@ public class BouquetAssemblyBhv : MonoBehaviour
 
         // TRIADIC
         else if (
-            (cccNoC[PlantSpawning.PlantColour.RED] >= 2 && cccNoC[PlantSpawning.PlantColour.YELLOW] >= 2 && cccNoC[PlantSpawning.PlantColour.BLUE] >= 2) ||
-            (cccNoC[PlantSpawning.PlantColour.ORANGE] >= 2 && cccNoC[PlantSpawning.PlantColour.GREEN] >= 2 && cccNoC[PlantSpawning.PlantColour.PURPLE] >= 2)
+            (ccc[PlantSpawning.PlantColour.RED] >= 2 && ccc[PlantSpawning.PlantColour.YELLOW] >= 2 && ccc[PlantSpawning.PlantColour.BLUE] >= 2) ||
+            (ccc[PlantSpawning.PlantColour.ORANGE] >= 2 && ccc[PlantSpawning.PlantColour.GREEN] >= 2 && ccc[PlantSpawning.PlantColour.PURPLE] >= 2)
             )
         {
             resultHarm = PlantSpawning.BouquetHarmony.TRIADIC;
@@ -244,12 +264,12 @@ public class BouquetAssemblyBhv : MonoBehaviour
 
         // ANALOGOUS
         else if (
-            (cccNoC[PlantSpawning.PlantColour.RED] >= 2 && cccNoC[PlantSpawning.PlantColour.ORANGE] >= 2 && cccNoC[PlantSpawning.PlantColour.YELLOW] >= 2) ||
-            (cccNoC[PlantSpawning.PlantColour.ORANGE] >= 2 && cccNoC[PlantSpawning.PlantColour.YELLOW] >= 2 && cccNoC[PlantSpawning.PlantColour.GREEN] >= 2) ||
-            (cccNoC[PlantSpawning.PlantColour.YELLOW] >= 2 && cccNoC[PlantSpawning.PlantColour.GREEN] >= 2 && cccNoC[PlantSpawning.PlantColour.BLUE] >= 2) ||
-            (cccNoC[PlantSpawning.PlantColour.GREEN] >= 2 && cccNoC[PlantSpawning.PlantColour.BLUE] >= 2 && cccNoC[PlantSpawning.PlantColour.PURPLE] >= 2) ||
-            (cccNoC[PlantSpawning.PlantColour.BLUE] >= 2 && cccNoC[PlantSpawning.PlantColour.PURPLE] >= 2 && cccNoC[PlantSpawning.PlantColour.RED] >= 2) ||
-            (cccNoC[PlantSpawning.PlantColour.PURPLE] >= 2 && cccNoC[PlantSpawning.PlantColour.RED] >= 2 && cccNoC[PlantSpawning.PlantColour.ORANGE] >= 2)
+            (ccc[PlantSpawning.PlantColour.RED] >= 2 && ccc[PlantSpawning.PlantColour.ORANGE] >= 2 && ccc[PlantSpawning.PlantColour.YELLOW] >= 2) ||
+            (ccc[PlantSpawning.PlantColour.ORANGE] >= 2 && ccc[PlantSpawning.PlantColour.YELLOW] >= 2 && ccc[PlantSpawning.PlantColour.GREEN] >= 2) ||
+            (ccc[PlantSpawning.PlantColour.YELLOW] >= 2 && ccc[PlantSpawning.PlantColour.GREEN] >= 2 && ccc[PlantSpawning.PlantColour.BLUE] >= 2) ||
+            (ccc[PlantSpawning.PlantColour.GREEN] >= 2 && ccc[PlantSpawning.PlantColour.BLUE] >= 2 && ccc[PlantSpawning.PlantColour.PURPLE] >= 2) ||
+            (ccc[PlantSpawning.PlantColour.BLUE] >= 2 && ccc[PlantSpawning.PlantColour.PURPLE] >= 2 && ccc[PlantSpawning.PlantColour.RED] >= 2) ||
+            (ccc[PlantSpawning.PlantColour.PURPLE] >= 2 && ccc[PlantSpawning.PlantColour.RED] >= 2 && ccc[PlantSpawning.PlantColour.ORANGE] >= 2)
             )
         {
             resultHarm = PlantSpawning.BouquetHarmony.ANALOGOUS;
@@ -257,9 +277,9 @@ public class BouquetAssemblyBhv : MonoBehaviour
 
         // CONTRASTING
         else if (
-            (cccNoC[PlantSpawning.PlantColour.RED] >= 3 && cccNoC[PlantSpawning.PlantColour.GREEN] >= 3) || 
-            (cccNoC[PlantSpawning.PlantColour.ORANGE] >= 3 && cccNoC[PlantSpawning.PlantColour.BLUE] >= 3) || 
-            (cccNoC[PlantSpawning.PlantColour.YELLOW] >= 3 && cccNoC[PlantSpawning.PlantColour.PURPLE] >= 3)
+            (ccc[PlantSpawning.PlantColour.RED] >= 3 && ccc[PlantSpawning.PlantColour.GREEN] >= 3) || 
+            (ccc[PlantSpawning.PlantColour.ORANGE] >= 3 && ccc[PlantSpawning.PlantColour.BLUE] >= 3) || 
+            (ccc[PlantSpawning.PlantColour.YELLOW] >= 3 && ccc[PlantSpawning.PlantColour.PURPLE] >= 3)
             )
         {
             resultHarm = PlantSpawning.BouquetHarmony.CONTRASTING;
@@ -296,7 +316,7 @@ public class BouquetAssemblyBhv : MonoBehaviour
             && (centreCol == PlantSpawning.PlantColour.ORANGE || centreCol == PlantSpawning.PlantColour.GREEN || centreCol == PlantSpawning.PlantColour.PURPLE))
             )
         {
-            resultCntr = PlantSpawning.BouquetCentres.TROVE;
+            resultCntr = PlantSpawning.BouquetCentres.PARTITION;
         }
 
 
@@ -324,15 +344,39 @@ public class BouquetAssemblyBhv : MonoBehaviour
             resultCntr = PlantSpawning.BouquetCentres.SPECTRUM;
         }
 
+        // TROVE (SOLID)
+        else if (
+            (cccNoC[PlantSpawning.PlantColour.RED] >= 6
+            && centreCol == PlantSpawning.PlantColour.RED)
+            ||
+            (cccNoC[PlantSpawning.PlantColour.ORANGE] >= 6
+            && centreCol == PlantSpawning.PlantColour.ORANGE)
+            ||
+            (cccNoC[PlantSpawning.PlantColour.YELLOW] >= 6
+            && centreCol == PlantSpawning.PlantColour.YELLOW)
+            ||
+            (cccNoC[PlantSpawning.PlantColour.GREEN] >= 6
+            && centreCol == PlantSpawning.PlantColour.GREEN)
+            ||
+            (cccNoC[PlantSpawning.PlantColour.BLUE] >= 6
+            && centreCol == PlantSpawning.PlantColour.BLUE)
+            ||
+            (cccNoC[PlantSpawning.PlantColour.PURPLE] >= 6
+            && centreCol == PlantSpawning.PlantColour.PURPLE)
+            )
+        {
+            resultCntr = PlantSpawning.BouquetCentres.TROVE;
+        }
+
         // JEWELBED (CONTRAST)
         else if (
-            ((cccNoC[PlantSpawning.PlantColour.RED] >= 3 && cccNoC[PlantSpawning.PlantColour.GREEN] >= 3)
+            ((cccNoC[PlantSpawning.PlantColour.RED] + cccNoC[PlantSpawning.PlantColour.GREEN] >= 6)
             && (centreCol == PlantSpawning.PlantColour.RED || centreCol == PlantSpawning.PlantColour.GREEN))
             ||
-            ((cccNoC[PlantSpawning.PlantColour.ORANGE] >= 3 && cccNoC[PlantSpawning.PlantColour.BLUE] >= 3)
+            ((cccNoC[PlantSpawning.PlantColour.ORANGE] + cccNoC[PlantSpawning.PlantColour.BLUE] >= 6)
             && (centreCol == PlantSpawning.PlantColour.ORANGE || centreCol == PlantSpawning.PlantColour.BLUE))
             ||
-            ((cccNoC[PlantSpawning.PlantColour.YELLOW] >= 3 && cccNoC[PlantSpawning.PlantColour.PURPLE] >= 3)
+            ((cccNoC[PlantSpawning.PlantColour.YELLOW] + cccNoC[PlantSpawning.PlantColour.PURPLE] >= 6)
             && (centreCol == PlantSpawning.PlantColour.YELLOW || centreCol == PlantSpawning.PlantColour.PURPLE))
             ||
             // alternate conditions - solid bouquet harmony but contrasting centrepiece
@@ -358,36 +402,27 @@ public class BouquetAssemblyBhv : MonoBehaviour
             resultCntr = PlantSpawning.BouquetCentres.JEWELBED;
         }
 
-        // TROVE (SOLID)
-        else if (
-            (cccNoC[PlantSpawning.PlantColour.RED] >= 6
-            && centreCol == PlantSpawning.PlantColour.RED)
-            ||
-            (cccNoC[PlantSpawning.PlantColour.ORANGE] >= 6
-            && centreCol == PlantSpawning.PlantColour.ORANGE)
-            ||
-            (cccNoC[PlantSpawning.PlantColour.YELLOW] >= 6
-            && centreCol == PlantSpawning.PlantColour.YELLOW)
-            ||
-            (cccNoC[PlantSpawning.PlantColour.GREEN] >= 6
-            && centreCol == PlantSpawning.PlantColour.GREEN)
-            ||
-            (cccNoC[PlantSpawning.PlantColour.BLUE] >= 6
-            && centreCol == PlantSpawning.PlantColour.BLUE)
-            ||
-            (cccNoC[PlantSpawning.PlantColour.PURPLE] >= 6
-            && centreCol == PlantSpawning.PlantColour.PURPLE)
-            )
-        {
-            resultCntr = PlantSpawning.BouquetCentres.TROVE;
-        }
-
         return resultCntr;
     }
 
-    public List<PlantSpawning.BouquetSpecials> AssignBouquetSpecials(List<PlantSpawning.PlantType> pTs, List <PlantSpawning.PlantValue> pVs)
+    public List<PlantSpawning.BouquetSpecials> AssignBouquetSpecials(List<PlantSpawning.PlantType> pTs, List <PlantSpawning.PlantValue> pVs, List<PlantSpawning.PlantSpecials> pSs)
     {
         List<PlantSpawning.BouquetSpecials> resultSpcs = new List<PlantSpawning.BouquetSpecials>();
+
+        // UNIFORM - if all flowers are the same (and should skip the rest if so)
+        for (int i = 1; i < plantNameArray.Length; i += 1)
+        {
+            if (plantNameArray[1] == plantNameArray[i])
+            {
+                if (i == plantNameArray.Length - 1)
+				{
+                    resultSpcs.Add(PlantSpawning.BouquetSpecials.UNIFORM);
+                    return resultSpcs;
+                }
+            }
+            else
+                break;
+		}
 
         // RADIANT
         foreach (PlantSpawning.OnePlantInfo pi in GameMainframe.GetInstance().GetComponent<PlantSpawning>().plantMasterlist)
@@ -406,21 +441,28 @@ public class BouquetAssemblyBhv : MonoBehaviour
         }
 
         // MONOSPECIES - all accents are the same plant type
-        //Debug.LogWarning("loop begins");
         for (int i = 0; i < pTs.Count; i += 1)
 		{
             //Debug.LogError(pTs[1] + " vs " + pTs[i]);
             if (pTs[1] != pTs[i])
                 break;
 
-            //Debug.Log("success, keep going");
-
-            if (i == pTs.Count - 1)
+            if (i >= pTs.Count - 1)
 			{
                 resultSpcs.Add(PlantSpawning.BouquetSpecials.MONOSPECIES);
-                //Debug.LogWarning("monospecies awarded");
 			}
 		}
+
+        // FRAGRANT
+        int fragrs = 0;
+        foreach (PlantSpawning.PlantSpecials piPS in pSs)
+        {
+            if (piPS == PlantSpawning.PlantSpecials.INFLORESCENT)
+                fragrs += 1;
+        }
+        if (fragrs >= 4)
+            resultSpcs.Add(PlantSpawning.BouquetSpecials.FRAGRANT);
+
 
         // DELICATE
         int pales = 0;
@@ -452,7 +494,7 @@ public class BouquetAssemblyBhv : MonoBehaviour
         if (vibrants >= 4)
             resultSpcs.Add(PlantSpawning.BouquetSpecials.REFINED);
 
-        // ELEGANT
+        // MSYERIOUS
         int darks = 0;
         foreach (PlantSpawning.PlantValue value in pVs)
         {
@@ -460,21 +502,21 @@ public class BouquetAssemblyBhv : MonoBehaviour
                 darks += 1;
         }
         if (darks >= 4)
-            resultSpcs.Add(PlantSpawning.BouquetSpecials.ELEGANT);
+            resultSpcs.Add(PlantSpawning.BouquetSpecials.MYSTERIOUS);
 
         // DOMINANTS
         if (ccc[PlantSpawning.PlantColour.RED] >= 4)
-            resultSpcs.Add(PlantSpawning.BouquetSpecials.RED_DOMINANT);
+            resultSpcs.Add(PlantSpawning.BouquetSpecials.LOVELY);
         if (ccc[PlantSpawning.PlantColour.ORANGE] >= 4)
-            resultSpcs.Add(PlantSpawning.BouquetSpecials.ORANGE_DOMINANT);
+            resultSpcs.Add(PlantSpawning.BouquetSpecials.CONFIDENT);
         if (ccc[PlantSpawning.PlantColour.YELLOW] >= 4)
-            resultSpcs.Add(PlantSpawning.BouquetSpecials.YELLOW_DOMINANT);
+            resultSpcs.Add(PlantSpawning.BouquetSpecials.JOYFUL);
         if (ccc[PlantSpawning.PlantColour.GREEN] >= 4)
-            resultSpcs.Add(PlantSpawning.BouquetSpecials.GREEN_DOMINANT);
+            resultSpcs.Add(PlantSpawning.BouquetSpecials.HOPEFUL);
         if (ccc[PlantSpawning.PlantColour.BLUE] >= 4)
-            resultSpcs.Add(PlantSpawning.BouquetSpecials.BLUE_DOMINANT);
+            resultSpcs.Add(PlantSpawning.BouquetSpecials.SERENE);
         if (ccc[PlantSpawning.PlantColour.PURPLE] >= 4)
-            resultSpcs.Add(PlantSpawning.BouquetSpecials.PURPLE_DOMINANT);
+            resultSpcs.Add(PlantSpawning.BouquetSpecials.ELEGANT);
 
         return resultSpcs;
     }

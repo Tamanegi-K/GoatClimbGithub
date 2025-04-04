@@ -55,6 +55,10 @@ public class MouseTooltipBhv : MonoBehaviour
             //Debug.Log("Hit " + result.gameObject.name);
         }
 
+        // if player has nothing, do not do anything below
+        if (GameMainframe.GetInstance().playerContrScr.collectedInventory.Count <= 0)
+            return;
+
         // As long as the mouse is hovering over a highlightable thing, show the tooltip
         if (highlightableRayHits.Count > 0 && highlightableRayHits[0].TryGetComponent(out InvTagInfo iti))
         {

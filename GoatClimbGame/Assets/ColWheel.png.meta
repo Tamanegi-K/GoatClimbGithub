@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 2
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -50,7 +50,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -101,7 +101,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1248
+        y: 2496
         width: 416
         height: 416
       alignment: 0
@@ -122,7 +122,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 416
-        y: 1248
+        y: 2496
         width: 416
         height: 416
       alignment: 0
@@ -143,7 +143,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 832
-        y: 1248
+        y: 2496
         width: 416
         height: 416
       alignment: 0
@@ -164,7 +164,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1248
-        y: 1248
+        y: 2496
         width: 416
         height: 416
       alignment: 0
@@ -185,7 +185,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 832
+        y: 2080
         width: 416
         height: 416
       alignment: 0
@@ -206,7 +206,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 416
-        y: 832
+        y: 2080
         width: 416
         height: 416
       alignment: 0
@@ -227,7 +227,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 832
-        y: 832
+        y: 2080
         width: 416
         height: 416
       alignment: 0
@@ -247,8 +247,8 @@ TextureImporter:
       name: ColWheel_7
       rect:
         serializedVersion: 2
-        x: 1248
-        y: 832
+        x: 0
+        y: 1664
         width: 416
         height: 416
       alignment: 0
@@ -268,8 +268,8 @@ TextureImporter:
       name: ColWheel_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 416
+        x: 416
+        y: 1664
         width: 416
         height: 416
       alignment: 0
@@ -289,8 +289,8 @@ TextureImporter:
       name: ColWheel_9
       rect:
         serializedVersion: 2
-        x: 416
-        y: 416
+        x: 832
+        y: 1664
         width: 416
         height: 416
       alignment: 0
@@ -310,8 +310,8 @@ TextureImporter:
       name: ColWheel_10
       rect:
         serializedVersion: 2
-        x: 832
-        y: 416
+        x: 0
+        y: 1248
         width: 416
         height: 416
       alignment: 0
@@ -331,8 +331,8 @@ TextureImporter:
       name: ColWheel_11
       rect:
         serializedVersion: 2
-        x: 1248
-        y: 416
+        x: 416
+        y: 1248
         width: 416
         height: 416
       alignment: 0
@@ -352,8 +352,8 @@ TextureImporter:
       name: ColWheel_12
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 832
+        y: 1248
         width: 416
         height: 416
       alignment: 0
@@ -373,8 +373,8 @@ TextureImporter:
       name: ColWheel_13
       rect:
         serializedVersion: 2
-        x: 416
-        y: 0
+        x: 0
+        y: 832
         width: 416
         height: 416
       alignment: 0
@@ -394,8 +394,8 @@ TextureImporter:
       name: ColWheel_14
       rect:
         serializedVersion: 2
-        x: 832
-        y: 0
+        x: 416
+        y: 832
         width: 416
         height: 416
       alignment: 0
@@ -415,8 +415,8 @@ TextureImporter:
       name: ColWheel_15
       rect:
         serializedVersion: 2
-        x: 1248
-        y: 0
+        x: 832
+        y: 832
         width: 416
         height: 416
       alignment: 0
@@ -428,6 +428,132 @@ TextureImporter:
       bones: []
       spriteID: b5156124045f88e4c85a69a6a3f4018c
       internalID: 1061654505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ColWheel_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 416
+        width: 416
+        height: 416
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ec4d761b1b31db4c8aae5e6119f1213
+      internalID: -1920481417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ColWheel_17
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 416
+        width: 416
+        height: 416
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d0268bd5d1572343abede480006d132
+      internalID: 996522885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ColWheel_18
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 416
+        width: 416
+        height: 416
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a8c890d9495fbc4baffe96e22114273
+      internalID: 830815889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ColWheel_19
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 416
+        height: 416
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d61bf519c7445d74fade49390d8a2df0
+      internalID: 850664086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ColWheel_20
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 0
+        width: 416
+        height: 416
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 948608ee3988d6245949099185529404
+      internalID: -1380662681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ColWheel_21
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 0
+        width: 416
+        height: 416
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef883cd086ba69e49b2e6cbbe5d09de5
+      internalID: -1097501539
       vertices: []
       indices: 
       edges: []
@@ -451,7 +577,13 @@ TextureImporter:
       ColWheel_13: 412429530
       ColWheel_14: -2082918194
       ColWheel_15: 1061654505
+      ColWheel_16: -1920481417
+      ColWheel_17: 996522885
+      ColWheel_18: 830815889
+      ColWheel_19: 850664086
       ColWheel_2: 1118828
+      ColWheel_20: -1380662681
+      ColWheel_21: -1097501539
       ColWheel_3: 1347867372
       ColWheel_4: 1477590945
       ColWheel_5: -1020171778

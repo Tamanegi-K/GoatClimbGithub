@@ -36,6 +36,12 @@ public class InvTagInfo : MonoBehaviour
                 break;
             case PlantSpawning.PlantSpecials.INFLORESCENT: case PlantSpawning.PlantSpecials.LUSTROUS:
             case PlantSpawning.PlantSpecials.NIGHTBLOOM: case PlantSpawning.PlantSpecials.RARE:
+            case PlantSpawning.BouquetSpecials.RADIANT: case PlantSpawning.BouquetSpecials.MONOSPECIES: case PlantSpawning.BouquetSpecials.FRAGRANT:
+            case PlantSpawning.BouquetSpecials.DELICATE: case PlantSpawning.BouquetSpecials.BOLD:
+            case PlantSpawning.BouquetSpecials.REFINED: case PlantSpawning.BouquetSpecials.MYSTERIOUS:
+            case PlantSpawning.BouquetSpecials.LOVELY: case PlantSpawning.BouquetSpecials.CONFIDENT:
+            case PlantSpawning.BouquetSpecials.JOYFUL: case PlantSpawning.BouquetSpecials.HOPEFUL:
+            case PlantSpawning.BouquetSpecials.SERENE: case PlantSpawning.BouquetSpecials.ELEGANT:
                 spc.gameObject.SetActive(true);
                 chosenImage = spc;
                 break;
@@ -52,34 +58,34 @@ public class InvTagInfo : MonoBehaviour
         // Icon colour
         switch (givenTag[0])
         {
-            case PlantSpawning.PlantColour.RED: case PlantSpawning.BouquetSpecials.RED_DOMINANT:
+            case PlantSpawning.PlantColour.RED: case PlantSpawning.BouquetSpecials.LOVELY:
                 chosenImage.color = new Color(246f / 255f, 46f / 255f, 46f / 255f);
                 break;
-            case PlantSpawning.PlantColour.ORANGE: case PlantSpawning.BouquetSpecials.ORANGE_DOMINANT:
+            case PlantSpawning.PlantColour.ORANGE: case PlantSpawning.BouquetSpecials.CONFIDENT:
                 chosenImage.color = new Color(255f, 109f / 255f, 0f);
                 break;
-            case PlantSpawning.PlantColour.YELLOW: case PlantSpawning.BouquetSpecials.YELLOW_DOMINANT:
+            case PlantSpawning.PlantColour.YELLOW: case PlantSpawning.BouquetSpecials.JOYFUL:
                 chosenImage.color = new Color(251f / 255f, 188f / 255f, 4f / 255f);
                 break;
-            case PlantSpawning.PlantColour.GREEN: case PlantSpawning.BouquetSpecials.GREEN_DOMINANT:
+            case PlantSpawning.PlantColour.GREEN: case PlantSpawning.BouquetSpecials.HOPEFUL:
                 chosenImage.color = new Color(52f / 255f, 168f / 255f, 83f / 255f);
                 break;
-            case PlantSpawning.PlantColour.BLUE: case PlantSpawning.BouquetSpecials.BLUE_DOMINANT:
+            case PlantSpawning.PlantColour.BLUE: case PlantSpawning.BouquetSpecials.SERENE:
                 chosenImage.color = new Color(17f / 255f, 85f / 255f, 204f / 255f);
                 break;
-            case PlantSpawning.PlantColour.PURPLE: case PlantSpawning.BouquetSpecials.PURPLE_DOMINANT:
+            case PlantSpawning.PlantColour.PURPLE: case PlantSpawning.BouquetSpecials.ELEGANT:
                 chosenImage.color = new Color(221f / 255f, 43f / 255f, 236f / 255f);
                 break;
-            case PlantSpawning.PlantValue.PALE:
+            case PlantSpawning.PlantValue.PALE: case PlantSpawning.BouquetSpecials.DELICATE:
                 chosenImage.color = new Color(255f / 255f, 251f / 255f, 162f / 255f);
                 break;
-            case PlantSpawning.PlantValue.BRIGHT:
+            case PlantSpawning.PlantValue.BRIGHT: case PlantSpawning.BouquetSpecials.BOLD:
                 chosenImage.color = new Color(255f / 255f, 205f / 255f, 0f);
                 break;
-            case PlantSpawning.PlantValue.VIBRANT:
+            case PlantSpawning.PlantValue.VIBRANT: case PlantSpawning.BouquetSpecials.REFINED:
                 chosenImage.color = new Color(255f / 255f, 79f / 255f, 0f);
                 break;
-            case PlantSpawning.PlantValue.DARK:
+            case PlantSpawning.PlantValue.DARK: case PlantSpawning.BouquetSpecials.MYSTERIOUS:
                 chosenImage.color = new Color(152f / 255f, 0f, 26f / 255f);
                 break;
             default:

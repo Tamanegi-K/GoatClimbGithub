@@ -20,6 +20,7 @@ public class GameMainframe : MonoBehaviour
     public GameObject inventoryDisplay;
     public bool inTitle = false;
     public List<GameObject> villagersOnField;
+    public MailboxBhv mailbox;
 
     [Header("Variables")]
     public Transform sunRotation;
@@ -48,7 +49,7 @@ public class GameMainframe : MonoBehaviour
     public enum PauseTabs { KNAPSACK, ASSEMBLY, SETTINGS };
     public PauseTabs currentTab = PauseTabs.KNAPSACK;
     public CanvasGroup uiGroupTitle, uiGroupWhite, uiGroupPause, uiGroupHUD;
-    private RectTransform pauseUp, pauseLeft, pauseRightSack, pauseRightAss, pauseRightSackTags, pauseRightSttngs;
+    private RectTransform pauseUp, pauseLeft, pauseRightSack, pauseRightAss, pauseRightSackTags, pauseRightSttngs, pauseRightTrade, pauseRightTradeTagsLeft, pauseRightTradeTagsRight;
     private ToggleGroup pauseUpTG;
     private GameObject pauseTabSack, pauseTabAss, pauseTabSttngs;
     private Transform sackObjHolder, assGridList;
@@ -283,6 +284,11 @@ public class GameMainframe : MonoBehaviour
 
             // Right 3 - Settings
             // pauseRightSttngs = uiGroupPause.transform.Find("InvSettingsGroup").GetComponent<RectTransform>();
+
+            // Right 4 - Trading
+            pauseRightTrade = uiGroupPause.transform.Find("InvTradeGroup").GetComponent<RectTransform>();
+            pauseRightTradeTagsLeft = pauseRightTrade.Find("InvTradeLefts").GetComponent<RectTransform>();
+            pauseRightTradeTagsRight = pauseRightTrade.Find("InvTradeRights").GetComponent<RectTransform>();
         }
 
         if (uiGroupHUD == null && GameObject.Find("Canvas/HUD").TryGetComponent(out CanvasGroup h))
@@ -304,6 +310,9 @@ public class GameMainframe : MonoBehaviour
             uiGroupWhite.gameObject.SetActive(true); uiGroupWhite.alpha = 0f;
             uiGroupPause.gameObject.SetActive(true); uiGroupPause.alpha = 0f;
         }
+
+        if (mailbox == null && GameObject.Find("MailboxObj").TryGetComponent(out MailboxBhv mb))
+            mailbox = mb;
 
         if (sunRotation == null && GameObject.Find("Sun").TryGetComponent(out Transform sT))
         {
@@ -553,7 +562,7 @@ public class GameMainframe : MonoBehaviour
                     // Placing tag for plant's value/colour
                     GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
                     {
-                        pickedDisplay.name = pickedDisplay.name.Contains("InvTag") ? pickedDisplay.name : "InvTag";
+                        pickedDisplay.name = "InvTag";
                         pickedDisplay.transform.SetParent(pauseRightSackTags);
 
                         pickedDisplay.transform.localPosition = Vector3.zero;
@@ -563,7 +572,7 @@ public class GameMainframe : MonoBehaviour
 
                     GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
                     {
-                        pickedDisplay.name = pickedDisplay.name.Contains("InvTag") ? pickedDisplay.name : "InvTag";
+                        pickedDisplay.name = "InvTag";
                         pickedDisplay.transform.SetParent(pauseRightSackTags);
 
                         pickedDisplay.transform.localPosition = Vector3.zero;
@@ -578,7 +587,7 @@ public class GameMainframe : MonoBehaviour
                         {
                             GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
                             {
-                                pickedDisplay.name = pickedDisplay.name.Contains("InvTag") ? pickedDisplay.name : "InvTag";
+                                pickedDisplay.name = "InvTag";
                                 pickedDisplay.transform.SetParent(pauseRightSackTags);
 
                                 pickedDisplay.transform.localPosition = Vector3.zero;
@@ -612,6 +621,13 @@ public class GameMainframe : MonoBehaviour
                         pickedDisplay.transform.localPosition = Vector3.zero;
                         pickedDisplay.transform.localEulerAngles = Vector3.zero;
                         pickedDisplay.transform.localScale = Vector3.one;
+
+                        // change layer of display object
+                        foreach (Transform tf in pickedDisplay.transform)
+                        {
+                            tf.gameObject.layer = LayerMask.NameToLayer("UI");
+                        }
+
                         pickedDisplay.gameObject.SetActive(true);
                     }, dispObj);
                     break;
@@ -642,7 +658,7 @@ public class GameMainframe : MonoBehaviour
                     {
                         GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
                         {
-                            pickedDisplay.name = pickedDisplay.name.Contains("InvTag") ? pickedDisplay.name : "InvTag";
+                            pickedDisplay.name = "InvTag";
                             pickedDisplay.transform.SetParent(pauseRightSackTags);
 
                             pickedDisplay.transform.localPosition = Vector3.zero;
@@ -655,7 +671,7 @@ public class GameMainframe : MonoBehaviour
                     {
                         GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
                         {
-                            pickedDisplay.name = pickedDisplay.name.Contains("InvTag") ? pickedDisplay.name : "InvTag";
+                            pickedDisplay.name = "InvTag";
                             pickedDisplay.transform.SetParent(pauseRightSackTags);
 
                             pickedDisplay.transform.localPosition = Vector3.zero;
@@ -671,7 +687,7 @@ public class GameMainframe : MonoBehaviour
                         {
                             GetInstance().ObjectUse("InvTag", (pickedDisplay) =>
                             {
-                                pickedDisplay.name = pickedDisplay.name.Contains("InvTag") ? pickedDisplay.name : "InvTag";
+                                pickedDisplay.name = "InvTag";
                                 pickedDisplay.transform.SetParent(pauseRightSackTags);
 
                                 pickedDisplay.transform.localPosition = Vector3.zero;
@@ -739,27 +755,138 @@ public class GameMainframe : MonoBehaviour
         PlantSpawning.BouquetHarmony randomHarm = PlantSpawning.BouquetHarmony.NONE;
         PlantSpawning.BouquetCentres randomCntr = PlantSpawning.BouquetCentres.NONE;
         List<PlantSpawning.BouquetSpecials> randomSpcs = new List<PlantSpawning.BouquetSpecials>();
+        bool givenHarm = false, givenCntr = false, given4V = false, given4C = true;
 
         // TO DO - MAKE IT USE EVERY TAG, FOR NOW WE'RE TRUNCATING IT SINCE WE DON'T HAVE ENOUGH FLOWERS
         for (float i = requestDiff; i > 0 ; i -= 1)
         {
-            string r = plantSpawningScr.GetRandomQuestTag(Mathf.RoundToInt(i));
-            Debug.Log(r);
+            string r = plantSpawningScr.GetRandomQuestTag(givenHarm, givenCntr, given4V, given4C);
 
             if (Enum.TryParse(r, out PlantSpawning.BouquetHarmony rH))
-			{
-                if (randomHarm == PlantSpawning.BouquetHarmony.NONE)
-                    randomHarm = rH;
+            {
+                if (!givenHarm)
+                {
+                    if (givenCntr) // IMPOSSIBLE CASE PREVENTION
+                    {
+                        if (rH == PlantSpawning.BouquetHarmony.MULTICOLOURED)
+						{
+                            // nope
+                            givenHarm = true;
+                            givenCntr = true;
+                            given4C = true;
+						}
+                        else if (randomCntr == PlantSpawning.BouquetCentres.SPECTRUM && rH == PlantSpawning.BouquetHarmony.ANALOGOUS)
+                        {
+                            randomHarm = rH;
+                            givenHarm = true;
+                        }
+                        else if (randomCntr == PlantSpawning.BouquetCentres.PARTITION && rH == PlantSpawning.BouquetHarmony.TRIADIC)
+                        {
+                            randomHarm = rH;
+                            givenHarm = true;
+                        }
+                        else if (randomSpcs.Count > 0)
+                        {
+                            foreach (PlantSpawning.BouquetSpecials b in randomSpcs)
+                            {
+                                if (b == PlantSpawning.BouquetSpecials.MONOSPECIES && rH == PlantSpawning.BouquetHarmony.SOLID)
+                                {
+                                    // literally cannot
+                                    givenHarm = true;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (randomSpcs.Count > 0 && randomSpcs[0] == PlantSpawning.BouquetSpecials.UNIFORM)
+                        {
+                            // nope
+                            givenHarm = true;
+                        }
+                        else
+                        {
+                            randomHarm = rH;
+                            givenHarm = true;
+                        }
+                    }
+                }
             }
             else if (Enum.TryParse(r, out PlantSpawning.BouquetCentres rC))
             {
-                if (randomCntr == PlantSpawning.BouquetCentres.NONE)
-                    randomCntr = rC;
+                if (!givenCntr)
+                {
+                    if (givenHarm) // IMPOSSIBLE CASE PREVENTION
+                    {
+                        if (randomHarm == PlantSpawning.BouquetHarmony.MULTICOLOURED)
+                        {
+                            // can't get a centre this way
+                            givenCntr = true;
+                        }
+                        else if (randomHarm == PlantSpawning.BouquetHarmony.ANALOGOUS && rC == PlantSpawning.BouquetCentres.SPECTRUM)
+                        {
+                            randomCntr = rC;
+                            givenCntr = true;
+                        }
+                        else if (randomHarm == PlantSpawning.BouquetHarmony.TRIADIC && rC == PlantSpawning.BouquetCentres.PARTITION)
+                        {
+                            randomCntr = rC;
+                            givenCntr = true;
+                        }
+                    }
+                    else
+                    {
+                        if (randomSpcs.Count > 0 && randomSpcs[0] == PlantSpawning.BouquetSpecials.UNIFORM && (rC == PlantSpawning.BouquetCentres.SPECTRUM || rC == PlantSpawning.BouquetCentres.PARTITION))
+                        {
+                            // nope
+                            givenCntr = true;
+                        }
+                        else
+                        {
+                            randomCntr = rC;
+                            givenCntr = true;
+                        }
+                    }
+                }
             }
             else if (Enum.TryParse(r, out PlantSpawning.BouquetSpecials rS))
             {
-                if (randomSpcs.Count <= 0)
-                    randomSpcs.Add(rS);
+                // uniform is very very picky
+                if (rS == PlantSpawning.BouquetSpecials.UNIFORM)
+                {
+                    if (randomSpcs.Count <= 0 &&
+                        (randomCntr != PlantSpawning.BouquetCentres.PARTITION || randomCntr != PlantSpawning.BouquetCentres.SPECTRUM) &&
+                        (randomHarm != PlantSpawning.BouquetHarmony.MULTICOLOURED || randomHarm != PlantSpawning.BouquetHarmony.CONTRASTING || randomHarm != PlantSpawning.BouquetHarmony.ANALOGOUS || randomHarm != PlantSpawning.BouquetHarmony.TRIADIC)
+                        )
+                    {
+                        randomSpcs.Add(rS);
+                        given4V = true;
+                        given4C = true;
+                    }
+                }
+                else
+                {
+                    if (!given4V &&
+                        (rS == PlantSpawning.BouquetSpecials.DELICATE || rS == PlantSpawning.BouquetSpecials.BOLD ||
+                        rS == PlantSpawning.BouquetSpecials.REFINED || rS == PlantSpawning.BouquetSpecials.MYSTERIOUS))
+                    {
+                        randomSpcs.Add(rS);
+                        given4V = true;
+                        given4C = true;
+                    }
+                    else if (!given4C && !givenHarm && !givenCntr &&
+                        (rS == PlantSpawning.BouquetSpecials.LOVELY || rS == PlantSpawning.BouquetSpecials.CONFIDENT ||
+                        rS == PlantSpawning.BouquetSpecials.JOYFUL || rS == PlantSpawning.BouquetSpecials.HOPEFUL ||
+                        rS == PlantSpawning.BouquetSpecials.SERENE || rS == PlantSpawning.BouquetSpecials.ELEGANT))
+                    {
+                        randomSpcs.Add(rS);
+                        given4C = true;
+                        givenHarm = true;
+                        givenCntr = true;
+                    }
+                }
+
             }
         }
 
@@ -768,7 +895,7 @@ public class GameMainframe : MonoBehaviour
         requestList.Add(newRequest);
 	}
 
-    public void FinishRequest(int index)
+    public void FinishRequest(int index, bool isSuccess)
 	{
         // TO DO - SAFELY REMOVE REQUEST FROM LIST AND RELEASE VILLAGER'S REQUESTID, RN IT'LL JUST REMOVE THE FIRST ONE
         //foreach (GameMainframe.Request oneRequest in GameMainframe.GetInstance().requestList)
@@ -779,7 +906,10 @@ public class GameMainframe : MonoBehaviour
             {
                 go.GetComponent<VillagerBhv>().requestID = 0;
                 requestList.RemoveAt(0);
-                requestDiff = Mathf.Clamp(requestDiff + 0.15f, 1f, 6f); // requests to "get harder" the more you do them
+
+                if (isSuccess)
+                    requestDiff = Mathf.Clamp(requestDiff + 0.32f, 1f, 6f); // requests to "get harder" the more you do them
+                
                 break;
             }
         }

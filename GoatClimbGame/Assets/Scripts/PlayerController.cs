@@ -436,7 +436,8 @@ public class PlayerController : MonoBehaviour
     {
         if (GameMainframe.GetInstance().requestList.Count <= 0)
         {
-            GameMainframe.GetInstance().GenerateRequest();
+            //GameMainframe.GetInstance().GenerateRequest();
+            GameMainframe.GetInstance().mailbox.timeToNextReq = 0f;
 
             GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
             {
@@ -451,7 +452,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            GameMainframe.GetInstance().FinishRequest(0);
+            GameMainframe.GetInstance().FinishRequest(0, true);
 
             GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
             {
