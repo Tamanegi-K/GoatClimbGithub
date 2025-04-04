@@ -90,7 +90,9 @@ public class MouseTooltipBhv : MonoBehaviour
                 tooltipTxt.text = highlightableRayHits[0].GetComponentInChildren<TextMeshProUGUI>().text;
         }
         else
+        { 
             GetComponent<CanvasGroup>().alpha = Mathf.Lerp(GetComponent<CanvasGroup>().alpha, 0f, Time.deltaTime * 15f);
+        }
 
         Debug.DrawRay(mousePosConv, Vector3.forward * canvasCam.transform.position.z * -1.05f, Color.yellow);
     }

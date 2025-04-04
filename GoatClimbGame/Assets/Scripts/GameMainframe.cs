@@ -53,6 +53,8 @@ public class GameMainframe : MonoBehaviour
     private ToggleGroup pauseUpTG;
     private GameObject pauseTabSack, pauseTabAss, pauseTabSttngs;
     private Transform sackObjHolder, assGridList, tradeObjHolder;
+    private Button tradeBtnYes;
+    private string thingToTrade = "";
 
     #region Request Details
     private int totalRequests = 0;
@@ -284,13 +286,14 @@ public class GameMainframe : MonoBehaviour
             assGridList = pauseRightAss.transform.Find("AssGridList").transform;
 
             // Right 3 - Settings
-            // pauseRightSttngs = uiGroupPause.transform.Find("InvSettingsGroup").GetComponent<RectTransform>();
+            pauseRightSttngs = uiGroupPause.transform.Find("InvSettingsGroup").GetComponent<RectTransform>();
 
             // Right 4 - Trading
             pauseRightTrade = uiGroupPause.transform.Find("InvTradeGroup").GetComponent<RectTransform>();
             pauseRightTradeTagsLeft = pauseRightTrade.Find("InvTradeLefts/InvTradeLeftTagsVP/InvTradeLeftTags").GetComponent<RectTransform>();
             pauseRightTradeTagsRight = pauseRightTrade.Find("InvTradeRights/InvTradeRightTagsVP/InvTradeRightTags").GetComponent<RectTransform>();
             tradeObjHolder = pauseRightTrade.Find("ObjHolder").transform;
+            tradeBtnYes = pauseRightTrade.Find("TradeGiftBtn").GetComponent<Button>();
             //Debug.Log(pauseRightTradeTagsRight);
         }
 
@@ -370,19 +373,19 @@ public class GameMainframe : MonoBehaviour
                         pauseRightTrade.anchoredPosition = Vector3.Lerp(pauseRightTrade.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
                     }
                     pauseRightAss.anchoredPosition = Vector3.Lerp(pauseRightAss.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
-                    //pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
+                    pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
                     break;
                 case PauseTabs.ASSEMBLY:
                     pauseRightSack.anchoredPosition = Vector3.Lerp(pauseRightSack.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
                     pauseRightTrade.anchoredPosition = Vector3.Lerp(pauseRightTrade.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
                     pauseRightAss.anchoredPosition = Vector3.Lerp(pauseRightAss.anchoredPosition, pauseCoordsRightOpened, Time.deltaTime * 14f);
-                    //pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
+                    pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
                     break;
                 case PauseTabs.SETTINGS:
                     pauseRightSack.anchoredPosition = Vector3.Lerp(pauseRightSack.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
                     pauseRightTrade.anchoredPosition = Vector3.Lerp(pauseRightTrade.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
                     pauseRightAss.anchoredPosition = Vector3.Lerp(pauseRightAss.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
-                    //pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightOpened, Time.deltaTime * 14f);
+                    pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightOpened, Time.deltaTime * 14f);
                     break;
 
             }
@@ -402,7 +405,7 @@ public class GameMainframe : MonoBehaviour
                 pauseRightTrade.anchoredPosition = pauseCoordsRightClosed;
 
                 pauseRightAss.anchoredPosition = pauseCoordsRightClosed;
-                //pauseRightSttngs.anchoredPosition = pauseCoordsRightClosed;
+                pauseRightSttngs.anchoredPosition = pauseCoordsRightClosed;
             }
             else
             {
@@ -415,7 +418,7 @@ public class GameMainframe : MonoBehaviour
                 pauseRightTrade.anchoredPosition = Vector3.Lerp(pauseRightTrade.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 8f);
 
                 pauseRightAss.anchoredPosition = Vector3.Lerp(pauseRightAss.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 8f);
-                //pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 8f);
+                pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 8f);
             }
         }
     }
@@ -512,6 +515,8 @@ public class GameMainframe : MonoBehaviour
 
     public void UpdateInventoryTabSelect(float value = 0) // Displays the top buttons and its selections
     {
+        audioMngr.PlaySFXUI("confirm");
+
         // Leftwards switch
         if (value < 0)
         {
@@ -871,6 +876,8 @@ public class GameMainframe : MonoBehaviour
     {
         isCurrentlyDay = !isCurrentlyDay;
 
+        AudioManager.GetInstance().ReflushInitAmbiences();
+
         if (DayHasChanged != null)
             DayHasChanged();
     }
@@ -1091,9 +1098,10 @@ public class GameMainframe : MonoBehaviour
         if (!ifFalseJustDontEvenDoAnything)
             return;
 
-        if (currentTab == GameMainframe.PauseTabs.KNAPSACK && GetGameGivingState())
+
+        if (currentTab == PauseTabs.KNAPSACK && GetGameGivingState())
         {
-            foreach (PlantSpawning.OneBouquetMade bq in GameMainframe.GetInstance().plantSpawningScr.bouquetsMade)
+            foreach (PlantSpawning.OneBouquetMade bq in GetInstance().plantSpawningScr.bouquetsMade)
             {
                 if (bq.bqName == clickedItem && playerContrScr.GetInventoryQty(clickedItem) > 0)
                 {
@@ -1122,15 +1130,16 @@ public class GameMainframe : MonoBehaviour
                             checkSpcs += 1;
                     }
 
-                    // TO DO - CHECK BOUQUET IS UP TO PAR WITH REQUEST, FOR NOW IT'LL TAKE ANY BOUQUET
                     if (checkHarm && checkCntr && checkSpcs >= requestList[0].requestedSpcs.Count)
                     {
-                        playerContrScr.UpdateInventory(clickedItem, -1);
-                        //GameMainframe.GetInstance().plantSpawningScr.bouquetsMade.Remove(bq);
-                        playerContrScr.TogglePlayerControl();
-
-                        //FinishRequest(0, true); // TO DO should throw in index of request
+                        thingToTrade = clickedItem;
+                        //tradeBtnYes.onClick.AddListener(delegate { FinishRequest(); });
+                        tradeBtnYes.interactable = true;
                         break;
+                    }
+                    else
+                    {
+                        tradeBtnYes.interactable = false;
                     }
                 }
             }
@@ -1139,21 +1148,26 @@ public class GameMainframe : MonoBehaviour
 
     }
 
-    public void FinishRequest(int index, bool isSuccess)
+    public void FinishRequest()
 	{
         // TO DO - SAFELY REMOVE REQUEST FROM LIST AND RELEASE VILLAGER'S REQUESTID, RN IT'LL JUST REMOVE THE FIRST ONE
         //foreach (GameMainframe.Request oneRequest in GameMainframe.GetInstance().requestList)
         //{
+        audioMngr.PlaySFXUI("confirm");
+
         foreach (GameObject go in GetInstance().villagersOnField)
         {
-            if (requestList[index].requesteeName == go.GetComponent<VillagerBhv>().villagerName)
+            if (requestList[0].requesteeName == go.GetComponent<VillagerBhv>().villagerName)
             {
                 go.GetComponent<VillagerBhv>().requestID = 0;
                 requestList.RemoveAt(0);
-
-                if (isSuccess)
-                    requestDiff = Mathf.Clamp(requestDiff + 0.32f, 1f, 6f); // requests to "get harder" the more you do them
                 
+                requestDiff = Mathf.Clamp(requestDiff + 0.32f, 1f, 6f); // requests to "get harder" the more you do them
+                playerContrScr.UpdateInventory(thingToTrade, -1);
+                thingToTrade = "";
+
+                playerContrScr.TogglePlayerControl();
+                tradeBtnYes.interactable = false;
                 break;
             }
         }
@@ -1171,4 +1185,5 @@ public class GameMainframe : MonoBehaviour
     public ToggleGroup GetPauseTabToggleGrp() => pauseUpTG.GetComponent<ToggleGroup>();
     public Toggle GetPauseTabAss() => pauseTabAss.GetComponent<Toggle>();
     public BouquetAssemblyBhv GetAssRight() => pauseRightAss.GetComponent<BouquetAssemblyBhv>();
+    public Toggle GetPauseTabSttngs() => pauseRightSttngs.GetComponent<Toggle>();
 }

@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 // Shoutouts
 // https://www.youtube.com/watch?v=8yzpjkoE0YA
 
-public class InventoryItemBhv : MonoBehaviour
+public class InventoryItemBhv : MonoBehaviour, IPointerEnterHandler
 {
     public GameObject objHolder, objNum;
     public TextMeshProUGUI tmpNum;
@@ -109,6 +110,7 @@ public class InventoryItemBhv : MonoBehaviour
 
     public void InvItemClick() // attached to button in scene
     {
+        AudioManager.GetInstance().PlaySFXUI("select");
         GameMainframe.GetInstance().InvClick(invName);
 
         // The next part is for bouquet assembly - if the item clicked is not a flower/plant, skip the rest
@@ -126,4 +128,9 @@ public class InventoryItemBhv : MonoBehaviour
         // MOVED TO GAMEMAINFRAME under CheckRequest()
         GameMainframe.GetInstance().CheckRequest(invName, isNotPlant);
 	}
+
+    public void OnPointerEnter(PointerEventData ped)
+    {
+        AudioManager.GetInstance().PlaySFXUI("shift");
+    }
 }

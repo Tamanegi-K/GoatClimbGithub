@@ -25,7 +25,7 @@ public class SoundwaveBhv : MonoBehaviour
 	{
         audioSus = GetComponent<AudioSource>();
 
-        transform.position = pos;
+        transform.localPosition = pos;
 
         audioSus.clip = sound; audioSus.volume = vol;
         audioSus.pitch = pitch + Random.Range(Mathf.Abs(pitch * pitchRandoRange) * -1f, Mathf.Abs(pitch * pitchRandoRange)); audioSus.spatialBlend = spBlend;

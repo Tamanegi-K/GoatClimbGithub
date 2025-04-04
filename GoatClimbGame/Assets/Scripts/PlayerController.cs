@@ -351,6 +351,7 @@ public class PlayerController : MonoBehaviour
             speedMax = speedMaxInit;
         }
 
+        AudioManager.GetInstance().PlaySFXUI("confirm");
         GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
         {
             PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
@@ -375,7 +376,7 @@ public class PlayerController : MonoBehaviour
 
     public void ToggleDebugPlant()
     {
-        GameMainframe.GetInstance().audioMngr.PlaySFX("pickup" + Random.Range(1, 3), transform.position);
+        AudioManager.GetInstance().PlaySFX("pickup" + Random.Range(1, 3), transform.position);
         
         foreach (PlantSpawning.OnePlantInfo pi in GameMainframe.GetInstance().GetComponent<PlantSpawning>().plantMasterlist)
         {
@@ -410,7 +411,8 @@ public class PlayerController : MonoBehaviour
             GameMainframe.daytimeSpeed *= 70f;
         else
             GameMainframe.daytimeSpeed = GameMainframe.daytimeSpeedInit;
-        
+
+        AudioManager.GetInstance().PlaySFXUI("confirm");
         GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
         {
             PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
@@ -439,6 +441,7 @@ public class PlayerController : MonoBehaviour
             //GameMainframe.GetInstance().GenerateRequest();
             GameMainframe.GetInstance().mailbox.timeToNextReq = 0f;
 
+            AudioManager.GetInstance().PlaySFXUI("confirm");
             GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
             {
                 PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
@@ -452,8 +455,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            GameMainframe.GetInstance().FinishRequest(0, true);
+            GameMainframe.GetInstance().FinishRequest();
 
+            AudioManager.GetInstance().PlaySFXUI("confirm");
             GameMainframe.GetInstance().ObjectUse("HUDPopup", (hpp) =>
             {
                 PickupPopupBhv hppPPB = hpp.GetComponent<PickupPopupBhv>();
@@ -487,6 +491,7 @@ public class PlayerController : MonoBehaviour
         GameMainframe.GetInstance().UpdateInventoryQuantities();
         if (controlGiven == true)
         {
+            AudioManager.GetInstance().PlaySFXUI("invclose");
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             GameMainframe.GetInstance().SetGameGivingState(false);
@@ -498,6 +503,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            AudioManager.GetInstance().PlaySFXUI("invopen");
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }

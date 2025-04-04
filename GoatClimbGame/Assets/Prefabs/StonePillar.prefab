@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6198304643146475716}
   - component: {fileID: 8169724004559154554}
   - component: {fileID: 3934416917443341680}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StonePillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

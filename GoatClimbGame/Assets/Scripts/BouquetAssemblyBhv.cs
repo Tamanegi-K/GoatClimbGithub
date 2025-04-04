@@ -31,6 +31,7 @@ public class BouquetAssemblyBhv : MonoBehaviour
             return;
 
         shakeyCoro = StartCoroutine(ShakeBouquet(1f));
+        AudioManager.GetInstance().PlaySFXUI("select");
 
         // If the current tab isn't the Assembly screen, skip all this
         if (!GameMainframe.GetInstance().GetPauseTabToggleGrp().GetFirstActiveToggle() == GameMainframe.GetInstance().GetPauseTabAss().GetComponent<Toggle>())
@@ -119,6 +120,7 @@ public class BouquetAssemblyBhv : MonoBehaviour
 
     public void RestartBouquetBtn() // attached to button in scene
     {
+        AudioManager.GetInstance().PlaySFXUI("cancel");
         shakeyCoro = StartCoroutine(ShakeBouquet(2f));
         foreach (string s in plantNameArray)
 		{
@@ -171,6 +173,7 @@ public class BouquetAssemblyBhv : MonoBehaviour
 
     public void FinishBouquet() // attached to button in scene
     {
+        AudioManager.GetInstance().PlaySFXUI("confirm");
         shakeyCoro = StartCoroutine(ShakeBouquet(3f));
         List<PlantSpawning.PlantType> inBouquetTyps = new List<PlantSpawning.PlantType>(); // total types in the plantNameArray
         List<PlantSpawning.PlantValue> inBouquetVals = new List<PlantSpawning.PlantValue>(); // total values in the plantNameArray

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2568566392915751823}
   - component: {fileID: 547285903929034305}
   - component: {fileID: 3121930881781798736}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CarrotStand
   m_TagString: Untagged
   m_Icon: {fileID: 0}

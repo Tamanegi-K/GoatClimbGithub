@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class InvTagInfo : MonoBehaviour
@@ -108,4 +109,9 @@ public class InvTagInfo : MonoBehaviour
 	{
 		return givenTag[0];
 	}
+
+    public void OnPointerEnter(PointerEventData ped)
+    {
+        AudioManager.GetInstance().PlaySFXUI("shift");
+    }
 }

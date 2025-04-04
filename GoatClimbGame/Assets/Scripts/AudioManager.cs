@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using Random = UnityEngine.Random;
 
 public class AudioManager : MonoBehaviour
@@ -12,8 +14,8 @@ public class AudioManager : MonoBehaviour
     private AudioListener uiAudioListener;
 
     [Header("Volume Control (will become actual UI soon")]
-    [Range(0f, 1f)] public float volMaster = 1f;
-    [Range(0f, 1f)] public float volBGM = 0.8f, volSFX = 1f, volAMB = 0.8f;
+    [Range(0f, 10f)] public int volMaster = 10;
+    [Range(0f, 10f)] public int volBGM = 8, volSFX = 10, volAMB = 10;
 
     [Header("Insert audio files here ")]
     [Header("DON'T FORGET THAT PITCH BY DEFAULT IS 1")]
@@ -27,6 +29,11 @@ public class AudioManager : MonoBehaviour
     [Header("Time until next bgm plays (in minutes)")]
     public float bgmCD;
     public float bgmCDmin = 6.5f, bgmCDmax = 15.2f;
+
+    [Header("Settings Objects")]
+    public TextMeshProUGUI masterTxt, bgmTxt, sfxTxt, ambTxt;
+    public Button masterLeft, masterRight, bgmLeft, bgmRight, sfxLeft, sfxRight, ambLeft, ambRight, quitBtn;
+    private float reallyQuitTimer;
 
     #region SINGLETON
     // Singleton for AudioManager
@@ -57,36 +64,48 @@ public class AudioManager : MonoBehaviour
 
         if (GameMainframe.GetInstance().inTitle)
             PlayBGMSpecific("titleroll");
+
+        if (uiAudioListener == null)
+            uiAudioListener = GameMainframe.GetInstance().playerContrScr.transform.GetComponentInChildren<AudioListener>();
     }
 
-	private void Update()
-	{
+    private void Update()
+    {
         if (currentBGMplayer == null)
-		{
+        {
             if (bgmCD <= 0f)
                 PlayBGMRandom();
-            else if(GameMainframe.GetInstance().GetGameStartedState())
+            else if (GameMainframe.GetInstance().GetGameStartedState())
                 bgmCD -= Time.deltaTime;
-		}
+        }
 
-		if (currentBGMplayer != null)
-		{
+        if (currentBGMplayer != null)
+        {
             if (!currentBGMplayer.GetComponent<AudioSource>().isPlaying)
             {
                 bgmCD = Random.Range(bgmCDmin * 60f, bgmCDmax * 60f);
                 currentBGMplayer = null;
             }
-		}
+        }
 
+        if (reallyQuitTimer >= 0)
+		{
+            quitBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Confirm?";
+            reallyQuitTimer -= Time.deltaTime;
+		}
+        else
+        {
+            quitBtn.GetComponentInChildren<TextMeshProUGUI>().text = "Quit Game";
+        }
         //UpdateVolumeControl();
-	}
+    }
 
     public void ForceBGMCD(float cd)
-	{
+    {
         bgmCD = cd;
-	}
+    }
 
-	public void PlayBGMRandom()
+    public void PlayBGMRandom()
     {
         StopBGMCurrent();
 
@@ -100,8 +119,9 @@ public class AudioManager : MonoBehaviour
             thisSoundwave.name = "iPod";
 
             SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
-            swBhv.SetUpSoundwave(Vector3.zero, b.clip, b.volume * volMaster * volBGM, b.pitch, b.pitchRandoRange, b.spatialBlend, b.minDist, b.maxDist, b.loop);
             thisSoundwave.transform.parent = FindAnyObjectByType<AudioListener>().transform;
+
+            swBhv.SetUpSoundwave(Vector3.zero, b.clip, b.volume * (volMaster / 10f) * (volBGM / 10f), b.pitch, b.pitchRandoRange, b.spatialBlend, b.minDist, b.maxDist, b.loop);
 
             thisSoundwave.GetComponent<AudioSource>().Play();
         }, singleSoundwave);
@@ -124,8 +144,9 @@ public class AudioManager : MonoBehaviour
                     thisSoundwave.SetActive(true);
                     thisSoundwave.name = "iPod";
                     SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
-                    swBhv.SetUpSoundwave(Vector3.zero, b.clip, b.volume * volMaster * volBGM, b.pitch, b.pitchRandoRange, b.spatialBlend, b.minDist, b.maxDist, b.loop);
                     thisSoundwave.transform.parent = gameObject.transform;
+
+                    swBhv.SetUpSoundwave(Vector3.zero, b.clip, b.volume * (volMaster / 10f) * (volBGM / 10f), b.pitch, b.pitchRandoRange, b.spatialBlend, b.minDist, b.maxDist, b.loop);
 
                     thisSoundwave.GetComponent<AudioSource>().Play();
                 }, singleSoundwave);
@@ -147,8 +168,9 @@ public class AudioManager : MonoBehaviour
                     thisSoundwave.SetActive(true);
                     thisSoundwave.name = "Soundwave";
                     SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
-                    swBhv.SetUpSoundwave(pos, s.clip, s.volume * volMaster * volSFX, s.pitch, s.pitchRandoRange, s.spatialBlend, s.minDist, s.maxDist, s.loop);
                     thisSoundwave.transform.parent = this.gameObject.transform;
+
+                    swBhv.SetUpSoundwave(pos, s.clip, s.volume * (volMaster / 10f) * (volSFX / 10f), s.pitch, s.pitchRandoRange, s.spatialBlend, s.minDist, s.maxDist, s.loop);
 
                     thisSoundwave.GetComponent<AudioSource>().Play();
                 }, singleSoundwave);
@@ -164,21 +186,28 @@ public class AudioManager : MonoBehaviour
         {
             if (s.name == name)
             {
-                // TO DO: DO LIKE PLAYSFX()
-                if (s.name == name)
-                {
-                    GameMainframe.GetInstance().ObjectUse("UISoundwave", (thisSoundwave) =>
-                    {
-                        thisSoundwave.SetActive(true);
-                        thisSoundwave.name = "UISoundwave";
-                        SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
-                        swBhv.SetUpSoundwave(Vector3.zero, s.clip, s.volume * volMaster * volSFX, s.pitch, s.pitchRandoRange, s.spatialBlend, s.minDist, s.maxDist, s.loop);
-                        thisSoundwave.transform.parent = uiAudioListener.transform;
+                //// find a soundwave that exists first before continuing
+                //foreach (Transform tf in uiAudioListener.transform)
+                //{
+                //    if (tf.gameObject.TryGetComponent(out AudioSource aUs) && aUs.clip.name == s.clip.name && tf.name == "UISoundwave")
+                //    {
+                //        aUs.GetComponent<SoundwaveBhv>().ForceStop();
+                //        break;
+                //    }
+                //}
 
-                        thisSoundwave.GetComponent<AudioSource>().Play();
-                    }, singleSoundwave);
-                    return;
-                }
+                GameMainframe.GetInstance().ObjectUse("UISoundwave", (thisSoundwave) =>
+                {
+                    thisSoundwave.SetActive(true);
+                    thisSoundwave.name = "UISoundwave";
+                    SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
+                    thisSoundwave.transform.parent = uiAudioListener.transform;
+
+                    swBhv.SetUpSoundwave(Vector3.zero, s.clip, s.volume * (volMaster / 10f) * (volSFX / 10f), s.pitch, s.pitchRandoRange, s.spatialBlend, s.minDist, s.maxDist, s.loop);
+
+                    thisSoundwave.GetComponent<AudioSource>().Play();
+                }, singleSoundwave);
+                return;
             }
         }
         Debug.LogError("Couldn't find " + name);
@@ -197,8 +226,9 @@ public class AudioManager : MonoBehaviour
                     thisSoundwave.SetActive(true);
                     thisSoundwave.name = "Step";
                     SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
-                    swBhv.SetUpSoundwave(feetPoint.position, s.clip, s.volume * volMaster * volSFX, s.pitch, s.pitchRandoRange, s.spatialBlend, s.minDist, s.maxDist, s.loop);
                     thisSoundwave.transform.parent = this.gameObject.transform;
+
+                    swBhv.SetUpSoundwave(feetPoint.position, s.clip, s.volume * (volMaster / 10f) * (volSFX / 10f), s.pitch, s.pitchRandoRange, s.spatialBlend, s.minDist, s.maxDist, s.loop);
 
                     thisSoundwave.GetComponent<AudioSource>().Play();
                 }, singleSoundwave);
@@ -220,8 +250,9 @@ public class AudioManager : MonoBehaviour
                     thisSoundwave.name = "Ambience";
 
                     SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
-                    swBhv.SetUpSoundwave(pos, a.clip, a.volume * volMaster * volBGM, a.pitch, a.pitchRandoRange, a.spatialBlend, a.minDist, a.maxDist, a.loop);
                     thisSoundwave.transform.parent = gameObject.transform;
+
+                    swBhv.SetUpSoundwave(pos, a.clip, a.volume * (volMaster / 10f) * (volAMB / 10f), a.pitch, a.pitchRandoRange, a.spatialBlend, a.minDist, a.maxDist, a.loop);
 
                     thisSoundwave.GetComponent<AudioSource>().Play();
 
@@ -246,8 +277,8 @@ public class AudioManager : MonoBehaviour
                     Transform spawnLocation = FindAnyObjectByType<AudioListener>().transform;
 
                     SoundwaveBhv swBhv = thisSoundwave.GetComponent<SoundwaveBhv>();
-                    swBhv.SetUpSoundwave(Vector3.zero, a.clip, a.volume * volMaster * volBGM, a.pitch, a.pitchRandoRange, a.spatialBlend, a.minDist, a.maxDist, a.loop);
                     thisSoundwave.transform.parent = spawnLocation;
+                    swBhv.SetUpSoundwave(Vector3.zero, a.clip, a.volume * (volMaster / 10f) * (volAMB / 10f), a.pitch, a.pitchRandoRange, a.spatialBlend, a.minDist, a.maxDist, a.loop);
 
                     thisSoundwave.GetComponent<AudioSource>().Play();
 
@@ -276,13 +307,13 @@ public class AudioManager : MonoBehaviour
     public void StopBGMCurrent()
     {
         if (currentBGMplayer != null)
-		{
+        {
             currentBGMplayer.GetComponent<SoundwaveBhv>().ForceStop();
         }
-	}
+    }
 
     public void StopAllAmb()
-	{
+    {
         foreach (GameObject a in ambObjs)
         {
             a.GetComponent<SoundwaveBhv>().ForceStop();
@@ -300,7 +331,15 @@ public class AudioManager : MonoBehaviour
 
         PlayAMB("waterfall", new Vector3(200f, 15f, 228f));
         PlayAMB("river", new Vector3(1000f, 15f, 350f));
-        if (!GameMainframe.GetInstance().inTitle) PlayAMBPersistent("nature");
+        if (!GameMainframe.GetInstance().inTitle)
+        {
+            StopBGMCurrent();
+
+            if (GameMainframe.isCurrentlyDay)
+                PlayAMBPersistent("nature");
+            else
+                PlayAMBPersistent("nighttime");
+        }
 
         while (prevCountAmb > 0)
         {
@@ -308,34 +347,92 @@ public class AudioManager : MonoBehaviour
             ambObjs.RemoveAt(0);
             prevCountAmb -= 1;
         }
-        
+
         while (prevCountAmbPers > 0)
         {
             ambObjsPers[0].GetComponent<SoundwaveBhv>().ForceStop();
             ambObjsPers.RemoveAt(0);
             prevCountAmbPers -= 1;
         }
-
     }
 
     public void SetAudioListener(GameObject go)
-	{
+    {
         uiAudioListener = go.GetComponent<AudioListener>();
-	}
-    
+    }
+
     // WIP REAL TIME VOLUME CONTROL FOR MUSIC AND AMBIENCE
-    /*public void UpdateVolumeControl()
-	{
+    public void UpdateVolumeControl()
+    {
         if (currentBGMplayer != null)
             if (currentBGMplayer.GetComponent<AudioSource>().volume != volBGM)
                 currentBGMplayer.GetComponent<AudioSource>().volume = volBGM;
 
-        if (currentAMBplayer != null)
-            if (currentAMBplayer.GetComponent<AudioSource>().volume != volAMB)
-                currentAMBplayer.GetComponent<AudioSource>().volume = volAMB;
-    }*/
+        ReflushInitAmbiences();
 
-    /*#region UI Sounds
+        masterTxt.text = volMaster.ToString();
+        bgmTxt.text = volBGM.ToString();
+        sfxTxt.text = volSFX.ToString();
+        ambTxt.text = volAMB.ToString();
+
+        PlaySFXUI("cancel");
+    }
+
+    public void MasterDecrease()
+    {
+        volMaster = Mathf.Clamp(volMaster - 1, 0, 10);
+        UpdateVolumeControl();
+    }
+    public void MasterIncrease()
+    {
+        volMaster = Mathf.Clamp(volMaster - 1, 0, 10);
+        UpdateVolumeControl();
+    }
+    public void BGMDecrease() 
+    {
+        volBGM = Mathf.Clamp(volBGM - 1, 0, 10);
+        UpdateVolumeControl();
+    }
+    public void BGMIncrease()
+    {
+        volBGM = Mathf.Clamp(volBGM + 1, 0, 10);
+        UpdateVolumeControl();
+    }
+    public void SFXDecrease()
+    {
+        volSFX = Mathf.Clamp(volSFX - 1, 0, 10);
+        UpdateVolumeControl();
+    }
+    public void SFXIncrease()
+    {
+        volSFX = Mathf.Clamp(volSFX + 1, 0, 10);
+        UpdateVolumeControl();
+    }
+    public void AMBDecrease()
+    {
+        volAMB = Mathf.Clamp(volAMB - 1, 0, 10);
+        UpdateVolumeControl();
+    }
+    public void AMBIncrease()
+    {
+        volAMB = Mathf.Clamp(volAMB + 1, 0, 10);
+        UpdateVolumeControl();
+    }
+	public void QuitBtn()
+	{
+        if (reallyQuitTimer <= 0)
+        {
+            PlaySFXUI("cancel");
+            reallyQuitTimer = 5f;
+		}
+        else
+        {
+            PlaySFXUI("cancel");
+            Application.Quit();
+		}
+	}
+
+	/*#region UI Sounds
     public void PlayHoverUI()
     {
         PlaySFXUI("uiShift" + Random.Range(0, 8));
@@ -348,7 +445,7 @@ public class AudioManager : MonoBehaviour
 
     #endregion*/
 
-    /*public void Stop(string name)
+	/*public void Stop(string name)
     {
         foreach (SoundFile s in bgm)
         {
@@ -385,7 +482,7 @@ public class AudioManager : MonoBehaviour
         Debug.LogError("Can't find shit");
     }*/
 
-    /*public void LoadArray(SoundFile[] sA)
+	/*public void LoadArray(SoundFile[] sA)
     {
         foreach (SoundFile s in sA)
         {

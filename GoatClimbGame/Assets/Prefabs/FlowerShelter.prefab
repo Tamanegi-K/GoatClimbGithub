@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8262167418457291400}
   - component: {fileID: 5712113122044172786}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   - component: {fileID: 484040377324382490}
   - component: {fileID: 8224941167976852328}
   - component: {fileID: 5249113997411670580}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlowerShelter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3995372419249286412}
   - component: {fileID: 5963757648485870269}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1976202403732109975}
   - component: {fileID: 6084118180871447268}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4560903234536024361}
   - component: {fileID: 8161721179317681958}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
