@@ -287,8 +287,9 @@ public class GameMainframe : MonoBehaviour
 
             // Right 4 - Trading
             pauseRightTrade = uiGroupPause.transform.Find("InvTradeGroup").GetComponent<RectTransform>();
-            pauseRightTradeTagsLeft = pauseRightTrade.Find("InvTradeLefts").GetComponent<RectTransform>();
-            pauseRightTradeTagsRight = pauseRightTrade.Find("InvTradeRights").GetComponent<RectTransform>();
+            pauseRightTradeTagsLeft = pauseRightTrade.Find("InvTradeLefts/InvTradeLeftTagsVP/InvTradeLeftTags").GetComponent<RectTransform>();
+            pauseRightTradeTagsRight = pauseRightTrade.Find("InvTradeRights/InvTradeRightTagsVP/InvTradeRightTags").GetComponent<RectTransform>();
+            Debug.Log(pauseRightTradeTagsRight);
         }
 
         if (uiGroupHUD == null && GameObject.Find("Canvas/HUD").TryGetComponent(out CanvasGroup h))
@@ -356,17 +357,28 @@ public class GameMainframe : MonoBehaviour
             switch (currentTab)
 			{
                 case PauseTabs.KNAPSACK:
-                    pauseRightSack.anchoredPosition = Vector3.Lerp(pauseRightSack.anchoredPosition, pauseCoordsRightOpened, Time.deltaTime * 14f);
+                    if (isGiving)
+					{
+                        pauseRightSack.anchoredPosition = Vector3.Lerp(pauseRightSack.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
+                        pauseRightTrade.anchoredPosition = Vector3.Lerp(pauseRightTrade.anchoredPosition, pauseCoordsRightOpened, Time.deltaTime * 14f);
+                    }
+                    else
+                    {
+                        pauseRightSack.anchoredPosition = Vector3.Lerp(pauseRightSack.anchoredPosition, pauseCoordsRightOpened, Time.deltaTime * 14f);
+                        pauseRightTrade.anchoredPosition = Vector3.Lerp(pauseRightTrade.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
+                    }
                     pauseRightAss.anchoredPosition = Vector3.Lerp(pauseRightAss.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
                     //pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
                     break;
                 case PauseTabs.ASSEMBLY:
                     pauseRightSack.anchoredPosition = Vector3.Lerp(pauseRightSack.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
+                    pauseRightTrade.anchoredPosition = Vector3.Lerp(pauseRightTrade.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
                     pauseRightAss.anchoredPosition = Vector3.Lerp(pauseRightAss.anchoredPosition, pauseCoordsRightOpened, Time.deltaTime * 14f);
                     //pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
                     break;
                 case PauseTabs.SETTINGS:
                     pauseRightSack.anchoredPosition = Vector3.Lerp(pauseRightSack.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
+                    pauseRightTrade.anchoredPosition = Vector3.Lerp(pauseRightTrade.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
                     pauseRightAss.anchoredPosition = Vector3.Lerp(pauseRightAss.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 14f);
                     //pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightOpened, Time.deltaTime * 14f);
                     break;
@@ -385,6 +397,8 @@ public class GameMainframe : MonoBehaviour
                 pauseLeft.anchoredPosition = pauseCoordsLeftClosed;
 
                 pauseRightSack.anchoredPosition = pauseCoordsRightClosed;
+                pauseRightTrade.anchoredPosition = pauseCoordsRightClosed;
+
                 pauseRightAss.anchoredPosition = pauseCoordsRightClosed;
                 //pauseRightSttngs.anchoredPosition = pauseCoordsRightClosed;
             }
@@ -396,6 +410,8 @@ public class GameMainframe : MonoBehaviour
                 pauseLeft.anchoredPosition = Vector3.Lerp(pauseLeft.anchoredPosition, pauseCoordsLeftClosed, Time.deltaTime * 8f);
                 
                 pauseRightSack.anchoredPosition = Vector3.Lerp(pauseRightSack.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 8f);
+                pauseRightTrade.anchoredPosition = Vector3.Lerp(pauseRightTrade.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 8f);
+
                 pauseRightAss.anchoredPosition = Vector3.Lerp(pauseRightAss.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 8f);
                 //pauseRightSttngs.anchoredPosition = Vector3.Lerp(pauseRightSttngs.anchoredPosition, pauseCoordsRightClosed, Time.deltaTime * 8f);
             }
@@ -507,6 +523,7 @@ public class GameMainframe : MonoBehaviour
         }
 
         // Display Setting
+        
         pauseTabSack.GetComponentInChildren<TextMeshProUGUI>().text = "Knapsack";
         pauseTabAss.GetComponentInChildren<TextMeshProUGUI>().text = "Assembly";
         pauseTabSttngs.GetComponentInChildren<TextMeshProUGUI>().text = "Settings";
@@ -886,14 +903,73 @@ public class GameMainframe : MonoBehaviour
                         givenCntr = true;
                     }
                 }
-
             }
         }
 
         Request newRequest = new Request(randomName, totalRequests, randomHarm, randomCntr, randomSpcs);
         villagersOnField[randomIndex].GetComponent<VillagerBhv>().requestID = totalRequests;
         requestList.Add(newRequest);
-	}
+
+        // DISPLAYING OF TAGS IN REQUEST WINDOW
+        // Erasing the display tags in desc tag area
+        foreach (Transform pt in pauseRightTradeTagsRight)
+        {
+            GetInstance().ObjectEnd("InvTagR", pt.gameObject);
+            pt.gameObject.SetActive(false);
+        }
+
+        // --- TAGS AND COLOURS DISPLAYING ---
+        // Erasing the display tags in desc tag area
+        foreach (Transform pt in pauseRightTradeTagsRight)
+        {
+            GetInstance().ObjectEnd("InvTagR", pt.gameObject);
+            pt.gameObject.SetActive(false);
+        }
+
+        // Placing tag for bouquet's harmony/centre
+        if (newRequest.requestedHarm != PlantSpawning.BouquetHarmony.NONE)
+        {
+            GetInstance().ObjectUse("InvTagR", (pickedDisplay) =>
+            {
+                pickedDisplay.name = "InvTagR";
+                pickedDisplay.transform.SetParent(pauseRightTradeTagsRight);
+
+                pickedDisplay.transform.localPosition = Vector3.zero;
+                pickedDisplay.GetComponent<InvTagInfo>().AssignTag(newRequest.requestedHarm);
+                pickedDisplay.gameObject.SetActive(true);
+            }, pauseSackTagPrefab);
+        }
+
+        if (newRequest.requestedCntr != PlantSpawning.BouquetCentres.NONE)
+        {
+            GetInstance().ObjectUse("InvTagR", (pickedDisplay) =>
+            {
+                pickedDisplay.name = "InvTagR";
+                pickedDisplay.transform.SetParent(pauseRightTradeTagsRight);
+
+                pickedDisplay.transform.localPosition = Vector3.zero;
+                pickedDisplay.GetComponent<InvTagInfo>().AssignTag(newRequest.requestedCntr);
+                pickedDisplay.gameObject.SetActive(true);
+            }, pauseSackTagPrefab);
+        }
+
+        // Placing tag for bouquet's specials, one for each one
+        foreach (PlantSpawning.BouquetSpecials bSpc in newRequest.requestedSpcs)
+        {
+            if (bSpc != PlantSpawning.BouquetSpecials.NONE)
+            {
+                GetInstance().ObjectUse("InvTagR", (pickedDisplay) =>
+                {
+                    pickedDisplay.name = "InvTagR";
+                    pickedDisplay.transform.SetParent(pauseRightTradeTagsRight);
+
+                    pickedDisplay.transform.localPosition = Vector3.zero;
+                    pickedDisplay.GetComponent<InvTagInfo>().AssignTag(bSpc);
+                    pickedDisplay.gameObject.SetActive(true);
+                }, pauseSackTagPrefab);
+            }
+        }
+    }
 
     public void FinishRequest(int index, bool isSuccess)
 	{

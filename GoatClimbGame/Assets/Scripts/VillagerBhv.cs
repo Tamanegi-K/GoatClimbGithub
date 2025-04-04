@@ -151,9 +151,9 @@ public class VillagerBhv : MonoBehaviour
         stateAnimator.SetTrigger("interact");
 
         if (requestID > 0)
-		{
-            GameMainframe.GetInstance().playerContrScr.TogglePlayerControl();
+        {
             GameMainframe.GetInstance().SetGameGivingState(true);
+            GameMainframe.GetInstance().playerContrScr.TogglePlayerControl();
         }
     }
 

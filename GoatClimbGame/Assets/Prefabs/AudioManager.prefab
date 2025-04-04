@@ -90,7 +90,67 @@ MonoBehaviour:
     maxDist: 20
     loop: 0
     source: {fileID: 0}
-  sfxUI: []
+  - name: invopen
+    clip: {fileID: 8300000, guid: 37a3e5996c06b1a48a657b970f1b0f2f, type: 3}
+    volume: 1
+    pitch: 1
+    pitchRandoRange: 0.1
+    spatialBlend: 0.675
+    minDist: 7
+    maxDist: 20
+    loop: 0
+    source: {fileID: 0}
+  - name: invclose
+    clip: {fileID: 8300000, guid: 15176166f31e84e43bcd3380cb03b5e1, type: 3}
+    volume: 1
+    pitch: 1
+    pitchRandoRange: 0.1
+    spatialBlend: 0.675
+    minDist: 7
+    maxDist: 20
+    loop: 0
+    source: {fileID: 0}
+  sfxUI:
+  - name: confirm
+    clip: {fileID: 8300000, guid: e5a66feb8d495da4290aa069f82f11ac, type: 3}
+    volume: 1
+    pitch: 1
+    pitchRandoRange: 0.05
+    spatialBlend: 0
+    minDist: 7
+    maxDist: 20
+    loop: 0
+    source: {fileID: 0}
+  - name: select
+    clip: {fileID: 8300000, guid: dd7aa7725e1b4fd47b5a8a3938a022db, type: 3}
+    volume: 1
+    pitch: 1
+    pitchRandoRange: 0.05
+    spatialBlend: 0
+    minDist: 7
+    maxDist: 20
+    loop: 0
+    source: {fileID: 0}
+  - name: cancel
+    clip: {fileID: 8300000, guid: 9581b942776f73a4fb7523c9260aba7f, type: 3}
+    volume: 1
+    pitch: 1
+    pitchRandoRange: 0.05
+    spatialBlend: 0
+    minDist: 7
+    maxDist: 20
+    loop: 0
+    source: {fileID: 0}
+  - name: shift
+    clip: {fileID: 8300000, guid: 39aca32bf02bc0f4a833769d93defeb6, type: 3}
+    volume: 1
+    pitch: 1
+    pitchRandoRange: 0.05
+    spatialBlend: 0
+    minDist: 7
+    maxDist: 20
+    loop: 0
+    source: {fileID: 0}
   sfxSteps:
   - name: grass1
     clip: {fileID: 8300000, guid: 444c67ae2c794b142bbb2065548c7912, type: 3}
@@ -165,6 +225,16 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: nature
     clip: {fileID: 8300000, guid: e317e4662352d2543b3842cfd28ddcc4, type: 3}
+    volume: 0.355
+    pitch: 1
+    pitchRandoRange: 0
+    spatialBlend: 0.974
+    minDist: 8
+    maxDist: 8
+    loop: 1
+    source: {fileID: 0}
+  - name: nighttime
+    clip: {fileID: 8300000, guid: 102176e1db0ab7445ac1761e200e622d, type: 3}
     volume: 0.355
     pitch: 1
     pitchRandoRange: 0

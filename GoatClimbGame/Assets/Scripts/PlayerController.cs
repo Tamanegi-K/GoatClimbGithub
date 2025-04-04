@@ -489,12 +489,12 @@ public class PlayerController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            GameMainframe.GetInstance().SetGameGivingState(false);
             GameMainframe.GetInstance().currentTab = GameMainframe.PauseTabs.KNAPSACK;
             GameMainframe.GetInstance().UpdateInventoryTabSelect();
             GameMainframe.GetInstance().GetPauseTabSack().GetComponent<UnityEngine.UI.Toggle>().isOn = true;
             EventSystem.current.SetSelectedGameObject(null);
 
-            GameMainframe.GetInstance().SetGameGivingState(false);
         }
         else
         {
